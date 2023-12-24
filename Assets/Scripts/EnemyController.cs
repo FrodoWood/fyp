@@ -27,7 +27,7 @@ public class EnemyController : Agent
         this.transform.localRotation = Quaternion.Euler(Vector3.zero);
 
         // move target (Player) to a new random position
-        player.localPosition = new Vector3(Random.value * 13 - 4, 0f, Random.value * 13 - 4);
+        player.localPosition = new Vector3(Random.value * 20 - 10, 0f, Random.value * 20 - 10);
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -61,35 +61,33 @@ public class EnemyController : Agent
         }
     }
 
-    //public override void Heuristic(in ActionBuffers actionsOut)
-    //{
-    //    var continuousActionsOut = actionsOut.ContinuousActions;
-    //    continuousActionsOut[0] = Input.GetAxis("Horizontal");
-    //    continuousActionsOut[1] = Input.GetAxis("Vertical");
-    //}
+    public override void Heuristic(in ActionBuffers actionsOut)
+    {
+        var continuousActionsOut = actionsOut.ContinuousActions;
+        continuousActionsOut[0] = Input.GetAxis("Horizontal");
+        continuousActionsOut[1] = Input.GetAxis("Vertical");
+    }
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        //float horizontal = Input.GetAxis("Horizontal");
+        //float vertical = Input.GetAxis("Vertical");
 
-        //print("Horizontal: " + horizontal + "\nVertical: " + vertical);
-
-        movement = new Vector3(horizontal, 0, vertical);
-        controller.Move(movement * Time.deltaTime * moveSpeed);
+        //movement = new Vector3(horizontal, 0, vertical);
+        //controller.Move(movement * Time.deltaTime * moveSpeed);
 
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Plane groundPlane = new Plane(Vector3.up, transform.position);
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //Plane groundPlane = new Plane(Vector3.up, transform.position);
 
-        float rayDistance;
-        if (groundPlane.Raycast(ray, out rayDistance))
-        {
-            Vector3 point = ray.GetPoint(rayDistance);
-            mousePos = new Vector3(point.x, transform.position.y, point.z);
+        //float rayDistance;
+        //if (groundPlane.Raycast(ray, out rayDistance))
+        //{
+        //    Vector3 point = ray.GetPoint(rayDistance);
+        //    mousePos = new Vector3(point.x, transform.position.y, point.z);
 
-            // Rotate towards the mouse position
-            Vector3 lookAtPos = new Vector3(point.x, transform.position.y, point.z);
-            transform.LookAt(lookAtPos);
-        }
+        //    // Rotate towards the mouse position
+        //    Vector3 lookAtPos = new Vector3(point.x, transform.position.y, point.z);
+        //    transform.LookAt(lookAtPos);
+        //}
     }
 }
