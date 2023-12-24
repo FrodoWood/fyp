@@ -57,6 +57,7 @@ public class EnemyController : Agent
         }
         else if(this.transform.localPosition.x > 15f || this.transform.localPosition.x < -15f || this.transform.localPosition.z > 15f || this.transform.localPosition.z < -15f)
         {
+            SetReward(-0.5f);
             EndEpisode();
         }
     }
