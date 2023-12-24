@@ -23,11 +23,12 @@ public class EnemyController : Agent
     public override void OnEpisodeBegin()
     {
         movement = Vector3.zero;
-        this.transform.localPosition = new Vector3(13,0,0);
+        //this.transform.localPosition = new Vector3(13,0,0);
+        this.transform.localPosition = new Vector3(Random.value * 30 - 15, 0f, Random.value * 30 - 15);
         this.transform.localRotation = Quaternion.Euler(Vector3.zero);
 
         // move target (Player) to a new random position
-        player.localPosition = new Vector3(Random.value * 20 - 10, 0f, Random.value * 20 - 10);
+        player.localPosition = new Vector3(Random.value * 30 - 15, 0f, Random.value * 30 - 15);
     }
 
     public override void CollectObservations(VectorSensor sensor)
