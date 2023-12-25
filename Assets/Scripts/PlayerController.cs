@@ -6,16 +6,30 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 6f;
     private CharacterController controller;
-    Vector3 mousePos;
-    public Transform ball;
-    public Transform gun;
-    
+    private Vector3 mousePos;
+    private Vector3 targetPosition;
+    public Transform enemy;
+
+    [SerializeField] private bool isPlayerControlled = true;
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        setRandomTargetPosition();
     }
 
     void Update()
+    {
+        if (isPlayerControlled)
+        {
+            playerControls();
+        }
+        else
+        {
+            aiControls();
+        }
+    }
+
+    void playerControls()
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
@@ -31,14 +45,46 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 point = ray.GetPoint(rayDistance);
             mousePos = new Vector3(point.x, transform.position.y, point.z);
-            ball.position = mousePos;
 
             // Rotate towards the mouse position
             Vector3 lookAtPos = new Vector3(point.x, transform.position.y, point.z);
             transform.LookAt(lookAtPos);
-            //gun.transform.LookAt(lookAtPos);
-            //gun.transform.rotation = Quaternion.Euler(0f, gun.transform.rotation.eulerAngles.y, 0f);
-            
         }
+    }
+
+    void aiControls()
+    {
+        // Move towards the random target
+        Vector3 movementDirection = (targetPosition - transform.position).normalized;
+        controller.Move(movementDirection * Time.deltaTime * moveSpeed);
+
+        // Look towards the enemy
+        transform.LookAt(enemy.transform.position);
+
+        // Check if close the target, if yes then set new random target
+        if (Vector3.Distance(transform.position, targetPosition) < 1f)
+        {
+            setRandomTargetPosition();
+        }
+
+        // Avoid the enemy
+        if(Vector3.Distance(transform.position, enemy.transform.position) < 5f)
+        {
+            Vector3 enemyOppositeDirection = (transform.position - enemy.transform.position).normalized;
+            controller.Move(enemyOppositeDirection * Time.deltaTime * moveSpeed);
+        }
+
+    }
+
+    void setRandomTargetPosition()
+    {
+        float x = Random.Range(-15f, 15f);
+        float z = Random.Range(-15f, 15f);
+        targetPosition = new Vector3(x, 0f, z);
+    }
+
+    public bool getIsPlayerControlled()
+    {
+        return isPlayerControlled;
     }
 }
