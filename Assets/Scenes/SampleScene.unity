@@ -1893,12 +1893,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3633d53fdcfa9ec478d2ec426df4d1a0, type: 3}
---- !u!4 &2072845571 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3332579392039230809, guid: 3633d53fdcfa9ec478d2ec426df4d1a0,
-    type: 3}
-  m_PrefabInstance: {fileID: 7416475491073495752}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7416475491073495752
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1911,21 +1905,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Environment
-      objectReference: {fileID: 0}
-    - target: {fileID: 4503850785747783485, guid: 3633d53fdcfa9ec478d2ec426df4d1a0,
-        type: 3}
-      propertyPath: ball
-      value: 
-      objectReference: {fileID: 975024080}
-    - target: {fileID: 4503850785747783485, guid: 3633d53fdcfa9ec478d2ec426df4d1a0,
-        type: 3}
-      propertyPath: enemy
-      value: 
-      objectReference: {fileID: 2072845571}
-    - target: {fileID: 4503850785747783485, guid: 3633d53fdcfa9ec478d2ec426df4d1a0,
-        type: 3}
-      propertyPath: isPlayerControlled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7623363363835755189, guid: 3633d53fdcfa9ec478d2ec426df4d1a0,
         type: 3}

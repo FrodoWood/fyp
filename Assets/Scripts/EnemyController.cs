@@ -18,17 +18,18 @@ public class EnemyController : Agent
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        randomizePosition();
     }
 
     public override void OnEpisodeBegin()
     {
         movement = Vector3.zero;
         //this.transform.localPosition = new Vector3(13,0,0);
-        this.transform.localPosition = new Vector3(Random.value * 30 - 15, 0f, Random.value * 30 - 15);
-        this.transform.localRotation = Quaternion.Euler(Vector3.zero);
+        //this.transform.localPosition = new Vector3(Random.value * 28 - 14, 0f, Random.value * 28 - 14);
+        //this.transform.localRotation = Quaternion.Euler(Vector3.zero);
 
         // move target (Player) to a new random position
-        player.localPosition = new Vector3(Random.value * 30 - 15, 0f, Random.value * 30 - 15);
+        player.localPosition = new Vector3(Random.value * 20 - 10, 0f, Random.value * 20 - 10);
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -59,6 +60,7 @@ public class EnemyController : Agent
         else if(this.transform.localPosition.x > 15f || this.transform.localPosition.x < -15f || this.transform.localPosition.z > 15f || this.transform.localPosition.z < -15f)
         {
             SetReward(-0.5f);
+            randomizePosition();
             EndEpisode();
         }
     }
@@ -92,4 +94,11 @@ public class EnemyController : Agent
         //    transform.LookAt(lookAtPos);
         //}
     }
+
+    void randomizePosition()
+    {
+        this.transform.localPosition = new Vector3(Random.value * 20 - 10, 0f, Random.value * 20 - 10);
+        //this.transform.localRotation = Quaternion.Euler(Vector3.zero);
+    }
+
 }

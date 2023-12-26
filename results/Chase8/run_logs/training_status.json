@@ -1,0 +1,29 @@
+{
+    "Chase": {
+        "checkpoints": [
+            {
+                "steps": 358512,
+                "file_path": "results\\Chase8\\Chase\\Chase-358512.onnx",
+                "reward": null,
+                "creation_time": 1703480206.3509762,
+                "auxillary_file_paths": [
+                    "results\\Chase8\\Chase\\Chase-358512.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 358512,
+            "file_path": "results\\Chase8\\Chase.onnx",
+            "reward": null,
+            "creation_time": 1703480206.3509762,
+            "auxillary_file_paths": [
+                "results\\Chase8\\Chase\\Chase-358512.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}
