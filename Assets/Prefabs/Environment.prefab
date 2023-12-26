@@ -855,7 +855,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   enemy: {fileID: 3332579392039230809}
-  isPlayerControlled: 1
+  isPlayerControlled: 0
 --- !u!114 &2402321407953413867
 MonoBehaviour:
   m_ObjectHideFlags: 0
