@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1708286769",
+        "python_version": "3.10.12 | packaged by Anaconda, Inc. | (main, Jul  5 2023, 19:01:18) [MSC v.1916 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\sjasr\\anaconda3\\envs\\mlagents\\Scripts\\mlagents-learn config/dodge_config.yaml --run-id=dodge_02",
+        "mlagents_version": "1.0.0",
+        "mlagents_envs_version": "1.0.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.13.1+cu117",
+        "numpy_version": "1.23.1",
+        "end_time_seconds": "1708286839"
+    },
+    "total": 69.98967029999767,
+    "count": 1,
+    "self": 0.01898179999261629,
+    "children": {
+        "run_training.setup": {
+            "total": 0.09280740000394871,
+            "count": 1,
+            "self": 0.09280740000394871
+        },
+        "TrainerController.start_learning": {
+            "total": 69.8778811000011,
+            "count": 1,
+            "self": 0.00013279999984661117,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 69.87772630000109,
+                    "count": 1,
+                    "self": 69.87772630000109
+                },
+                "TrainerController._save_models": {
+                    "total": 2.2000000171829015e-05,
+                    "count": 1,
+                    "self": 2.2000000171829015e-05
+                }
+            }
+        }
+    }
+}

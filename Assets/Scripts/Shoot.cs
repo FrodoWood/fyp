@@ -8,6 +8,8 @@ public class Shoot : MonoBehaviour
     public GameObject bullet;
     public float bulletSpeed = 10f;
     private PlayerController playerController;
+    private bool canShoot = true;
+    private float shootCooldown = 1f;
     void Start()
     {
         playerController = GetComponent<PlayerController>();
@@ -20,14 +22,32 @@ public class Shoot : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                GameObject newBullet =  Instantiate(bullet, firingPoint.position, firingPoint.rotation);
-                Rigidbody bulletRB = newBullet.GetComponent<Rigidbody>();
-                bulletRB.AddForce(firingPoint.forward * bulletSpeed, ForceMode.VelocityChange);
+                shootBullet();
             }
         }
         else
         {
-
+            // Player is AI controlled and should fire a bullet every 0.5 seconds
+            if (canShoot)
+            {
+                StartCoroutine(fireBulletRoutine());
+                canShoot = false;
+            }
         }
+        
+    }
+
+    private void shootBullet()
+    {
+        GameObject newBullet = Instantiate(bullet, firingPoint.position, firingPoint.rotation);
+        Rigidbody bulletRB = newBullet.GetComponent<Rigidbody>();
+        bulletRB.AddForce(firingPoint.forward * bulletSpeed, ForceMode.VelocityChange);
+    }
+
+    IEnumerator fireBulletRoutine()
+    {
+        yield return new WaitForSeconds(shootCooldown);
+        shootBullet();
+        canShoot = true;
     }
 }
