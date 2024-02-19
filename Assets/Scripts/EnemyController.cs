@@ -16,8 +16,10 @@ public class EnemyController : Agent
     public Transform player;
     public Transform ball;
     public Transform gun;
-    
-    void Start()
+    public float health = 50f;
+
+
+    public override void Initialize()
     {
         controller = GetComponent<CharacterController>();
         bufferSensor = GetComponent<BufferSensorComponent>();
@@ -26,11 +28,12 @@ public class EnemyController : Agent
 
     public override void OnEpisodeBegin()
     {
-        controller.attachedRigidbody.velocity = Vector3.zero;
+        movement = Vector3.zero;
 
         // move target (Player) to a new random position
         //player.localPosition = new Vector3(Random.value * 20 - 10, 0f, Random.value * 20 - 10);
         randomizePosition();
+        health = 50f;
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -77,6 +80,11 @@ public class EnemyController : Agent
 
         // Rewards
         AddReward(0.001f);
+        if (health <= 0)
+        {
+            AddReward(-0.1f);
+            EndEpisode();
+        }
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -85,19 +93,27 @@ public class EnemyController : Agent
         continuousActionsOut[0] = Input.GetAxis("Horizontal");
         continuousActionsOut[1] = Input.GetAxis("Vertical");
     }
-    private void OnCollisionEnter(Collision collision)
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("bullet") || collision.gameObject.CompareTag("wall"))
+        if (other.CompareTag("wall"))
         {
             SetReward(0f);
             EndEpisode();
-            Debug.Log("DEAD!");
+            Debug.Log("DEAD by wall!");
+        }
+        if (other.CompareTag("bullet"))
+        {
+            AddReward(-0.01f);
+            health -= 10f;
+            Debug.Log("DEAD by bullet!");
         }
     }
 
     void randomizePosition()
     {
-        transform.localPosition = new Vector3(Random.value * 20 - 10, 0f, Random.value * 20 - 10);
+        Vector3 newPos = new Vector3((Random.value * 10) - 10f, 0f, (Random.value * 10) - 10f);
+        controller.Move(newPos - transform.localPosition);
         //this.transform.localRotation = Quaternion.Euler(Vector3.zero);
     }
 
