@@ -17,12 +17,17 @@ public class EnemyController : Agent
     public Transform ball;
     public Transform gun;
     public float health = 50f;
+    private Bullet[] bullets;
+
+    [Header("Gizmos")]
+    public float bulletGizmoRadius = 1f;
 
 
     public override void Initialize()
     {
         controller = GetComponent<CharacterController>();
         bufferSensor = GetComponent<BufferSensorComponent>();
+        bullets = FindObjectsOfType<Bullet>();
         randomizePosition();
     }
 
@@ -47,25 +52,21 @@ public class EnemyController : Agent
         //sensor.AddObservation(player.localPosition);
 
         // Variable length observations
-        var bullets = FindObjectsOfType<Bullet>();
-        bullets = bullets.OrderBy(bullet => Vector3.Distance(transform.localPosition, bullet.transform.localPosition)).ToArray();
-        int numberBulletsAdded = 0;
+        
+        bullets = FindObjectsOfType<Bullet>()
+            .OrderBy(bullet => Vector3.Distance(transform.localPosition, bullet.transform.localPosition))
+            .Take(10)
+            .ToArray();
 
         foreach(Bullet bullet in bullets)
         {
-            if(numberBulletsAdded >= 10)
-            {
-                break;
-            }
             float[] bulletObservation = new float[]
             {
-                (bullet.transform.localPosition.x - transform.localPosition.x) / 15f,
-                (bullet.transform.localPosition.z - transform.localPosition.z) / 15f,
+                (bullet.transform.localPosition.x) / 15f,
+                (bullet.transform.localPosition.z) / 15f,
                 bullet.transform.forward.x,
                 bullet.transform.forward.z
             };
-
-            numberBulletsAdded++;
 
             bufferSensor.AppendObservation(bulletObservation);
         }
@@ -104,7 +105,7 @@ public class EnemyController : Agent
         }
         if (other.CompareTag("bullet"))
         {
-            AddReward(-0.01f);
+            AddReward(-0.2f);
             health -= 10f;
             Debug.Log("DEAD by bullet!");
         }
@@ -112,9 +113,22 @@ public class EnemyController : Agent
 
     void randomizePosition()
     {
-        Vector3 newPos = new Vector3((Random.value * 10) - 10f, 0f, (Random.value * 10) - 10f);
+        Vector3 newPos = new Vector3((Random.value * 20) - 10f, 0f, (Random.value * 20) - 10f);
         controller.Move(newPos - transform.localPosition);
         //this.transform.localRotation = Quaternion.Euler(Vector3.zero);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if(bullets != null && bullets.Length > 0)
+        {
+            foreach(Bullet bullet in bullets)
+            {
+                if(bullet == null) continue;
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawSphere(bullet.transform.localPosition, bulletGizmoRadius);
+            }
+        }
     }
 
 }

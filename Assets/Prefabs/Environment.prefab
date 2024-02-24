@@ -721,7 +721,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 835461798170658529, guid: 9415b93f3dd9f5844aa9ea165dfe982a,
     type: 3}
-  fireCooldown: 0.1
+  fireCooldown: 0.2
 --- !u!1 &5414181644487624792
 GameObject:
   m_ObjectHideFlags: 0
@@ -1671,6 +1671,7 @@ MonoBehaviour:
   ball: {fileID: 0}
   gun: {fileID: 0}
   health: 50
+  bulletGizmoRadius: 0.57
 --- !u!114 &8300036929088926722
 MonoBehaviour:
   m_ObjectHideFlags: 0
