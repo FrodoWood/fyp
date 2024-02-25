@@ -721,7 +721,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 835461798170658529, guid: 9415b93f3dd9f5844aa9ea165dfe982a,
     type: 3}
-  fireCooldown: 0.2
+  fireCooldown: 0.5
+  objectToLookAt: {fileID: 3332579392039230809}
 --- !u!1 &5414181644487624792
 GameObject:
   m_ObjectHideFlags: 0
@@ -1647,7 +1648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 5
+  DecisionPeriod: 10
   DecisionStep: 0
   TakeActionsBetweenDecisions: 1
 --- !u!114 &1466434661458998236
@@ -1665,11 +1666,12 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 2000
+  MaxStep: 500
   moveSpeed: 8
   player: {fileID: 3395860394272033555}
   ball: {fileID: 0}
   gun: {fileID: 0}
+  objectToLookAt: {fileID: 5924078023986121807}
   health: 50
   bulletGizmoRadius: 0.57
 --- !u!114 &8300036929088926722
@@ -1686,7 +1688,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BrainParameters:
     VectorObservationSize: 2
-    NumStackedVectorObservations: 1
+    NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 2
       BranchSizes: 
@@ -1694,7 +1696,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: bcb26daa0c0791c448557b4aed9393d8, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Dodge

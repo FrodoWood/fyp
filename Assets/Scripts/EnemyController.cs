@@ -16,6 +16,7 @@ public class EnemyController : Agent
     public Transform player;
     public Transform ball;
     public Transform gun;
+    public Transform objectToLookAt;
     public float health = 50f;
     private Bullet[] bullets;
 
@@ -45,8 +46,8 @@ public class EnemyController : Agent
     {
         // agent position
         //sensor.AddObservation(transform.localPosition);
-        sensor.AddObservation(transform.localPosition.x);
-        sensor.AddObservation(transform.localPosition.y);
+        sensor.AddObservation(transform.localPosition.x/15f);
+        sensor.AddObservation(transform.localPosition.z/15f);
 
         // agent velocity
         //sensor.AddObservation(controller.velocity.x);
@@ -57,6 +58,7 @@ public class EnemyController : Agent
         // Variable length observations
 
         bullets = FindObjectsOfType<Bullet>()
+            .Where(bullet => bullet.transform.parent == transform.parent)
             .OrderBy(bullet => Vector3.Distance(transform.localPosition, bullet.transform.localPosition))
             .Take(10)
             .ToArray();
@@ -66,7 +68,7 @@ public class EnemyController : Agent
             float[] bulletObservation = new float[]
             {
                 (bullet.transform.localPosition.x - transform.localPosition.x) / 15f,
-                (bullet.transform.localPosition.z - transform.localPosition.y) / 15f,
+                (bullet.transform.localPosition.z - transform.localPosition.z) / 15f,
                 bullet.transform.forward.x,
                 bullet.transform.forward.z
             };
@@ -83,13 +85,25 @@ public class EnemyController : Agent
         controller.Move(controlSignal * Time.deltaTime * moveSpeed);
 
         // Rewards
-        if (health <= 0)
-        {
-            //AddReward(-0.1f);
-            EndEpisode();
-        }
+        //if (health <= 0)
+        //{
+        //    //AddReward(-0.1f);
+        //    EndEpisode();
+        //}
 
-        AddReward(1/2000);
+        AddReward(0.002f);
+
+        //if (this.StepCount % 500 == 0)
+        //{
+        //    AddReward(0.5f);
+        //    Debug.Log("Survived !!!!");
+        //    EndEpisode();
+        //}
+    }
+
+    private void Update()
+    {
+        transform.LookAt(objectToLookAt);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -103,14 +117,22 @@ public class EnemyController : Agent
     {
         if (other.CompareTag("wall"))
         {
-            SetReward(-1f);
+            float currentReward = GetCumulativeReward();
+            AddReward(-(currentReward / 2));
+
+            //AddReward(-1f);
+            //SetReward(0f);
             EndEpisode();
             Debug.Log("DEAD by wall!");
         }
         if (other.CompareTag("bullet"))
         {
-            AddReward(-0.2f);
-            health -= 10f;
+            //SetReward(0f);
+            float currentReward = GetCumulativeReward();
+            AddReward(-(currentReward / 3));
+            //AddReward(-0.5f);
+            EndEpisode();
+            //health -= 10f;
             Debug.Log("DEAD by bullet!");
         }
     }
@@ -130,7 +152,7 @@ public class EnemyController : Agent
             {
                 if(bullet == null) continue;
                 Gizmos.color = Color.yellow;
-                Gizmos.DrawSphere(bullet.transform.localPosition, bulletGizmoRadius);
+                Gizmos.DrawSphere(bullet.transform.position, bulletGizmoRadius);
             }
         }
     }
