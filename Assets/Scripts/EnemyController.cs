@@ -44,15 +44,18 @@ public class EnemyController : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
         // agent position
-        sensor.AddObservation(transform.localPosition);
+        //sensor.AddObservation(transform.localPosition);
+        sensor.AddObservation(transform.localPosition.x);
+        sensor.AddObservation(transform.localPosition.y);
+
         // agent velocity
-        sensor.AddObservation(controller.velocity.x);
-        sensor.AddObservation(controller.velocity.z);
+        //sensor.AddObservation(controller.velocity.x);
+        //sensor.AddObservation(controller.velocity.z);
         // target (player) position
         //sensor.AddObservation(player.localPosition);
 
         // Variable length observations
-        
+
         bullets = FindObjectsOfType<Bullet>()
             .OrderBy(bullet => Vector3.Distance(transform.localPosition, bullet.transform.localPosition))
             .Take(10)
@@ -62,8 +65,8 @@ public class EnemyController : Agent
         {
             float[] bulletObservation = new float[]
             {
-                (bullet.transform.localPosition.x) / 15f,
-                (bullet.transform.localPosition.z) / 15f,
+                (bullet.transform.localPosition.x - transform.localPosition.x) / 15f,
+                (bullet.transform.localPosition.z - transform.localPosition.y) / 15f,
                 bullet.transform.forward.x,
                 bullet.transform.forward.z
             };
@@ -80,12 +83,13 @@ public class EnemyController : Agent
         controller.Move(controlSignal * Time.deltaTime * moveSpeed);
 
         // Rewards
-        AddReward(0.001f);
         if (health <= 0)
         {
-            AddReward(-0.1f);
+            //AddReward(-0.1f);
             EndEpisode();
         }
+
+        AddReward(1/2000);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -99,7 +103,7 @@ public class EnemyController : Agent
     {
         if (other.CompareTag("wall"))
         {
-            SetReward(0f);
+            SetReward(-1f);
             EndEpisode();
             Debug.Log("DEAD by wall!");
         }
