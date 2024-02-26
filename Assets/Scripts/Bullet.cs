@@ -17,8 +17,15 @@ public class Bullet : MonoBehaviour
 
         Destroy(gameObject);
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("wall"))
+        {
+            Destroy(gameObject);
+        }
+    }
     private void Update()
     {
-        Destroy(gameObject,4f);
+        //Destroy(gameObject,4f);
     }
 }

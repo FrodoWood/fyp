@@ -10,6 +10,9 @@ public class ShootBullets : MonoBehaviour
     public float fireCooldown = 0.5f;
     private bool canFire = true;
     public Transform objectToLookAt;
+    public bool automatic = true;
+    public float angleMultiplier = 10f;
+    public float bulletSpeed = 10f;
 
     void Start()
     {
@@ -20,29 +23,32 @@ public class ShootBullets : MonoBehaviour
     void Update()
     {
         lookAtTarget();
-        if (canFire)
-        {
-            StartCoroutine(fireBullets());
-            canFire = false;
-        }
+        if (Input.GetMouseButtonDown(0) && canFire && !automatic) shoot();
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            shoot();
-        }
+    }
+
+    private void FixedUpdate()
+    {
+        if(automatic && canFire) shoot();
     }
 
     private void lookAtTarget()
     {
         transform.LookAt(objectToLookAt.position);
-        transform.localEulerAngles = new Vector3(0f, transform.localEulerAngles.y, 0f) + new Vector3(0f, (Random.value * 50) - 25f, 0f);
+        transform.localEulerAngles = new Vector3(0f, transform.localEulerAngles.y, 0f) + new Vector3(0f, (Random.value * 10f * angleMultiplier) - (5f * angleMultiplier), 0f);
 
     }
 
-    private IEnumerator fireBullets()
+    //private IEnumerator fireBullets()
+    //{
+    //    yield return new WaitForSeconds(fireCooldown);
+    //    shoot();
+    //    canFire = true;
+    //}
+
+    private IEnumerator FireCooldown()
     {
         yield return new WaitForSeconds(fireCooldown);
-        shoot();
         canFire = true;
     }
 
@@ -56,6 +62,9 @@ public class ShootBullets : MonoBehaviour
         newBullet.transform.parent = transform.parent;
         Rigidbody bulletRB = newBullet.GetComponent<Rigidbody>();
         Vector3 direction = transform.forward;
-        bulletRB.AddForce(direction.normalized * 5, ForceMode.VelocityChange);
+        newBullet.transform.rotation = Quaternion.LookRotation(direction);
+        bulletRB.AddForce(direction.normalized * bulletSpeed, ForceMode.VelocityChange);
+        canFire = false;
+        StartCoroutine(FireCooldown());
     }
 }

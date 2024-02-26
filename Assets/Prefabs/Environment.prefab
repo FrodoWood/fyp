@@ -721,8 +721,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 835461798170658529, guid: 9415b93f3dd9f5844aa9ea165dfe982a,
     type: 3}
-  fireCooldown: 0.5
+  fireCooldown: 0.2
   objectToLookAt: {fileID: 3332579392039230809}
+  automatic: 1
+  angleMultiplier: 15
+  bulletSpeed: 3
 --- !u!1 &5414181644487624792
 GameObject:
   m_ObjectHideFlags: 0
@@ -1602,7 +1605,7 @@ Transform:
   m_GameObject: {fileID: 8380898775601193543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: -8.04, y: 0, z: -9.38}
+  m_LocalPosition: {x: -7.56, y: 0, z: -11.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1648,7 +1651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 10
+  DecisionPeriod: 1
   DecisionStep: 0
   TakeActionsBetweenDecisions: 1
 --- !u!114 &1466434661458998236
@@ -1666,8 +1669,8 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 500
-  moveSpeed: 8
+  MaxStep: 1000
+  moveSpeed: 14
   player: {fileID: 3395860394272033555}
   ball: {fileID: 0}
   gun: {fileID: 0}
@@ -1688,7 +1691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BrainParameters:
     VectorObservationSize: 2
-    NumStackedVectorObservations: 2
+    NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 2
       BranchSizes: 
@@ -1696,7 +1699,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: bcb26daa0c0791c448557b4aed9393d8, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Dodge
@@ -1731,5 +1734,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SensorName: BufferSensor
-  m_ObservableSize: 4
-  m_MaxNumObservables: 10
+  m_ObservableSize: 6
+  m_MaxNumObservables: 5

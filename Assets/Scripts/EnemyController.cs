@@ -48,6 +48,7 @@ public class EnemyController : Agent
         //sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(transform.localPosition.x/15f);
         sensor.AddObservation(transform.localPosition.z/15f);
+        //Debug.Log(transform.localPosition.x / 15f);
 
         // agent velocity
         //sensor.AddObservation(controller.velocity.x);
@@ -55,26 +56,30 @@ public class EnemyController : Agent
         // target (player) position
         //sensor.AddObservation(player.localPosition);
 
-        // Variable length observations
 
+        // Variable length observations
         bullets = FindObjectsOfType<Bullet>()
             .Where(bullet => bullet.transform.parent == transform.parent)
             .OrderBy(bullet => Vector3.Distance(transform.localPosition, bullet.transform.localPosition))
-            .Take(10)
+            .Take(5)
             .ToArray();
 
-        foreach(Bullet bullet in bullets)
+        foreach (Bullet bullet in bullets)
         {
             float[] bulletObservation = new float[]
             {
                 (bullet.transform.localPosition.x - transform.localPosition.x) / 15f,
                 (bullet.transform.localPosition.z - transform.localPosition.z) / 15f,
+                (bullet.transform.localPosition.x) / 15f,
+                (bullet.transform.localPosition.z) / 15f,
                 bullet.transform.forward.x,
                 bullet.transform.forward.z
             };
-
+            //Debug.Log("\n" + bulletObservation[0] + bulletObservation[1]);
             bufferSensor.AppendObservation(bulletObservation);
         }
+        //Debug.Log("Closest bullet's position" + " x:" + bullets[0].transform.localPosition.x + "" + " z" + bullets[0].transform.localPosition.z);
+        //Debug.Log("Closest bullet's forward" + " x:" + bullets[0].transform.forward.x + "" + " z" + bullets[0].transform.forward.z);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -91,19 +96,34 @@ public class EnemyController : Agent
         //    EndEpisode();
         //}
 
-        AddReward(0.002f);
+        //if(StepCount < 500) AddReward(0.001f);
 
-        //if (this.StepCount % 500 == 0)
+        //switch (StepCount)
         //{
-        //    AddReward(0.5f);
-        //    Debug.Log("Survived !!!!");
-        //    EndEpisode();
+        //    case 500:
+        //        AddReward(0.1f);
+        //        break;
+        //    case 750:
+        //        AddReward(0.15f);
+        //        break;
+        //    case 1000:
+        //        AddReward(0.25f);
+        //        Debug.Log("Perfect!!");
+        //        break;
+
         //}
+
+
+        if (this.StepCount % 100 == 0)
+        {
+            AddReward(0.1f);
+        }
     }
 
     private void Update()
     {
         transform.LookAt(objectToLookAt);
+
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -117,20 +137,30 @@ public class EnemyController : Agent
     {
         if (other.CompareTag("wall"))
         {
-            float currentReward = GetCumulativeReward();
-            AddReward(-(currentReward / 2));
+            //AddReward(-(currentReward / 2));
 
-            //AddReward(-1f);
-            //SetReward(0f);
+            //AddReward(-0.5f);
+            AddReward(-0.5f);
+            float currentReward = GetCumulativeReward();
+            if (currentReward < 0f)
+            {
+                SetReward(0f);
+            }
             EndEpisode();
             Debug.Log("DEAD by wall!");
         }
         if (other.CompareTag("bullet"))
         {
-            //SetReward(0f);
-            float currentReward = GetCumulativeReward();
-            AddReward(-(currentReward / 3));
-            //AddReward(-0.5f);
+            //AddReward(-0.1f);
+            //AddReward(-(currentReward / 3));
+            //AddReward(-1);
+            //float currentReward = GetCumulativeReward();
+            //if (currentReward < 0f)
+            //{
+            //    SetReward(0f);
+            //}
+            //EndEpisode();
+            SetReward(0f);
             EndEpisode();
             //health -= 10f;
             Debug.Log("DEAD by bullet!");
@@ -139,7 +169,7 @@ public class EnemyController : Agent
 
     void randomizePosition()
     {
-        Vector3 newPos = new Vector3((Random.value * 20) - 10f, 0f, (Random.value * 20) - 10f);
+        Vector3 newPos = new Vector3((Random.value * 28) - 14f, 0f, (Random.value * 28) - 14f);
         controller.Move(newPos - transform.localPosition);
         //this.transform.localRotation = Quaternion.Euler(Vector3.zero);
     }

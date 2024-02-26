@@ -1,0 +1,38 @@
+{
+    "Dodge": {
+        "checkpoints": [
+            {
+                "steps": 499996,
+                "file_path": "results\\dodge_38\\Dodge\\Dodge-499996.onnx",
+                "reward": -0.08062498547650616,
+                "creation_time": 1708913083.3730593,
+                "auxillary_file_paths": [
+                    "results\\dodge_38\\Dodge\\Dodge-499996.pt"
+                ]
+            },
+            {
+                "steps": 550843,
+                "file_path": "results\\dodge_38\\Dodge\\Dodge-550843.onnx",
+                "reward": -0.25300002098083496,
+                "creation_time": 1708913152.6480987,
+                "auxillary_file_paths": [
+                    "results\\dodge_38\\Dodge\\Dodge-550843.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 550843,
+            "file_path": "results\\dodge_38\\Dodge.onnx",
+            "reward": -0.25300002098083496,
+            "creation_time": 1708913152.6480987,
+            "auxillary_file_paths": [
+                "results\\dodge_38\\Dodge\\Dodge-550843.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}
