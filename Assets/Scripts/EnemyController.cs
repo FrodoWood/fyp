@@ -19,6 +19,11 @@ public class EnemyController : Agent
     public Transform objectToLookAt;
     public float health = 50f;
     private Bullet[] bullets;
+    public Transform bulletSpawner;
+    private float actionCooldown = 0f;
+    public float actionCooldownDuration = 0.5f;
+    private Vector3 controlSignal = Vector3.zero;
+
 
     [Header("Gizmos")]
     public float bulletGizmoRadius = 1f;
@@ -40,6 +45,15 @@ public class EnemyController : Agent
         //player.localPosition = new Vector3(Random.value * 20 - 10, 0f, Random.value * 20 - 10);
         randomizePosition();
         health = 50f;
+        bulletSpawner.localPosition = getRandomPosition();
+        actionCooldown = 0f;
+        controlSignal = Vector3.zero;
+
+        var myBullets = transform.parent.GetComponentsInChildren<Bullet>();
+        foreach(Bullet bullet in myBullets)
+        {
+            Destroy(bullet.gameObject);
+        }
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -58,8 +72,13 @@ public class EnemyController : Agent
 
 
         // Variable length observations
-        bullets = FindObjectsOfType<Bullet>()
-            .Where(bullet => bullet.transform.parent == transform.parent)
+        //bullets = FindObjectsOfType<Bullet>()
+        //    .Where(bullet => bullet.transform.parent == transform.parent)
+        //    .OrderBy(bullet => Vector3.Distance(transform.localPosition, bullet.transform.localPosition))
+        //    .Take(5)
+        //    .ToArray();
+
+        bullets = transform.parent.GetComponentsInChildren<Bullet>()
             .OrderBy(bullet => Vector3.Distance(transform.localPosition, bullet.transform.localPosition))
             .Take(5)
             .ToArray();
@@ -70,8 +89,6 @@ public class EnemyController : Agent
             {
                 (bullet.transform.localPosition.x - transform.localPosition.x) / 15f,
                 (bullet.transform.localPosition.z - transform.localPosition.z) / 15f,
-                (bullet.transform.localPosition.x) / 15f,
-                (bullet.transform.localPosition.z) / 15f,
                 bullet.transform.forward.x,
                 bullet.transform.forward.z
             };
@@ -84,40 +101,25 @@ public class EnemyController : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        Vector3 controlSignal = Vector3.zero;
-        controlSignal.x = actions.ContinuousActions[0];
-        controlSignal.z = actions.ContinuousActions[1];
-        controller.Move(controlSignal * Time.deltaTime * moveSpeed);
-
-        // Rewards
-        //if (health <= 0)
-        //{
-        //    //AddReward(-0.1f);
-        //    EndEpisode();
-        //}
-
-        //if(StepCount < 500) AddReward(0.001f);
-
-        //switch (StepCount)
-        //{
-        //    case 500:
-        //        AddReward(0.1f);
-        //        break;
-        //    case 750:
-        //        AddReward(0.15f);
-        //        break;
-        //    case 1000:
-        //        AddReward(0.25f);
-        //        Debug.Log("Perfect!!");
-        //        break;
-
-        //}
-
-
-        if (this.StepCount % 100 == 0)
+        
+        if(actionCooldown <= 0f)
         {
-            AddReward(0.1f);
+            controlSignal.x = actions.ContinuousActions[0];
+            controlSignal.z = actions.ContinuousActions[1];
+
+            // Reset cooldown
+            actionCooldown = actionCooldownDuration;
         }
+        else
+        {
+            actionCooldown -= Time.deltaTime;
+        }
+
+        controller.Move(controlSignal * Time.deltaTime * moveSpeed);
+        // Rewards
+        AddReward(1f / MaxStep);
+        if (StepCount == MaxStep) Debug.Log("Survived!");
+        
     }
 
     private void Update()
@@ -140,12 +142,13 @@ public class EnemyController : Agent
             //AddReward(-(currentReward / 2));
 
             //AddReward(-0.5f);
-            AddReward(-0.5f);
-            float currentReward = GetCumulativeReward();
-            if (currentReward < 0f)
-            {
-                SetReward(0f);
-            }
+            //AddReward(-0.5f);
+            //float currentReward = GetCumulativeReward();
+            //if (currentReward < 0f)
+            //{
+            //    SetReward(0f);
+            //}
+            SetReward(0f);
             EndEpisode();
             Debug.Log("DEAD by wall!");
         }
@@ -174,6 +177,10 @@ public class EnemyController : Agent
         //this.transform.localRotation = Quaternion.Euler(Vector3.zero);
     }
 
+    Vector3 getRandomPosition()
+    {
+        return new Vector3((Random.value * 28) - 14f, 0f, (Random.value * 28) - 14f);
+    }
     private void OnDrawGizmos()
     {
         if(bullets != null && bullets.Length > 0)

@@ -724,8 +724,8 @@ MonoBehaviour:
   fireCooldown: 0.2
   objectToLookAt: {fileID: 3332579392039230809}
   automatic: 1
-  angleMultiplier: 15
-  bulletSpeed: 3
+  angleMultiplier: 10
+  bulletSpeed: 6
 --- !u!1 &5414181644487624792
 GameObject:
   m_ObjectHideFlags: 0
@@ -1669,13 +1669,15 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 1000
+  MaxStep: 500
   moveSpeed: 14
   player: {fileID: 3395860394272033555}
   ball: {fileID: 0}
   gun: {fileID: 0}
   objectToLookAt: {fileID: 5924078023986121807}
   health: 50
+  bulletSpawner: {fileID: 5924078023986121807}
+  actionCooldownDuration: 0.2
   bulletGizmoRadius: 0.57
 --- !u!114 &8300036929088926722
 MonoBehaviour:
@@ -1734,5 +1736,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SensorName: BufferSensor
-  m_ObservableSize: 6
+  m_ObservableSize: 4
   m_MaxNumObservables: 5
