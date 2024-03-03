@@ -18,15 +18,33 @@
                 "auxillary_file_paths": [
                     "results\\dodge_58\\Dodge\\Dodge-505637.pt"
                 ]
+            },
+            {
+                "steps": 999995,
+                "file_path": "results\\dodge_58\\Dodge\\Dodge-999995.onnx",
+                "reward": 0.6440889198488245,
+                "creation_time": 1709422189.5178945,
+                "auxillary_file_paths": [
+                    "results\\dodge_58\\Dodge\\Dodge-999995.pt"
+                ]
+            },
+            {
+                "steps": 1000027,
+                "file_path": "results\\dodge_58\\Dodge\\Dodge-1000027.onnx",
+                "reward": 0.6440889198488245,
+                "creation_time": 1709422189.7036107,
+                "auxillary_file_paths": [
+                    "results\\dodge_58\\Dodge\\Dodge-1000027.pt"
+                ]
             }
         ],
         "final_checkpoint": {
-            "steps": 505637,
+            "steps": 1000027,
             "file_path": "results\\dodge_58\\Dodge.onnx",
-            "reward": 0.586919568414832,
-            "creation_time": 1709399251.1188,
+            "reward": 0.6440889198488245,
+            "creation_time": 1709422189.7036107,
             "auxillary_file_paths": [
-                "results\\dodge_58\\Dodge\\Dodge-505637.pt"
+                "results\\dodge_58\\Dodge\\Dodge-1000027.pt"
             ]
         }
     },

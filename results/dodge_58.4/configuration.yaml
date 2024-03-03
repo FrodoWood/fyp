@@ -3,8 +3,8 @@ behaviors:
   Dodge:
     trainer_type: ppo
     hyperparameters:
-      batch_size: 10000
-      buffer_size: 40000
+      batch_size: 5120
+      buffer_size: 409600
       learning_rate: 0.0003
       beta: 0.005
       epsilon: 0.2
@@ -35,11 +35,11 @@ behaviors:
           memory: null
           goal_conditioning_type: hyper
           deterministic: false
-    init_path: null
+    init_path: results\dodge_58\Dodge\checkpoint.pt
     keep_checkpoints: 5
     even_checkpoints: false
     max_steps: 1000000
-    time_horizon: 32
+    time_horizon: 1024
     summary_freq: 10000
     threaded: false
     self_play: null
@@ -65,10 +65,10 @@ engine_settings:
   no_graphics: false
 environment_parameters: null
 checkpoint_settings:
-  run_id: dodge_58
-  initialize_from: null
+  run_id: dodge_58.4
+  initialize_from: dodge_58
   load_model: false
-  resume: true
+  resume: false
   force: false
   train_model: false
   inference: false
