@@ -1,0 +1,65 @@
+{
+    "Dodge": {
+        "checkpoints": [
+            {
+                "steps": 499994,
+                "file_path": "results\\dodge_discrete_05\\Dodge\\Dodge-499994.onnx",
+                "reward": 0.5733333540459474,
+                "creation_time": 1709431980.899703,
+                "auxillary_file_paths": [
+                    "results\\dodge_discrete_05\\Dodge\\Dodge-499994.pt"
+                ]
+            },
+            {
+                "steps": 628569,
+                "file_path": "results\\dodge_discrete_05\\Dodge\\Dodge-628569.onnx",
+                "reward": 1.000000037252903,
+                "creation_time": 1709432084.9459283,
+                "auxillary_file_paths": [
+                    "results\\dodge_discrete_05\\Dodge\\Dodge-628569.pt"
+                ]
+            },
+            {
+                "steps": 925169,
+                "file_path": "results\\dodge_discrete_05\\Dodge\\Dodge-925169.onnx",
+                "reward": null,
+                "creation_time": 1709432637.713896,
+                "auxillary_file_paths": [
+                    "results\\dodge_discrete_05\\Dodge\\Dodge-925169.pt"
+                ]
+            },
+            {
+                "steps": 999981,
+                "file_path": "results\\dodge_discrete_05\\Dodge\\Dodge-999981.onnx",
+                "reward": 0.8830000273883343,
+                "creation_time": 1709432845.6440587,
+                "auxillary_file_paths": [
+                    "results\\dodge_discrete_05\\Dodge\\Dodge-999981.pt"
+                ]
+            },
+            {
+                "steps": 1000045,
+                "file_path": "results\\dodge_discrete_05\\Dodge\\Dodge-1000045.onnx",
+                "reward": 0.8830000273883343,
+                "creation_time": 1709432845.8491933,
+                "auxillary_file_paths": [
+                    "results\\dodge_discrete_05\\Dodge\\Dodge-1000045.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1000045,
+            "file_path": "results\\dodge_discrete_05\\Dodge.onnx",
+            "reward": 0.8830000273883343,
+            "creation_time": 1709432845.8491933,
+            "auxillary_file_paths": [
+                "results\\dodge_discrete_05\\Dodge\\Dodge-1000045.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}
