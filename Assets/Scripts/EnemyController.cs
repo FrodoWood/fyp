@@ -108,13 +108,13 @@ public class EnemyController : Agent
         
         if(actionCooldown <= 0f)
         {
-            //controlSignal.x = actions.ContinuousActions[0];
-            //controlSignal.z = actions.ContinuousActions[1];
-            int discreteAction0 = actions.DiscreteActions[0];
-            int discreteAction1 = actions.DiscreteActions[1];
+            controlSignal.x = actions.ContinuousActions[0];
+            controlSignal.z = actions.ContinuousActions[1];
+            //int discreteAction0 = actions.DiscreteActions[0];
+            //int discreteAction1 = actions.DiscreteActions[1];
 
-            discreteActionToControlSignal(discreteAction0, discreteAction1);
-            controlSignal = xInput + zInput;
+            //discreteActionToControlSignal(discreteAction0, discreteAction1);
+            //controlSignal = xInput + zInput;
 
             // Reset cooldown
             actionCooldown = actionCooldownDuration;
