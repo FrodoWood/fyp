@@ -1,0 +1,56 @@
+{
+    "Dodge": {
+        "checkpoints": [
+            {
+                "steps": 499938,
+                "file_path": "results\\dodge_67_timescale_1\\Dodge\\Dodge-499938.onnx",
+                "reward": 0.45115153099212685,
+                "creation_time": 1709993189.3847065,
+                "auxillary_file_paths": [
+                    "results\\dodge_67_timescale_1\\Dodge\\Dodge-499938.pt"
+                ]
+            },
+            {
+                "steps": 999959,
+                "file_path": "results\\dodge_67_timescale_1\\Dodge\\Dodge-999959.onnx",
+                "reward": 0.6196666922661718,
+                "creation_time": 1709993885.8870616,
+                "auxillary_file_paths": [
+                    "results\\dodge_67_timescale_1\\Dodge\\Dodge-999959.pt"
+                ]
+            },
+            {
+                "steps": 1499940,
+                "file_path": "results\\dodge_67_timescale_1\\Dodge\\Dodge-1499940.onnx",
+                "reward": 0.6048250238818582,
+                "creation_time": 1709994537.8971753,
+                "auxillary_file_paths": [
+                    "results\\dodge_67_timescale_1\\Dodge\\Dodge-1499940.pt"
+                ]
+            },
+            {
+                "steps": 1792870,
+                "file_path": "results\\dodge_67_timescale_1\\Dodge\\Dodge-1792870.onnx",
+                "reward": 0.6961412047912531,
+                "creation_time": 1709994909.5349858,
+                "auxillary_file_paths": [
+                    "results\\dodge_67_timescale_1\\Dodge\\Dodge-1792870.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1792870,
+            "file_path": "results\\dodge_67_timescale_1\\Dodge.onnx",
+            "reward": 0.6961412047912531,
+            "creation_time": 1709994909.5349858,
+            "auxillary_file_paths": [
+                "results\\dodge_67_timescale_1\\Dodge\\Dodge-1792870.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}

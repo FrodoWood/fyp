@@ -783,10 +783,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 835461798170658529, guid: 9415b93f3dd9f5844aa9ea165dfe982a,
     type: 3}
-  fireCooldown: 0.8
+  fireCooldown: 0.4
   objectToLookAt: {fileID: 3332579392039230809}
   automatic: 1
-  angleMultiplier: 0
+  angleMultiplier: 8
   bulletSpeed: 10
 --- !u!1 &5414181644487624792
 GameObject:
