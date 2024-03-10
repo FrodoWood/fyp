@@ -94,13 +94,13 @@ public class EnemyController : Agent, IDamageable
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        if(actionTimer >= actionCooldown)
-        {
-            actionBuffers = actions;
-            UpdateStateOnActionReceived();
+        actionBuffers = actions;
+        UpdateStateOnActionReceived();
+        //if(actionTimer >= actionCooldown)
+        //{
 
-            actionTimer = 0f;
-        }
+        //    actionTimer = 0f;
+        //}
         
     }
 
@@ -115,19 +115,23 @@ public class EnemyController : Agent, IDamageable
         var discreteActionsOut = actionsOut.DiscreteActions;
 
         // Setting continuous actions
-        RaycastHit hit;
-        Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, movementLayers);
-        Vector3 movePosition = hit.point.normalized;
-        continuousActionsOut[0] = movePosition.x;
-        continuousActionsOut[1] = movePosition.z;
+        if (Input.GetMouseButtonDown(1))
+        {
+            RaycastHit hit;
+            Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, movementLayers);
+            Vector3 movePosition = hit.point.normalized;
+            continuousActionsOut[0] = movePosition.x;
+            continuousActionsOut[1] = movePosition.z;
+        }
 
         // Setting discrete actions
         if (Input.GetKey(KeyCode.S)) discreteActionsOut[0] = a_idle;
-        if (Input.GetKey(KeyCode.Q)) discreteActionsOut[0] = a_ability1;
-        if (Input.GetKey(KeyCode.W)) discreteActionsOut[0] = a_ability2;
-        if (Input.GetKey(KeyCode.E)) discreteActionsOut[0] = a_ability3;
-        if (Input.GetKey(KeyCode.R)) discreteActionsOut[0] = a_ability4;
+        else if (Input.GetKey(KeyCode.Q)) discreteActionsOut[0] = a_ability1;
+        else if (Input.GetKey(KeyCode.W)) discreteActionsOut[0] = a_ability2;
+        else if (Input.GetKey(KeyCode.E)) discreteActionsOut[0] = a_ability3;
+        else if (Input.GetKey(KeyCode.R)) discreteActionsOut[0] = a_ability4;
         else discreteActionsOut[0] = a_moving;
+
     }
 
     private void ChangeState(State newState)
@@ -276,31 +280,34 @@ public class EnemyController : Agent, IDamageable
         switch (actionBuffers.DiscreteActions[0])
         {
             case a_idle:
-
                 break;
+
             case a_moving:
                 ChangeState(State.Moving);
                 break;
+
             case a_ability1:
-                ChangeState(State.Ability1);
-                break;
-            case a_ability2:
-                ChangeState(State.Ability2);
-                break;
-            case a_ability3:
-                ChangeState(State.Ability3);
-                break;
-            case a_ability4:
-                ChangeState(State.Ability4);
+                if (ability1.Available()) ChangeState(State.Ability1);
                 break;
 
+            case a_ability2:
+                if (ability2.Available()) ChangeState(State.Ability2);
+                break;
+
+            case a_ability3:
+                if (ability3.Available()) ChangeState(State.Ability3);
+                break;
+
+            case a_ability4:
+                if (ability4.Available()) ChangeState(State.Ability4);
+                break;
         }
     }
 
     private void EnterMoving()
     {
         navMeshAgent.isStopped = false;
-
+        Debug.Log("Entered Moving");
     }
     private void UpdateMoving()
     {
@@ -315,7 +322,6 @@ public class EnemyController : Agent, IDamageable
         float xDestination = actionBuffers.ContinuousActions[0] * 15f;
         float zDestination = actionBuffers.ContinuousActions[1] * 15f;
         navMeshAgent.SetDestination(new Vector3(xDestination, 0f, zDestination));
-        Debug.Log("Model chose destination");
 
         switch (actionBuffers.DiscreteActions[0])
         {
@@ -331,18 +337,15 @@ public class EnemyController : Agent, IDamageable
                 break;
 
             case a_ability2:
-                if (ability2.Available()) ChangeState(State.Ability1);
-                ChangeState(State.Ability2);
+                if (ability2.Available()) ChangeState(State.Ability2);
                 break;
 
             case a_ability3:
-                if (ability3.Available()) ChangeState(State.Ability1);
-                ChangeState(State.Ability3);
+                if (ability3.Available()) ChangeState(State.Ability3);
                 break;
 
             case a_ability4:
-                if (ability4.Available()) ChangeState(State.Ability1);
-                ChangeState(State.Ability4);
+                if (ability4.Available()) ChangeState(State.Ability4);
                 break;
         }
     }
@@ -363,20 +366,7 @@ public class EnemyController : Agent, IDamageable
     }
     private void UpdateAbility1OnActionReceived()
     {
-        switch (actionBuffers.DiscreteActions[0])
-        {
-            case a_idle:
-                ChangeState(State.Idle);
-                break;
-
-            case a_moving:
-                ChangeState(State.Moving);
-                break;
-            
-            default:
-                ChangeState(State.Moving);
-                break;
-        }
+        ChangeState(State.Moving);
     }
 
     private void EnterAbility2()
@@ -395,20 +385,8 @@ public class EnemyController : Agent, IDamageable
     }
     private void UpdateAbility2OnActionReceived()
     {
-        switch (actionBuffers.DiscreteActions[0])
-        {
-            case a_idle:
-                ChangeState(State.Idle);
-                break;
+        ChangeState(State.Moving);
 
-            case a_moving:
-                ChangeState(State.Moving);
-                break;
-
-            default:
-                ChangeState(State.Moving);
-                break;
-        }
     }
 
     private void EnterAbility3()
@@ -426,20 +404,7 @@ public class EnemyController : Agent, IDamageable
     }
     private void UpdateAbility3OnActionReceived()
     {
-        switch (actionBuffers.DiscreteActions[0])
-        {
-            case a_idle:
-                ChangeState(State.Idle);
-                break;
-
-            case a_moving:
-                ChangeState(State.Moving);
-                break;
-
-            default:
-                ChangeState(State.Moving);
-                break;
-        }
+        ChangeState(State.Moving);
     }
 
     private void EnterAbility4()
@@ -454,7 +419,7 @@ public class EnemyController : Agent, IDamageable
     }
     private void ExitAbility4()
     {
-        
+        Debug.Log("Exited Ability 4");
     }
     private void UpdateAbility4OnActionReceived()
     {
@@ -475,28 +440,31 @@ public class EnemyController : Agent, IDamageable
     }
     private void UpdateStunnedOnActionReceived()
     {
-
         switch (actionBuffers.DiscreteActions[0])
         {
             case a_idle:
                 ChangeState(State.Idle);
                 break;
+
             case a_moving:
                 ChangeState(State.Moving);
                 break;
+
             case a_ability1:
-                ChangeState(State.Ability1);
-                break;
-            case a_ability2:
-                ChangeState(State.Ability2);
-                break;
-            case a_ability3:
-                ChangeState(State.Ability3);
-                break;
-            case a_ability4:
-                ChangeState(State.Ability4);
+                if (ability1.Available()) ChangeState(State.Ability1);
                 break;
 
+            case a_ability2:
+                if (ability2.Available()) ChangeState(State.Ability2);
+                break;
+
+            case a_ability3:
+                if (ability3.Available()) ChangeState(State.Ability3);
+                break;
+
+            case a_ability4:
+                if (ability4.Available()) ChangeState(State.Ability4);
+                break;
         }
     }
 

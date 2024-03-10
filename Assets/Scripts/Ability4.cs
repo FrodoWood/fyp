@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ability4 : BaseAbility
 {
-    public float abilityDuration { get; private set; }
+    [SerializeField] private float abilityDuration;
     public bool isComplete { get; private set; }
 
     protected override void Start()

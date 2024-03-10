@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class BaseAbility : MonoBehaviour, IAbility
 {
-    protected bool onCooldown;
+    [SerializeField] protected bool onCooldown;
     [SerializeField] protected float cooldown;
     private float cooldownTimer;
     protected EntityType entity;
@@ -29,6 +29,7 @@ public abstract class BaseAbility : MonoBehaviour, IAbility
     public virtual void TriggerAbility()
     {
         onCooldown = true;
+        cooldownTimer = cooldown;
     }
 
     private void HandleCooldown()
