@@ -20,10 +20,19 @@ public enum State
     Dead,
 }
 
-public class EnemyController : Agent
+public enum EntityType
 {
+    Enemy,
+    Player,
+}
+
+public class EnemyController : Agent, IDamageable
+{
+    [SerializeField] private EntityType entity;
     private NavMeshAgent navMeshAgent;
     [SerializeField] private float actionCooldown;
+    [SerializeField] private float maxHealth;
+    [SerializeField] private float currentHealth;
     private float actionTimer = 0f;
     private State currentState;
 
@@ -486,4 +495,18 @@ public class EnemyController : Agent
         
     }
 
+    public void TakeDamage(float damageAmount)
+    {
+        currentHealth -= damageAmount;
+        if (currentHealth <= 0)
+        {
+            SetReward(0);
+            EndEpisode();
+        }
+    }
+
+    public EntityType GetEntityType()
+    {
+        return entity;
+    }
 }

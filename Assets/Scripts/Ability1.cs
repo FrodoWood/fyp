@@ -7,7 +7,12 @@ public class Ability1 : BaseAbility
     [SerializeField] private float damage = 10f;
     [SerializeField] private float speed = 25f;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform firingPoint;
 
+    public void Initialize(EntityType entityType)
+    {
+        entity = entityType;
+    }
     protected override void Start()
     {
         base.Start();
@@ -22,9 +27,9 @@ public class Ability1 : BaseAbility
     public override void TriggerAbility()
     {
         base.TriggerAbility(); // Starts the cooldown timer and sets the ability on cooldown
-        GameObject newBullet = GameObject.Instantiate(bulletPrefab, transform.position + 2 * transform.forward, Quaternion.identity);
+        GameObject newBullet = GameObject.Instantiate(bulletPrefab, firingPoint.position, Quaternion.identity);
         Bullet bullet = newBullet.GetComponent<Bullet>();
-        bullet?.Initialize(damage);
+        bullet?.Initialize(damage, entity, enemyController);
 
         newBullet.transform.parent = transform.parent;
         Rigidbody bulletRB = newBullet.GetComponent<Rigidbody>();

@@ -7,6 +7,13 @@ public abstract class BaseAbility : MonoBehaviour, IAbility
     protected bool onCooldown;
     [SerializeField] protected float cooldown;
     private float cooldownTimer;
+    [SerializeField] protected EntityType entity;
+    protected EnemyController enemyController;
+
+    protected virtual void Awake()
+    {
+        enemyController = GetComponent<EnemyController>();
+    }
 
     protected virtual void Start()
     {

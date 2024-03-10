@@ -5,19 +5,24 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float damage;
+    private EntityType entity;
+    private EnemyController agentController;
 
-    public void Initialize(float damageValue)
+    public void Initialize(float damageValue, EntityType entityType, EnemyController enemyController)
     {
         damage = damageValue;
+        entity = entityType;
+        agentController = enemyController;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
 
-        if(damageable != null)
+        if(damageable != null && damageable.GetEntityType() != entity)
         {
-            damageable.OnHit(damage);
+            agentController?.AddReward(0.2f);
+            damageable.TakeDamage(damage);
         }
 
         Destroy(gameObject);
