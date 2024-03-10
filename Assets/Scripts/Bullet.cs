@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float damageAmount = 10f;
+    public float damage;
+
+    public void Initialize(float damageValue)
+    {
+        damage = damageValue;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -12,7 +17,7 @@ public class Bullet : MonoBehaviour
 
         if(damageable != null)
         {
-            damageable.OnHit(damageAmount);
+            damageable.OnHit(damage);
         }
 
         Destroy(gameObject);
@@ -26,6 +31,6 @@ public class Bullet : MonoBehaviour
     }
     private void Update()
     {
-        //Destroy(gameObject,4f);
+        //Destroy(gameObject, 4f);
     }
 }
