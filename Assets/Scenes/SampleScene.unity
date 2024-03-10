@@ -2387,6 +2387,21 @@ PrefabInstance:
       propertyPath: m_BrainParameters.VectorObservationSize
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8300036929088926722, guid: 3633d53fdcfa9ec478d2ec426df4d1a0,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8300036929088926722, guid: 3633d53fdcfa9ec478d2ec426df4d1a0,
+        type: 3}
+      propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8300036929088926722, guid: 3633d53fdcfa9ec478d2ec426df4d1a0,
+        type: 3}
+      propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.data[0]
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8380898775601193543, guid: 3633d53fdcfa9ec478d2ec426df4d1a0,
         type: 3}
       propertyPath: m_Layer
