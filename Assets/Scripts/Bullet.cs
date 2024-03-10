@@ -23,9 +23,9 @@ public class Bullet : MonoBehaviour
         {
             agentController?.AddReward(0.2f);
             damageable.TakeDamage(damage);
+            Destroy(gameObject);
         }
 
-        Destroy(gameObject);
     }
     private void OnTriggerEnter(Collider other)
     {

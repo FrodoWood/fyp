@@ -9,10 +9,7 @@ public class Ability1 : BaseAbility
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firingPoint;
 
-    public void Initialize(EntityType entityType)
-    {
-        entity = entityType;
-    }
+   
     protected override void Start()
     {
         base.Start();
@@ -40,4 +37,5 @@ public class Ability1 : BaseAbility
         GameObject.Destroy(newBullet, 2f);
 
     }
+
 }

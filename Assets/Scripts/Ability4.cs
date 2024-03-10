@@ -2,17 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ability4 : MonoBehaviour
+public class Ability4 : BaseAbility
 {
-    // Start is called before the first frame update
-    void Start()
+    public float abilityDuration { get; private set; }
+    public bool isComplete { get; private set; }
+
+    protected override void Start()
     {
-        
+        base.Start();
+        isComplete = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        
+        base.Update();
     }
+
+    [ContextMenu("useAbility1")]
+    public override void TriggerAbility()
+    {
+        base.TriggerAbility(); // Starts the cooldown timer and sets the ability on cooldown
+        isComplete = false;
+        StartCoroutine(AbilityDurationTimer());
+    }
+
+    private IEnumerator AbilityDurationTimer()
+    {
+        yield return new WaitForSeconds(abilityDuration);
+        isComplete = true;
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
 }
