@@ -13,18 +13,13 @@ behaviors:
       beta_schedule: constant
       epsilon_schedule: linear
     network_settings:
-      normalize: false
+      normalize: true
       hidden_units: 128
       num_layers: 2
     reward_signals:
       extrinsic:
         gamma: 0.99
         strength: 1.0
-      curiosity:
-        gamma: 0.99
-        strength: 0.001
-        learning_rate: 0.0003
-        encoding_size: 64
     max_steps: 1000000
-    time_horizon: 256
+    time_horizon: 64
     summary_freq: 10000

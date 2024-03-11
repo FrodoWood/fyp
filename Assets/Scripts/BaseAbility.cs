@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class BaseAbility : MonoBehaviour, IAbility
 {
     [SerializeField] protected bool onCooldown;
+    [SerializeField] protected bool abilityEnabled=false;
     [SerializeField] protected float cooldown;
     private float cooldownTimer;
     protected EntityType entity;
@@ -46,6 +47,11 @@ public abstract class BaseAbility : MonoBehaviour, IAbility
     public bool Available()
     {
         return !onCooldown;
+    }
+
+    public bool isEnabled()
+    {
+        return abilityEnabled;
     }
 
 

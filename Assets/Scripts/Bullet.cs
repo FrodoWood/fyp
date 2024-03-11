@@ -21,7 +21,8 @@ public class Bullet : MonoBehaviour
 
         if(damageable != null && damageable.GetEntityType() != entity)
         {
-            agentController?.AddReward(0.2f);
+            agentController?.AddReward(1f);
+            Debug.Log("Enemy Hit!");
             damageable.TakeDamage(damage);
             Destroy(gameObject);
         }

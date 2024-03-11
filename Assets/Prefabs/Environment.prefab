@@ -1576,7 +1576,6 @@ GameObject:
   - component: {fileID: 1939616480889050311}
   - component: {fileID: 7071248820733419283}
   - component: {fileID: 1380185688260517277}
-  - component: {fileID: 6771374868441829209}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -1592,7 +1591,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8380898775601193543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.99, y: 0, z: 7.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1601,7 +1600,7 @@ Transform:
   - {fileID: 4418874647971398375}
   - {fileID: 7431769275861462031}
   m_Father: {fileID: 7623363363835755189}
-  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8391248541212919118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1630,7 +1629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 2
+    VectorObservationSize: 8
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 2
@@ -1641,7 +1640,7 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 1
+  m_BehaviorType: 0
   m_BehaviorName: Mage
   TeamId: 0
   m_UseChildSensors: 1
@@ -1665,7 +1664,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 500
   entity: 0
-  actionCooldown: 0.4
+  actionCooldown: 0.2
   maxHealth: 0
   currentHealth: 0
   isStunned: 0
@@ -1687,7 +1686,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onCooldown: 0
-  cooldown: 4
+  abilityEnabled: 1
+  cooldown: 0.5
   damage: 10
   speed: 20
   bulletPrefab: {fileID: 835461798170658529, guid: 9415b93f3dd9f5844aa9ea165dfe982a,
@@ -1706,6 +1706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onCooldown: 0
+  abilityEnabled: 0
   cooldown: 5
 --- !u!114 &8833497852056704436
 MonoBehaviour:
@@ -1720,6 +1721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onCooldown: 0
+  abilityEnabled: 0
   cooldown: 5
 --- !u!114 &1939616480889050311
 MonoBehaviour:
@@ -1734,6 +1736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onCooldown: 0
+  abilityEnabled: 0
   cooldown: 10
   abilityDuration: 3
 --- !u!195 &7071248820733419283
@@ -1752,7 +1755,7 @@ NavMeshAgent:
   m_AngularSpeed: 99999
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
@@ -1773,7 +1776,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1781,35 +1784,6 @@ CapsuleCollider:
   m_Height: 2.0699997
   m_Direction: 1
   m_Center: {x: -2.3014415e-18, y: 0.98, z: 0.015786946}
---- !u!114 &6771374868441829209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8380898775601193543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SensorName: RayPerceptionSensor
-  m_DetectableTags:
-  - Player
-  m_RaysPerDirection: 6
-  m_MaxRayDegrees: 180
-  m_SphereCastRadius: 0.5
-  m_RayLength: 20
-  m_RayLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967291
-  m_ObservationStacks: 1
-  m_AlternatingRayOrder: 1
-  m_UseBatchedRaycasts: 0
-  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  m_StartVerticalOffset: 0
-  m_EndVerticalOffset: 0
 --- !u!1 &9129541519084032852
 GameObject:
   m_ObjectHideFlags: 0

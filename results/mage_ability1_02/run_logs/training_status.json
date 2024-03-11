@@ -1,0 +1,38 @@
+{
+    "Mage": {
+        "checkpoints": [
+            {
+                "steps": 499844,
+                "file_path": "results\\mage_ability1_02\\Mage\\Mage-499844.onnx",
+                "reward": 0.0,
+                "creation_time": 1710179711.3875782,
+                "auxillary_file_paths": [
+                    "results\\mage_ability1_02\\Mage\\Mage-499844.pt"
+                ]
+            },
+            {
+                "steps": 862485,
+                "file_path": "results\\mage_ability1_02\\Mage\\Mage-862485.onnx",
+                "reward": 0.17647058823529413,
+                "creation_time": 1710180039.106336,
+                "auxillary_file_paths": [
+                    "results\\mage_ability1_02\\Mage\\Mage-862485.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 862485,
+            "file_path": "results\\mage_ability1_02\\Mage.onnx",
+            "reward": 0.17647058823529413,
+            "creation_time": 1710180039.106336,
+            "auxillary_file_paths": [
+                "results\\mage_ability1_02\\Mage\\Mage-862485.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}
