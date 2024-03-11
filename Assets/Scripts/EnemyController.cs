@@ -8,6 +8,8 @@ using System.Linq;
 using UnityEngine.AI;
 using System;
 using Unity.MLAgents.Policies;
+using Random = UnityEngine.Random;
+
 
 public enum State
 {
@@ -36,6 +38,7 @@ public class EnemyController : Agent, IDamageable
     [SerializeField] private float currentHealth;
     [SerializeField] private bool isStunned;
     [SerializeField] private LayerMask movementLayers;
+    public DummyTarget dummy;
     private float actionTimer = 0f;
     private State currentState;
     private Vector3 currentHeuristicDestinationDirection;
@@ -92,13 +95,20 @@ public class EnemyController : Agent, IDamageable
     public override void OnEpisodeBegin()
     {
         ChangeState(State.Idle);
+
+        transform.position = getRandomPosition();
+        dummy.transform.position = getRandomPosition();
+        dummy.currentHealth = dummy.maxHealth;
+        
         currentHeuristicDestinationDirection = transform.position.normalized;
         currentHeuristicDestinationMagnitude = transform.position.magnitude;
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(navMeshAgent.transform.position / 15f);
+        sensor.AddObservation(navMeshAgent.transform.position.x / 15f);
+        sensor.AddObservation(navMeshAgent.transform.position.z / 15f);
+        sensor.AddObservation(dummy.currentHealth/dummy.maxHealth);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -501,9 +511,9 @@ public class EnemyController : Agent, IDamageable
 
     }
 
-    void randomizePosition()
+    Vector3 getRandomPosition()
     {
-        
+        return new Vector3((Random.value * 28) - 14f, 0f, (Random.value * 28) - 14f);
     }
 
     private void OnDrawGizmos()
