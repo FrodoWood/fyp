@@ -7,6 +7,7 @@ using Unity.MLAgents.Actuators;
 using System.Linq;
 using UnityEngine.AI;
 using System;
+using Unity.MLAgents.Policies;
 
 public enum State
 {
@@ -37,6 +38,8 @@ public class EnemyController : Agent, IDamageable
     [SerializeField] private LayerMask movementLayers;
     private float actionTimer = 0f;
     private State currentState;
+    private Vector3 currentHeuristicDestinationDirection;
+    private float currentHeuristicDestinationMagnitude;
 
     [Header("Gizmos")]
     public float bulletGizmoRadius = 1f;
@@ -49,6 +52,7 @@ public class EnemyController : Agent, IDamageable
     const int a_ability4 = 5;
 
     private ActionBuffers actionBuffers;
+    private BehaviorParameters behaviorParameters;
 
     private Ability1 ability1;
     private Ability2 ability2;
@@ -59,6 +63,7 @@ public class EnemyController : Agent, IDamageable
     {
         base.Awake();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        behaviorParameters = GetComponent<BehaviorParameters>();
         ability1 = GetComponent<Ability1>();
         ability2 = GetComponent<Ability2>();
         ability3 = GetComponent<Ability3>();
@@ -69,12 +74,14 @@ public class EnemyController : Agent, IDamageable
     {
         ChangeState(State.Idle);
     }
+
     private void Update()
     {
         actionTimer += Time.deltaTime;
+        SetCurrentDestination();
         UpdateCurrentState();
+        Debug.Log($" Navmesh destination: {navMeshAgent.destination}");
     }
-
 
     public override void Initialize()
     {
@@ -85,6 +92,8 @@ public class EnemyController : Agent, IDamageable
     public override void OnEpisodeBegin()
     {
         ChangeState(State.Idle);
+        currentHeuristicDestinationDirection = transform.position.normalized;
+        currentHeuristicDestinationMagnitude = transform.position.magnitude;
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -115,14 +124,8 @@ public class EnemyController : Agent, IDamageable
         var discreteActionsOut = actionsOut.DiscreteActions;
 
         // Setting continuous actions
-        if (Input.GetMouseButtonDown(1))
-        {
-            RaycastHit hit;
-            Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, movementLayers);
-            Vector3 movePosition = hit.point.normalized;
-            continuousActionsOut[0] = movePosition.x;
-            continuousActionsOut[1] = movePosition.z;
-        }
+        continuousActionsOut[0] = currentHeuristicDestinationDirection.x;
+        continuousActionsOut[1] = currentHeuristicDestinationDirection.z;
 
         // Setting discrete actions
         if (Input.GetKey(KeyCode.S)) discreteActionsOut[0] = a_idle;
@@ -319,8 +322,13 @@ public class EnemyController : Agent, IDamageable
     }
     private void UpdateMovingOnActionReceived()
     {
-        float xDestination = actionBuffers.ContinuousActions[0] * 15f;
-        float zDestination = actionBuffers.ContinuousActions[1] * 15f;
+        float destinationMagnitude;
+        if (behaviorParameters.BehaviorType == BehaviorType.HeuristicOnly) destinationMagnitude = currentHeuristicDestinationMagnitude;
+        else destinationMagnitude = 15f; 
+
+
+        float xDestination = actionBuffers.ContinuousActions[0] * destinationMagnitude;
+        float zDestination = actionBuffers.ContinuousActions[1] * destinationMagnitude;
         navMeshAgent.SetDestination(new Vector3(xDestination, 0f, zDestination));
 
         switch (actionBuffers.DiscreteActions[0])
@@ -471,6 +479,8 @@ public class EnemyController : Agent, IDamageable
     private void EnterDead()
     {
         navMeshAgent.enabled = false;
+        SetReward(0f);
+        EndEpisode();
     }
     private void ExitDead()
     {
@@ -482,8 +492,7 @@ public class EnemyController : Agent, IDamageable
     }
     private void UpdateDeadOnActionReceived()
     {
-        SetReward(0f);
-        EndEpisode();
+        
     }
 
 
@@ -520,5 +529,22 @@ public class EnemyController : Agent, IDamageable
     public EntityType GetEntityType()
     {
         return entity;
+    }
+
+    private void SetCurrentDestination()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green, 1f);
+            RaycastHit hit;
+            //Vector3 movePosition = Vector3.zero;
+            if (Physics.Raycast(ray, out hit, 100f, movementLayers))
+            {
+                Vector3 destination = hit.point;
+                currentHeuristicDestinationDirection = destination.normalized;
+                currentHeuristicDestinationMagnitude = destination.magnitude;
+            }
+        }
     }
 }
