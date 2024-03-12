@@ -107,19 +107,27 @@ public class EnemyController : Agent, IDamageable
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(transform.localPosition.x / 15f);
-        sensor.AddObservation(transform.localPosition.z / 15f);
+        sensor.AddObservation(transform.localPosition.x /15f);
+        sensor.AddObservation(transform.localPosition.z /15f);
+        sensor.AddObservation(transform.forward.x);
+        sensor.AddObservation(transform.forward.z);
+        
         sensor.AddObservation(dummy.currentHealth/dummy.maxHealth);
-        sensor.AddObservation(dummy.transform.localPosition.x / 15f);
-        sensor.AddObservation(dummy.transform.localPosition.z / 15f);
+        sensor.AddObservation(dummy.transform.localPosition.x /15f);
+        sensor.AddObservation(dummy.transform.localPosition.z /15f);
 
-        //Vector3 directionToTarget = dummy.transform.localPosition - transform.localPosition;
-        Vector3 normalizedDirection = dummy.transform.position.normalized;
-        float distanceToTargetMagnitude = dummy.transform.position.magnitude;
+        Vector3 directionToTarget = (dummy.transform.position - transform.position).normalized;
+        sensor.AddObservation(directionToTarget.x);
+        sensor.AddObservation(directionToTarget.z);
 
-        sensor.AddObservation(normalizedDirection.x);
-        sensor.AddObservation(normalizedDirection.z);
-        sensor.AddObservation(distanceToTargetMagnitude);
+        Debug.DrawLine(transform.position, dummy.transform.position, Color.red);
+        Debug.DrawLine(transform.position, transform.position + directionToTarget, Color.green);
+
+        //Vector3 normalizedDirection = dummy.transform.position.normalized;
+        //float distanceToTargetMagnitude = dummy.transform.position.magnitude;
+
+
+        //sensor.AddObservation(distanceToTargetMagnitude);
         //sensor.AddObservation(distanceToTargetMagnitude / 15f);
 
     }
@@ -135,10 +143,10 @@ public class EnemyController : Agent, IDamageable
             actionTimer = 0f;
         }
 
-        if(StepCount == MaxStep)
-        {
-            SetReward(-1f);
-        }
+        //if(StepCount == MaxStep)
+        //{
+        //    SetReward(-1f);
+        //}
 
     }
 
@@ -353,12 +361,17 @@ public class EnemyController : Agent, IDamageable
     {
         float destinationMagnitude;
         if (behaviorParameters.BehaviorType == BehaviorType.HeuristicOnly) destinationMagnitude = currentHeuristicDestinationMagnitude;
-        else destinationMagnitude = 15f; 
+        else destinationMagnitude = 4f;
 
+        float yEnvironment = transform.parent.position.y;
 
-        float xDestination = actionBuffers.ContinuousActions[0] * destinationMagnitude;
-        float zDestination = actionBuffers.ContinuousActions[1] * destinationMagnitude;
-        navMeshAgent.SetDestination(new Vector3(xDestination + transform.parent.position.x, 0f, zDestination + transform.parent.position.z));
+        Vector3 actionDestinationWorldOrigin = new Vector3(actionBuffers.ContinuousActions[0], 0f, actionBuffers.ContinuousActions[1]).normalized * destinationMagnitude;
+        Vector3 actionDestinationLocalOriginWorldPosition = actionDestinationWorldOrigin + transform.position;
+
+        //Debug.DrawLine(Vector3.zero, actionDestinationWorldOrigin, Color.green);
+        //Debug.DrawLine(transform.position, actionDestinationLocalOriginWorldPosition, Color.red);
+
+        navMeshAgent.SetDestination(actionDestinationLocalOriginWorldPosition);
         //Debug.Log($"Training env pos: {transform.parent.position}");
         switch (actionBuffers.DiscreteActions[0])
         {

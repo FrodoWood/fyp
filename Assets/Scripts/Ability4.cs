@@ -10,7 +10,7 @@ public class Ability4 : BaseAbility
     protected override void Start()
     {
         base.Start();
-        isComplete = false;
+        isComplete = true;
     }
 
     protected override void Update()
