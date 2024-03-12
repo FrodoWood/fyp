@@ -123,6 +123,8 @@ public class EnemyController : Agent, IDamageable
         Debug.DrawLine(transform.position, dummy.transform.position, Color.red);
         Debug.DrawLine(transform.position, transform.position + directionToTarget, Color.green);
 
+        sensor.AddObservation(ability1.Available() ? 1 : 0);
+
         //Vector3 normalizedDirection = dummy.transform.position.normalized;
         //float distanceToTargetMagnitude = dummy.transform.position.magnitude;
 
