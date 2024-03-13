@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float damage;
-    private EntityType entity;
+    public EntityType entity { get; private set; }
     private EnemyController agentController;
 
     public void Initialize(float damageValue, EntityType entityType, EnemyController enemyController)
@@ -17,9 +17,14 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
+        
 
-        if(damageable != null && damageable.GetEntityType() != entity)
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
+
+        if (damageable != null && damageable.GetEntityType() != entity)
         {
             agentController?.AddReward(1f);
             Debug.Log("Enemy Hit!");
@@ -27,9 +32,6 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
 
-    }
-    private void OnTriggerEnter(Collider other)
-    {
         if (other.gameObject.CompareTag("wall"))
         {
             Destroy(gameObject);

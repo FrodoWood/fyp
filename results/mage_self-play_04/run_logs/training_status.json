@@ -1,0 +1,30 @@
+{
+    "Mage": {
+        "elo": 1197.3484806515776,
+        "checkpoints": [
+            {
+                "steps": 356266,
+                "file_path": "results\\mage_self-play_04\\Mage\\Mage-356266.onnx",
+                "reward": -0.125,
+                "creation_time": 1710293556.9784083,
+                "auxillary_file_paths": [
+                    "results\\mage_self-play_04\\Mage\\Mage-356266.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 356266,
+            "file_path": "results\\mage_self-play_04\\Mage.onnx",
+            "reward": -0.125,
+            "creation_time": 1710293556.9784083,
+            "auxillary_file_paths": [
+                "results\\mage_self-play_04\\Mage\\Mage-356266.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}

@@ -34,18 +34,22 @@ public class EnemyController : Agent, IDamageable
     [SerializeField] private EntityType entity;
     private NavMeshAgent navMeshAgent;
     [SerializeField] private float actionCooldown;
-    [SerializeField] private float maxHealth;
-    [SerializeField] private float currentHealth;
+    [SerializeField] public float maxHealth;
+    [SerializeField] public float currentHealth;
     [SerializeField] private bool isStunned;
     [SerializeField] private LayerMask movementLayers;
-    public DummyTarget dummy;
+    public EnemyController targetEnemy;
     private float actionTimer = 0f;
-    private State currentState;
+    public State currentState { get; private set; }
     private Vector3 currentHeuristicDestinationDirection;
     private float currentHeuristicDestinationMagnitude;
 
+    private Bullet[] bullets;
+    private BufferSensorComponent bufferSensor;
+
     [Header("Gizmos")]
     public float bulletGizmoRadius = 1f;
+    public Color bulletGizmoColor;
 
     const int a_idle = 0;
     const int a_moving = 1;
@@ -76,6 +80,7 @@ public class EnemyController : Agent, IDamageable
     private void Start()
     {
         ChangeState(State.Idle);
+        ResetHealth();
     }
 
     private void Update()
@@ -90,48 +95,61 @@ public class EnemyController : Agent, IDamageable
     {
         ChangeState(State.Idle);
         isStunned = false;
+        bullets = FindObjectsOfType<Bullet>();
+        bufferSensor = GetComponent<BufferSensorComponent>();
     }
 
     public override void OnEpisodeBegin()
     {
         ChangeState(State.Idle);
-        navMeshAgent.ResetPath();
-
-        transform.localPosition = getRandomPosition(transform.localPosition);
-        dummy.transform.localPosition = getRandomPosition(dummy.transform.localPosition);
-        dummy.currentHealth = dummy.maxHealth;
+        if(navMeshAgent.hasPath) navMeshAgent.ResetPath();
         
         currentHeuristicDestinationDirection = transform.position.normalized;
         currentHeuristicDestinationMagnitude = transform.position.magnitude;
+
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(transform.localPosition.x /15f);
-        sensor.AddObservation(transform.localPosition.z /15f);
+        sensor.AddObservation(transform.localPosition.x / 15f);
+        sensor.AddObservation(transform.localPosition.z / 15f);
         sensor.AddObservation(transform.forward.x);
         sensor.AddObservation(transform.forward.z);
-        
-        sensor.AddObservation(dummy.currentHealth/dummy.maxHealth);
-        sensor.AddObservation(dummy.transform.localPosition.x /15f);
-        sensor.AddObservation(dummy.transform.localPosition.z /15f);
 
-        Vector3 directionToTarget = (dummy.transform.position - transform.position).normalized;
+        sensor.AddObservation(targetEnemy.currentHealth / targetEnemy.maxHealth);
+        sensor.AddObservation(targetEnemy.transform.localPosition.x / 15f);
+        sensor.AddObservation(targetEnemy.transform.localPosition.z / 15f);
+
+        Vector3 directionToTarget = (targetEnemy.transform.position - transform.position).normalized;
         sensor.AddObservation(directionToTarget.x);
         sensor.AddObservation(directionToTarget.z);
 
-        Debug.DrawLine(transform.position, dummy.transform.position, Color.red);
+        Debug.DrawLine(transform.position, targetEnemy.transform.position, Color.red);
         Debug.DrawLine(transform.position, transform.position + directionToTarget, Color.green);
 
         sensor.AddObservation(ability1.Available() ? 1 : 0);
 
-        //Vector3 normalizedDirection = dummy.transform.position.normalized;
-        //float distanceToTargetMagnitude = dummy.transform.position.magnitude;
 
+        // Variable length observation
+        bullets = transform.parent.GetComponentsInChildren<Bullet>()
+            .Where(bullet=> bullet.entity != entity)
+            .OrderBy(bullet => Vector3.Distance(transform.localPosition, bullet.transform.localPosition))
+            .Take(3)
+            .ToArray();
 
-        //sensor.AddObservation(distanceToTargetMagnitude);
-        //sensor.AddObservation(distanceToTargetMagnitude / 15f);
+        foreach (Bullet bullet in bullets)
+        {
+            float[] bulletObservation = new float[]
+            {
+                (bullet.transform.localPosition.x - transform.localPosition.x) / 15f,
+                (bullet.transform.localPosition.z - transform.localPosition.z) / 15f,
+                bullet.transform.forward.x,
+                bullet.transform.forward.z
+            };
+            //Debug.Log("\n" + bulletObservation[0] + bulletObservation[1]);
+            bufferSensor.AppendObservation(bulletObservation);
 
+        }
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -315,7 +333,7 @@ public class EnemyController : Agent, IDamageable
     }
     private void ExitIdle()
     {
-        
+        navMeshAgent.isStopped = false;
     }
     private void UpdateIdleOnActionReceived()
     {
@@ -427,7 +445,7 @@ public class EnemyController : Agent, IDamageable
     }
     private void ExitAbility1()
     {
-        
+        navMeshAgent.isStopped = false;
     }
     private void UpdateAbility1OnActionReceived()
     {
@@ -538,9 +556,7 @@ public class EnemyController : Agent, IDamageable
 
     private void EnterDead()
     {
-        navMeshAgent.enabled = false;
-        SetReward(0f);
-        EndEpisode();
+        SetReward(-1f);
     }
     private void ExitDead()
     {
@@ -568,7 +584,15 @@ public class EnemyController : Agent, IDamageable
 
     private void OnDrawGizmos()
     {
-        
+        if (bullets != null && bullets.Length > 0)
+        {
+            foreach (Bullet bullet in bullets)
+            {
+                if (bullet == null) continue;
+                Gizmos.color = bulletGizmoColor;
+                Gizmos.DrawSphere(bullet.transform.position, bulletGizmoRadius);
+            }
+        }
     }
 
     public void TakeDamage(float damageAmount)
@@ -606,5 +630,10 @@ public class EnemyController : Agent, IDamageable
                 currentHeuristicDestinationMagnitude = destination.magnitude;
             }
         }
+    }
+
+    public void ResetHealth()
+    {
+        currentHealth = maxHealth;
     }
 }
