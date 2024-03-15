@@ -111,18 +111,22 @@ public class EnemyController : Agent, IDamageable
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(transform.localPosition.x / 15f);
-        sensor.AddObservation(transform.localPosition.z / 15f);
+        //sensor.AddObservation(transform.localPosition.x / 15f);
+        //sensor.AddObservation(transform.localPosition.z / 15f);
         sensor.AddObservation(transform.forward.x);
         sensor.AddObservation(transform.forward.z);
 
         sensor.AddObservation(targetEnemy.currentHealth / targetEnemy.maxHealth);
-        sensor.AddObservation(targetEnemy.transform.localPosition.x / 15f);
-        sensor.AddObservation(targetEnemy.transform.localPosition.z / 15f);
+        //sensor.AddObservation(targetEnemy.transform.localPosition.x / 15f);
+        //sensor.AddObservation(targetEnemy.transform.localPosition.z / 15f);
 
-        Vector3 directionToTarget = (targetEnemy.transform.position - transform.position).normalized;
+        Vector3 relativeDistanceToTarget = (targetEnemy.transform.position - transform.position);
+        Vector3 directionToTarget = relativeDistanceToTarget.normalized;
+        float distanceMagnitudeToTarget = relativeDistanceToTarget.magnitude;
+
         sensor.AddObservation(directionToTarget.x);
         sensor.AddObservation(directionToTarget.z);
+        sensor.AddObservation(distanceMagnitudeToTarget);
 
         Debug.DrawLine(transform.position, targetEnemy.transform.position, Color.red);
         Debug.DrawLine(transform.position, transform.position + directionToTarget, Color.green);
@@ -132,7 +136,7 @@ public class EnemyController : Agent, IDamageable
 
         // Variable length observation
         bullets = transform.parent.GetComponentsInChildren<Bullet>()
-            .Where(bullet=> bullet.entity != entity)
+            //.Where(bullet=> bullet.entity != entity)
             .OrderBy(bullet => Vector3.Distance(transform.localPosition, bullet.transform.localPosition))
             .Take(3)
             .ToArray();
@@ -155,7 +159,7 @@ public class EnemyController : Agent, IDamageable
     public override void OnActionReceived(ActionBuffers actions)
     {
         actionBuffers = actions;
-        //AddReward(-(1f / MaxStep));
+        AddReward(-0.1f / MaxStep);
         if (actionTimer >= actionCooldown)
         {
 

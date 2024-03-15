@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 10
+    VectorObservationSize: 7
     NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 2
@@ -197,7 +197,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 59484b4c0d8eeb842981e97a92b8bd9b, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Mage
@@ -223,7 +223,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 200
   entity: 0
-  actionCooldown: 0.2
+  actionCooldown: 0
   maxHealth: 10
   currentHealth: 0
   isStunned: 0
@@ -249,7 +249,7 @@ MonoBehaviour:
   abilityEnabled: 1
   cooldown: 0.2
   damage: 10
-  speed: 30
+  speed: 40
   bulletPrefab: {fileID: 835461798170658529, guid: 9415b93f3dd9f5844aa9ea165dfe982a,
     type: 3}
   firingPoint: {fileID: 4238230038242143645}

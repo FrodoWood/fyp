@@ -6,8 +6,8 @@ behaviors:
       buffer_size: 20480
       learning_rate: 0.0003
       beta: 0.005
-      epsilon: 0.3
-      lambd: 0.93
+      epsilon: 0.2
+      lambd: 0.95
       num_epoch: 4
       learning_rate_schedule: linear
       beta_schedule: constant
@@ -18,14 +18,14 @@ behaviors:
       num_layers: 2
     reward_signals:
       extrinsic:
-        gamma: 0.96
+        gamma: 0.99
         strength: 1.0
-    max_steps: 1000000
-    time_horizon: 200
+    max_steps: 2000000
+    time_horizon: 64
     summary_freq: 10000
     self_play:
-      window: 10
+      window: 5
       play_against_latest_model_ratio: 0.5
-      save_steps: 20000
+      save_steps: 100000
       swap_steps: 10000
       team_change: 100000
