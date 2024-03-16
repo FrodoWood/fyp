@@ -385,18 +385,21 @@ public class EnemyController : Agent, IDamageable
     private void UpdateMovingOnActionReceived()
     {
         float destinationMagnitude;
-        if (behaviorParameters.BehaviorType == BehaviorType.HeuristicOnly) destinationMagnitude = currentHeuristicDestinationMagnitude;
+        // Heuristic
+        if (behaviorParameters.BehaviorType == BehaviorType.HeuristicOnly)
+        {
+            destinationMagnitude = currentHeuristicDestinationMagnitude;
+        }
         else destinationMagnitude = 4f;
-
-        float yEnvironment = transform.parent.position.y;
+        // Training or Inference
 
         Vector3 actionDestinationWorldOrigin = new Vector3(actionBuffers.ContinuousActions[0], 0f, actionBuffers.ContinuousActions[1]).normalized * destinationMagnitude;
-        Vector3 actionDestinationLocalOriginWorldPosition = actionDestinationWorldOrigin + transform.position;
+        Vector3 actionDestinationOriginToPlayer = actionDestinationWorldOrigin + transform.position;
 
         //Debug.DrawLine(Vector3.zero, actionDestinationWorldOrigin, Color.green);
         //Debug.DrawLine(transform.position, actionDestinationLocalOriginWorldPosition, Color.red);
 
-        navMeshAgent.SetDestination(actionDestinationLocalOriginWorldPosition);
+        navMeshAgent.SetDestination(actionDestinationOriginToPlayer);
         //Debug.Log($"Training env pos: {transform.parent.position}");
         switch (actionBuffers.DiscreteActions[0])
         {
@@ -633,8 +636,16 @@ public class EnemyController : Agent, IDamageable
             if (Physics.Raycast(ray, out hit, 100f, movementLayers))
             {
                 Vector3 destination = hit.point;
-                currentHeuristicDestinationDirection = destination.normalized;
-                currentHeuristicDestinationMagnitude = destination.magnitude;
+
+                Vector3 distanceToPoint = destination - transform.position;
+                Vector3 distancePlayerTargetToOrigin = distanceToPoint - transform.position;
+                Vector3 destinationDirection = distancePlayerTargetToOrigin.normalized;
+
+                float distanceToPointMagnitude = distanceToPoint.magnitude;
+                
+
+                currentHeuristicDestinationDirection = destinationDirection;
+                currentHeuristicDestinationMagnitude = distanceToPointMagnitude;
             }
         }
     }

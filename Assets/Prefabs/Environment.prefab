@@ -1355,6 +1355,11 @@ PrefabInstance:
       propertyPath: TeamId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3376682228570027408, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: m_BehaviorType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3567076489887189047, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
