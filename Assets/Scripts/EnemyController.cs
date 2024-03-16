@@ -563,7 +563,7 @@ public class EnemyController : Agent, IDamageable
 
     private void EnterDead()
     {
-        SetReward(-1f);
+        AddReward(-1f);
     }
     private void ExitDead()
     {

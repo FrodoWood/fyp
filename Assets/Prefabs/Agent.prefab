@@ -224,7 +224,7 @@ MonoBehaviour:
   MaxStep: 200
   entity: 0
   actionCooldown: 0
-  maxHealth: 10
+  maxHealth: 20
   currentHealth: 0
   isStunned: 0
   movementLayers:
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onCooldown: 0
   abilityEnabled: 1
-  cooldown: 0.2
+  cooldown: 0.5
   damage: 10
   speed: 40
   bulletPrefab: {fileID: 835461798170658529, guid: 9415b93f3dd9f5844aa9ea165dfe982a,
@@ -309,7 +309,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 8
+  m_Speed: 14
   m_Acceleration: 99999
   avoidancePriority: 50
   m_AngularSpeed: 99999

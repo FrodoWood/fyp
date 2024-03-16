@@ -10,14 +10,21 @@ public class EnvController : MonoBehaviour
 
     private void Update()
     {
-        if(purpleAgent.currentState == State.Dead || blueAgent.currentState == State.Dead)
+        if (purpleAgent.currentState == State.Dead)
         {
-            
+            blueAgent.SetReward(1f);
+            ResetScene();
+        }
+        else if (blueAgent.currentState == State.Dead)
+        {
+            purpleAgent.SetReward(1f);
             ResetScene();
         }
 
-        if(purpleAgent.StepCount >= purpleAgent.MaxStep || blueAgent.StepCount >= blueAgent.MaxStep)
+        else if(purpleAgent.StepCount >= purpleAgent.MaxStep || blueAgent.StepCount >= blueAgent.MaxStep)
         {
+            purpleAgent.SetReward(0f);
+            blueAgent.SetReward(0f);
             ResetScene();   
         }
         
