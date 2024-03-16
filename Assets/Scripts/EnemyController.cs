@@ -329,7 +329,8 @@ public class EnemyController : Agent, IDamageable
 
     private void EnterIdle()
     {
-        navMeshAgent.isStopped = true;
+        //navMeshAgent.isStopped = true;
+        Debug.Log("Entered Idle/No Input");
     }
     private void UpdateIdle()
     {
@@ -337,7 +338,7 @@ public class EnemyController : Agent, IDamageable
     }
     private void ExitIdle()
     {
-        navMeshAgent.isStopped = false;
+        //navMeshAgent.isStopped = false;
     }
     private void UpdateIdleOnActionReceived()
     {
@@ -429,6 +430,8 @@ public class EnemyController : Agent, IDamageable
         if (!ability1.isEnabled()) return;
         Debug.Log("Entered ability1");
         navMeshAgent.isStopped = true;
+        Vector3 lookAtTarget = new Vector3(actionBuffers.ContinuousActions[0], 0f, actionBuffers.ContinuousActions[1]).normalized + transform.position;
+        transform.LookAt(lookAtTarget);
         //Vector3 lookAtTarget = Vector3.zero;
         //if (behaviorParameters.BehaviorType == BehaviorType.HeuristicOnly)
         //{
