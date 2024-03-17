@@ -66,6 +66,10 @@ public class EnemyController : Agent, IDamageable
     private Ability3 ability3;
     private Ability4 ability4;
 
+    //Cached Inputs
+    private bool mouseButtonPressed = false;
+    private KeyCode abilityKeyCode = KeyCode.None;
+
     protected override void Awake()
     {
         base.Awake();
@@ -86,9 +90,15 @@ public class EnemyController : Agent, IDamageable
     private void Update()
     {
         actionTimer += Time.deltaTime;
-        SetCurrentDestination();
+        SetCurrentDestination(); // also caching mouse input
         UpdateCurrentState();
         //Debug.Log($" Navmesh destination: {navMeshAgent.destination}");
+
+        // Caching inputs because Heuristic gets called every FixedUpdate
+        if      (Input.GetKey(KeyCode.Q)) abilityKeyCode =  KeyCode.Q;
+        else if (Input.GetKey(KeyCode.W)) abilityKeyCode =  KeyCode.W;
+        else if (Input.GetKey(KeyCode.E)) abilityKeyCode =  KeyCode.E;
+        else if (Input.GetKey(KeyCode.R)) abilityKeyCode =  KeyCode.R;
     }
 
     public override void Initialize()
@@ -102,7 +112,7 @@ public class EnemyController : Agent, IDamageable
     public override void OnEpisodeBegin()
     {
         ChangeState(State.Idle);
-        if(navMeshAgent.hasPath) navMeshAgent.ResetPath();
+        //if(navMeshAgent.hasPath) navMeshAgent.ResetPath();
         
         currentHeuristicDestinationDirection = transform.position.normalized;
         currentHeuristicDestinationMagnitude = transform.position.magnitude;
@@ -128,8 +138,8 @@ public class EnemyController : Agent, IDamageable
         sensor.AddObservation(directionToTarget.z);
         sensor.AddObservation(distanceMagnitudeToTarget);
 
-        Debug.DrawLine(transform.position, targetEnemy.transform.position, Color.red);
-        Debug.DrawLine(transform.position, transform.position + directionToTarget, Color.green);
+        //Debug.DrawLine(transform.position, targetEnemy.transform.position, Color.red);
+        //Debug.DrawLine(transform.position, transform.position + directionToTarget, Color.green, 2f);
 
         sensor.AddObservation(ability1.Available() ? 1 : 0);
 
@@ -189,13 +199,26 @@ public class EnemyController : Agent, IDamageable
         continuousActionsOut[1] = currentHeuristicDestinationDirection.z;
 
         // Setting discrete actions
-        if (Input.GetKey(KeyCode.S)) discreteActionsOut[0] = a_idle;
-        else if (Input.GetKey(KeyCode.Q)) discreteActionsOut[0] = a_ability1;
-        else if (Input.GetKey(KeyCode.W)) discreteActionsOut[0] = a_ability2;
-        else if (Input.GetKey(KeyCode.E)) discreteActionsOut[0] = a_ability3;
-        else if (Input.GetKey(KeyCode.R)) discreteActionsOut[0] = a_ability4;
-        else discreteActionsOut[0] = a_moving;
+        if (abilityKeyCode != KeyCode.None) discreteActionsOut[0] = GetAbilityAction(abilityKeyCode);
+        else if (mouseButtonPressed) discreteActionsOut[0] = a_moving;
+        else discreteActionsOut[0] = a_idle;
 
+        // Reset input cache after it has been processed here in Heuristic
+        abilityKeyCode = KeyCode.None;
+        mouseButtonPressed = false;
+
+    }
+
+    private int GetAbilityAction(KeyCode keycode)
+    {
+        switch (keycode)
+        {
+            case KeyCode.Q: return a_ability1;
+            case KeyCode.W: return a_ability2;
+            case KeyCode.E: return a_ability3;
+            case KeyCode.R: return a_ability4;
+            default: return a_idle;
+        }
     }
 
     private void ChangeState(State newState)
@@ -392,12 +415,12 @@ public class EnemyController : Agent, IDamageable
         }
         else destinationMagnitude = 4f;
         // Training or Inference
-
+        Debug.Log($"contActions[0]: {actionBuffers.ContinuousActions[0]}, contActions[1]: {actionBuffers.ContinuousActions[1]}");
         Vector3 actionDestinationWorldOrigin = new Vector3(actionBuffers.ContinuousActions[0], 0f, actionBuffers.ContinuousActions[1]).normalized * destinationMagnitude;
         Vector3 actionDestinationOriginToPlayer = actionDestinationWorldOrigin + transform.position;
 
-        //Debug.DrawLine(Vector3.zero, actionDestinationWorldOrigin, Color.green);
-        //Debug.DrawLine(transform.position, actionDestinationLocalOriginWorldPosition, Color.red);
+        //Debug.DrawLine(Vector3.zero, actionDestinationWorldOrigin, Color.green, 2f);
+        //Debug.DrawLine(transform.position, actionDestinationOriginToPlayer, Color.red, 2f);
 
         navMeshAgent.SetDestination(actionDestinationOriginToPlayer);
         //Debug.Log($"Training env pos: {transform.parent.position}");
@@ -459,7 +482,7 @@ public class EnemyController : Agent, IDamageable
     }
     private void UpdateAbility1OnActionReceived()
     {
-        ChangeState(State.Moving);
+        ChangeState(State.Idle);
     }
 
     private void EnterAbility2()
@@ -627,25 +650,36 @@ public class EnemyController : Agent, IDamageable
 
     private void SetCurrentDestination()
     {
-        if (Input.GetMouseButtonDown(1))
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green, 1f);
+        RaycastHit hit;
+        //Vector3 movePosition = Vector3.zero;
+        if (Physics.Raycast(ray, out hit, 100f, movementLayers))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green, 1f);
-            RaycastHit hit;
-            //Vector3 movePosition = Vector3.zero;
-            if (Physics.Raycast(ray, out hit, 100f, movementLayers))
+            Vector3 destination = hit.point;
+            Debug.Log($"hit.point = {hit.point}");
+            //Debug.DrawLine(Camera.main.transform.position, destination, Color.red, 1f);
+
+            Vector3 agentToPoint = hit.point;
+
+            // Debug vectors
+
+            Vector3 distancePlayerTargetToOrigin = agentToPoint - transform.position;
+
+            Vector3 destinationDirection = distancePlayerTargetToOrigin.normalized;
+
+            float distanceToPointMagnitude = distancePlayerTargetToOrigin.magnitude;
+
+
+            currentHeuristicDestinationDirection = destinationDirection;
+            currentHeuristicDestinationMagnitude = distanceToPointMagnitude;
+
+            if (Input.GetMouseButtonDown(1))
             {
-                Vector3 destination = hit.point;
-
-                Vector3 distanceToPoint = destination - transform.position;
-                Vector3 distancePlayerTargetToOrigin = distanceToPoint - transform.position;
-                Vector3 destinationDirection = distancePlayerTargetToOrigin.normalized;
-
-                float distanceToPointMagnitude = distanceToPoint.magnitude;
-                
-
-                currentHeuristicDestinationDirection = destinationDirection;
-                currentHeuristicDestinationMagnitude = distanceToPointMagnitude;
+                mouseButtonPressed = true;
+                Debug.DrawLine(Vector3.zero, transform.position, Color.magenta, 2f);
+                Debug.DrawLine(Vector3.zero, hit.point, Color.black, 2f);
+                Debug.DrawLine(transform.position, agentToPoint, Color.blue, 2f);
             }
         }
     }
