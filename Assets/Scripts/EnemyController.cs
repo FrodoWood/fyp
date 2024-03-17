@@ -182,12 +182,6 @@ public class EnemyController : Agent, IDamageable
             actionTimer = 0f;
         }
 
-        Vector3 relativeDistanceToTarget = (targetEnemy.transform.position - transform.position);
-        Vector3 directionToTarget = relativeDistanceToTarget.normalized;
-        float distanceMagnitudeToTarget = relativeDistanceToTarget.magnitude / 44f;
-
-        if (distanceMagnitudeToTarget < 10f) AddReward(-1f * Time.fixedDeltaTime);
-
         //if(StepCount == MaxStep)
         //{
         //    SetReward(-1f);
