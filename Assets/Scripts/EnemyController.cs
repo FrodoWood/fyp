@@ -132,7 +132,7 @@ public class EnemyController : Agent, IDamageable
 
         Vector3 relativeDistanceToTarget = (targetEnemy.transform.position - transform.position);
         Vector3 directionToTarget = relativeDistanceToTarget.normalized;
-        float distanceMagnitudeToTarget = relativeDistanceToTarget.magnitude;
+        float distanceMagnitudeToTarget = relativeDistanceToTarget.magnitude / 44f;
 
         sensor.AddObservation(directionToTarget.x);
         sensor.AddObservation(directionToTarget.z);
@@ -161,7 +161,7 @@ public class EnemyController : Agent, IDamageable
                 //(bullet.transform.localPosition.z - transform.localPosition.z) / 15f,
                 agentToBullet.normalized.x,
                 agentToBullet.normalized.z,
-                agentToBullet.magnitude,
+                agentToBullet.magnitude / 44f,
                 bullet.transform.forward.x,
                 bullet.transform.forward.z
             };
@@ -181,6 +181,12 @@ public class EnemyController : Agent, IDamageable
             UpdateStateOnActionReceived();
             actionTimer = 0f;
         }
+
+        Vector3 relativeDistanceToTarget = (targetEnemy.transform.position - transform.position);
+        Vector3 directionToTarget = relativeDistanceToTarget.normalized;
+        float distanceMagnitudeToTarget = relativeDistanceToTarget.magnitude / 44f;
+
+        if (distanceMagnitudeToTarget < 10f) AddReward(-1f * Time.fixedDeltaTime);
 
         //if(StepCount == MaxStep)
         //{
@@ -636,6 +642,7 @@ public class EnemyController : Agent, IDamageable
     public void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
+        AddReward(-0.5f);
         if (currentHealth <= 0)
         {
             ChangeState(State.Dead);
