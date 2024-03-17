@@ -153,10 +153,15 @@ public class EnemyController : Agent, IDamageable
 
         foreach (Bullet bullet in bullets)
         {
+            Vector3 agentToBullet = bullet.transform.position - transform.position;
+
             float[] bulletObservation = new float[]
             {
-                (bullet.transform.localPosition.x - transform.localPosition.x) / 15f,
-                (bullet.transform.localPosition.z - transform.localPosition.z) / 15f,
+                //(bullet.transform.localPosition.x - transform.localPosition.x) / 15f,
+                //(bullet.transform.localPosition.z - transform.localPosition.z) / 15f,
+                agentToBullet.normalized.x,
+                agentToBullet.normalized.z,
+                agentToBullet.magnitude,
                 bullet.transform.forward.x,
                 bullet.transform.forward.z
             };

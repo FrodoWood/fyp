@@ -1,0 +1,66 @@
+{
+    "Mage": {
+        "checkpoints": [
+            {
+                "steps": 499941,
+                "file_path": "results\\mage_self_play_relative_bullet_01\\Mage\\Mage-499941.onnx",
+                "reward": 0.09183333831077273,
+                "creation_time": 1710638986.2978294,
+                "auxillary_file_paths": [
+                    "results\\mage_self_play_relative_bullet_01\\Mage\\Mage-499941.pt"
+                ]
+            },
+            {
+                "steps": 999982,
+                "file_path": "results\\mage_self_play_relative_bullet_01\\Mage\\Mage-999982.onnx",
+                "reward": 0.3455241130923022,
+                "creation_time": 1710640050.1534889,
+                "auxillary_file_paths": [
+                    "results\\mage_self_play_relative_bullet_01\\Mage\\Mage-999982.pt"
+                ]
+            },
+            {
+                "steps": 1499968,
+                "file_path": "results\\mage_self_play_relative_bullet_01\\Mage\\Mage-1499968.onnx",
+                "reward": null,
+                "creation_time": 1710641136.2149734,
+                "auxillary_file_paths": [
+                    "results\\mage_self_play_relative_bullet_01\\Mage\\Mage-1499968.pt"
+                ]
+            },
+            {
+                "steps": 1999993,
+                "file_path": "results\\mage_self_play_relative_bullet_01\\Mage\\Mage-1999993.onnx",
+                "reward": 0.5493562048020428,
+                "creation_time": 1710642193.6592278,
+                "auxillary_file_paths": [
+                    "results\\mage_self_play_relative_bullet_01\\Mage\\Mage-1999993.pt"
+                ]
+            },
+            {
+                "steps": 2000046,
+                "file_path": "results\\mage_self_play_relative_bullet_01\\Mage\\Mage-2000046.onnx",
+                "reward": 0.5614189584613651,
+                "creation_time": 1710642193.861279,
+                "auxillary_file_paths": [
+                    "results\\mage_self_play_relative_bullet_01\\Mage\\Mage-2000046.pt"
+                ]
+            }
+        ],
+        "elo": 1349.1180493450008,
+        "final_checkpoint": {
+            "steps": 2000046,
+            "file_path": "results\\mage_self_play_relative_bullet_01\\Mage.onnx",
+            "reward": 0.5614189584613651,
+            "creation_time": 1710642193.861279,
+            "auxillary_file_paths": [
+                "results\\mage_self_play_relative_bullet_01\\Mage\\Mage-2000046.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}

@@ -247,9 +247,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onCooldown: 0
   abilityEnabled: 1
-  cooldown: 0.5
+  cooldown: 1
   damage: 10
-  speed: 40
+  speed: 20
   bulletPrefab: {fileID: 835461798170658529, guid: 9415b93f3dd9f5844aa9ea165dfe982a,
     type: 3}
   firingPoint: {fileID: 4238230038242143645}
@@ -357,7 +357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SensorName: BufferSensor
-  m_ObservableSize: 4
+  m_ObservableSize: 5
   m_MaxNumObservables: 3
 --- !u!1 &3185015439139808452
 GameObject:
