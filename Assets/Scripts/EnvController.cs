@@ -53,7 +53,7 @@ public class EnvController : MonoBehaviour
         blueAgent.EndEpisode();
 
         // Randomize agents' positions
-        float randomX = Random.Range(-14f, 14f);
+        float randomX = Random.Range(-14f, -3);
         float randomZ = Random.Range(-14f, 14f);
 
         purpleAgent.transform.position = new Vector3(randomX, purpleAgent.transform.position.y, randomZ);

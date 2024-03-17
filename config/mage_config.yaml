@@ -14,18 +14,18 @@ behaviors:
       epsilon_schedule: linear
     network_settings:
       normalize: false
-      hidden_units: 128
+      hidden_units: 256
       num_layers: 2
     reward_signals:
       extrinsic:
         gamma: 0.99
         strength: 1.0
     max_steps: 2000000
-    time_horizon: 64
+    time_horizon: 128
     summary_freq: 10000
     self_play:
-      window: 5
+      window: 10
       play_against_latest_model_ratio: 0.5
-      save_steps: 100000
-      swap_steps: 10000
+      save_steps: 20000
+      swap_steps: 1000
       team_change: 100000
