@@ -1,23 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class EnvController : MonoBehaviour
 {
     [SerializeField] private EnemyController purpleAgent;
     [SerializeField] private EnemyController blueAgent;
+
+    public int purpleScore;
+    public int blueScore;
+    public TextMeshProUGUI scoreText;
     
 
     private void Update()
     {
+        updateScoreText();
+
         if (purpleAgent.currentState == State.Dead)
         {
             blueAgent.SetReward(1f);
+            increaseBlueScore();
             ResetScene();
         }
         else if (blueAgent.currentState == State.Dead)
         {
             purpleAgent.SetReward(1f);
+            increasePurpleScore();
             ResetScene();
         }
 
@@ -28,6 +38,12 @@ public class EnvController : MonoBehaviour
             ResetScene();   
         }
         
+    }
+
+    private void updateScoreText()
+    {
+        //scoreText.text = purpleScore.ToString() + "+" + blueScore.ToString();
+        scoreText.text = new string($"Blue {blueScore.ToString()}  :  {purpleScore.ToString()} Purple");
     }
 
     public void ResetScene()
@@ -55,5 +71,12 @@ public class EnvController : MonoBehaviour
         blueAgent.ResetHealth();
     }
 
-
+    private void increaseBlueScore()
+    {
+        blueScore += 1;
+    }
+    private void increasePurpleScore()
+    {
+        purpleScore += 1;
+    }
 }
