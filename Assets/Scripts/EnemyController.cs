@@ -46,6 +46,8 @@ public class EnemyController : Agent, IDamageable
 
     private Bullet[] bullets;
     private BufferSensorComponent bufferSensor;
+    Collider coll;
+    public Transform goal;
 
     [Header("Gizmos")]
     public float bulletGizmoRadius = 1f;
@@ -66,6 +68,8 @@ public class EnemyController : Agent, IDamageable
     private Ability3 ability3;
     private Ability4 ability4;
 
+    public bool hasWon = false;
+
     //Cached Inputs
     private bool mouseButtonPressed = false;
     private KeyCode abilityKeyCode = KeyCode.None;
@@ -75,6 +79,7 @@ public class EnemyController : Agent, IDamageable
         base.Awake();
         navMeshAgent = GetComponent<NavMeshAgent>();
         behaviorParameters = GetComponent<BehaviorParameters>();
+        coll = GetComponent<Collider>();
         ability1 = GetComponent<Ability1>();
         ability2 = GetComponent<Ability2>();
         ability3 = GetComponent<Ability3>();
@@ -112,6 +117,8 @@ public class EnemyController : Agent, IDamageable
     public override void OnEpisodeBegin()
     {
         ChangeState(State.Idle);
+        hasWon = false;
+        coll.enabled = true;
         //if(navMeshAgent.hasPath) navMeshAgent.ResetPath();
         
         currentHeuristicDestinationDirection = transform.position.normalized;
@@ -132,11 +139,21 @@ public class EnemyController : Agent, IDamageable
 
         Vector3 relativeDistanceToTarget = (targetEnemy.transform.position - transform.position);
         Vector3 directionToTarget = relativeDistanceToTarget.normalized;
-        float distanceMagnitudeToTarget = relativeDistanceToTarget.magnitude / 44f;
+        Debug.DrawLine(Vector3.zero, directionToTarget, Color.green);
+        float distanceMagnitudeToTarget = relativeDistanceToTarget.magnitude / 70f;
 
         sensor.AddObservation(directionToTarget.x);
         sensor.AddObservation(directionToTarget.z);
-        sensor.AddObservation(distanceMagnitudeToTarget);
+        sensor.AddObservation(distanceMagnitudeToTarget);        
+        
+        Vector3 relativeDistanceToGoal = (goal.position - transform.position);
+        Vector3 directionToGoal = relativeDistanceToGoal.normalized;
+        Debug.DrawLine(Vector3.zero, directionToGoal, Color.green);
+        float distanceMagnitudeToGoal = relativeDistanceToTarget.magnitude / 70f;
+
+        sensor.AddObservation(directionToGoal.x);
+        sensor.AddObservation(directionToGoal.z);
+        sensor.AddObservation(distanceMagnitudeToGoal);
 
         //Debug.DrawLine(transform.position, targetEnemy.transform.position, Color.red);
         //Debug.DrawLine(transform.position, transform.position + directionToTarget, Color.green, 2f);
@@ -161,7 +178,7 @@ public class EnemyController : Agent, IDamageable
                 //(bullet.transform.localPosition.z - transform.localPosition.z) / 15f,
                 agentToBullet.normalized.x,
                 agentToBullet.normalized.z,
-                agentToBullet.magnitude / 44f,
+                agentToBullet.magnitude / 70f,
                 bullet.transform.forward.x,
                 bullet.transform.forward.z
             };
@@ -181,6 +198,9 @@ public class EnemyController : Agent, IDamageable
             UpdateStateOnActionReceived();
             actionTimer = 0f;
         }
+        var continuousActions = actions.ContinuousActions;
+        Vector3 actionDirection = new Vector3(continuousActions[0], 0f, continuousActions[1]).normalized;
+        Debug.DrawLine(Vector3.zero, actionDirection, Color.red);
 
         //if(StepCount == MaxStep)
         //{
@@ -418,7 +438,7 @@ public class EnemyController : Agent, IDamageable
         {
             destinationMagnitude = currentHeuristicDestinationMagnitude;
         }
-        else destinationMagnitude = 4f;
+        else destinationMagnitude = 20f;
         // Training or Inference
         Debug.Log($"contActions[0]: {actionBuffers.ContinuousActions[0]}, contActions[1]: {actionBuffers.ContinuousActions[1]}");
         Vector3 actionDestinationWorldOrigin = new Vector3(actionBuffers.ContinuousActions[0], 0f, actionBuffers.ContinuousActions[1]).normalized * destinationMagnitude;
@@ -460,7 +480,7 @@ public class EnemyController : Agent, IDamageable
     {
         if (!ability1.isEnabled()) return;
         Debug.Log("Entered ability1");
-        navMeshAgent.isStopped = true;
+        //navMeshAgent.isStopped = true;
         Vector3 lookAtTarget = new Vector3(actionBuffers.ContinuousActions[0], 0f, actionBuffers.ContinuousActions[1]).normalized + transform.position;
         transform.LookAt(lookAtTarget);
         //Vector3 lookAtTarget = Vector3.zero;
@@ -483,7 +503,7 @@ public class EnemyController : Agent, IDamageable
     }
     private void ExitAbility1()
     {
-        navMeshAgent.isStopped = false;
+        //navMeshAgent.isStopped = false;
     }
     private void UpdateAbility1OnActionReceived()
     {
@@ -595,6 +615,8 @@ public class EnemyController : Agent, IDamageable
     private void EnterDead()
     {
         AddReward(-1f);
+        coll.enabled = false;
+
     }
     private void ExitDead()
     {
@@ -612,7 +634,8 @@ public class EnemyController : Agent, IDamageable
 
     private void OnTriggerEnter(Collider other)
     {
-
+        ICollectable collectable = other.GetComponent<ICollectable>();
+        collectable?.OnCollect(this);
     }
 
     Vector3 getRandomPosition(Vector3 currentPosition)

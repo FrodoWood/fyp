@@ -1,0 +1,48 @@
+{
+    "Mage": {
+        "checkpoints": [
+            {
+                "steps": 499904,
+                "file_path": "results\\mage_self_play_complex_map_ray_sensor_05\\Mage\\Mage-499904.onnx",
+                "reward": 0.3989706173100892,
+                "creation_time": 1710762325.7893093,
+                "auxillary_file_paths": [
+                    "results\\mage_self_play_complex_map_ray_sensor_05\\Mage\\Mage-499904.pt"
+                ]
+            },
+            {
+                "steps": 999977,
+                "file_path": "results\\mage_self_play_complex_map_ray_sensor_05\\Mage\\Mage-999977.onnx",
+                "reward": 0.18413551505054196,
+                "creation_time": 1710763471.0832062,
+                "auxillary_file_paths": [
+                    "results\\mage_self_play_complex_map_ray_sensor_05\\Mage\\Mage-999977.pt"
+                ]
+            },
+            {
+                "steps": 1437172,
+                "file_path": "results\\mage_self_play_complex_map_ray_sensor_05\\Mage\\Mage-1437172.onnx",
+                "reward": 0.010075249816332243,
+                "creation_time": 1710764482.1274583,
+                "auxillary_file_paths": [
+                    "results\\mage_self_play_complex_map_ray_sensor_05\\Mage\\Mage-1437172.pt"
+                ]
+            }
+        ],
+        "elo": 1156.9830741634216,
+        "final_checkpoint": {
+            "steps": 1437172,
+            "file_path": "results\\mage_self_play_complex_map_ray_sensor_05\\Mage.onnx",
+            "reward": 0.010075249816332243,
+            "creation_time": 1710764482.1274583,
+            "auxillary_file_paths": [
+                "results\\mage_self_play_complex_map_ray_sensor_05\\Mage\\Mage-1437172.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}

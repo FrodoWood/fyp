@@ -14,14 +14,14 @@ behaviors:
       epsilon_schedule: linear
     network_settings:
       normalize: false
-      hidden_units: 256
+      hidden_units: 128
       num_layers: 2
     reward_signals:
       extrinsic:
-        gamma: 0.99
+        gamma: 0.9
         strength: 1.0
     max_steps: 2000000
-    time_horizon: 128
+    time_horizon: 500
     summary_freq: 10000
     self_play:
       window: 10

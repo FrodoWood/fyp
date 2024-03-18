@@ -135,7 +135,6 @@ GameObject:
   - component: {fileID: 4598696741913845377}
   - component: {fileID: 5680343795509156879}
   - component: {fileID: 1551523496354745693}
-  - component: {fileID: 7770646980068744223}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Enemy
@@ -189,8 +188,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 7
-    NumStackedVectorObservations: 2
+    VectorObservationSize: 10
+    NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 2
       BranchSizes: 03000000
@@ -198,7 +197,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 59484b4c0d8eeb842981e97a92b8bd9b, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: Mage
@@ -222,7 +221,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 200
+  MaxStep: 1000
   entity: 0
   actionCooldown: 0
   maxHealth: 10
@@ -232,8 +231,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   targetEnemy: {fileID: 0}
+  goal: {fileID: 0}
   bulletGizmoRadius: 0.57
   bulletGizmoColor: {r: 0.38669237, g: 0.11485406, b: 0.8396226, a: 1}
+  hasWon: 0
 --- !u!114 &4204924644973245463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,9 +249,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onCooldown: 0
   abilityEnabled: 1
-  cooldown: 0.5
+  cooldown: 0.2
   damage: 10
-  speed: 40
+  speed: 80
   bulletPrefab: {fileID: 835461798170658529, guid: 9415b93f3dd9f5844aa9ea165dfe982a,
     type: 3}
   firingPoint: {fileID: 4238230038242143645}
@@ -310,7 +311,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 14
+  m_Speed: 40
   m_Acceleration: 99999
   avoidancePriority: 50
   m_AngularSpeed: 99999
@@ -360,36 +361,6 @@ MonoBehaviour:
   m_SensorName: BufferSensor
   m_ObservableSize: 5
   m_MaxNumObservables: 3
---- !u!114 &7770646980068744223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3007606359052346325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SensorName: RayPerceptionSensor
-  m_DetectableTags:
-  - wall
-  - Enemy
-  m_RaysPerDirection: 4
-  m_MaxRayDegrees: 180
-  m_SphereCastRadius: 0.5
-  m_RayLength: 28
-  m_RayLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967291
-  m_ObservationStacks: 1
-  m_AlternatingRayOrder: 1
-  m_UseBatchedRaycasts: 0
-  rayHitColor: {r: 0, g: 1, b: 0.0575552, a: 1}
-  rayMissColor: {r: 1, g: 0, b: 0.10514355, a: 1}
-  m_StartVerticalOffset: 1
-  m_EndVerticalOffset: 1
 --- !u!1 &3185015439139808452
 GameObject:
   m_ObjectHideFlags: 0

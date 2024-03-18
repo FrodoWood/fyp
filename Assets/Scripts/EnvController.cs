@@ -18,20 +18,22 @@ public class EnvController : MonoBehaviour
     {
         updateScoreText();
 
-        if (purpleAgent.currentState == State.Dead)
+        if (purpleAgent.hasWon)
         {
-            blueAgent.AddReward(1f);
-            increaseBlueScore();
-            ResetScene();
-        }
-        else if (blueAgent.currentState == State.Dead)
-        {
-            purpleAgent.AddReward(1f);
+            purpleAgent.AddReward(2f);
+            blueAgent.AddReward(-2f);
             increasePurpleScore();
             ResetScene();
         }
+        else if (blueAgent.hasWon)
+        {
+            blueAgent.AddReward(2f);
+            purpleAgent.AddReward(-2f);
+            increaseBlueScore();
+            ResetScene();
+        }
 
-        if(purpleAgent.StepCount >= purpleAgent.MaxStep || blueAgent.StepCount >= blueAgent.MaxStep)
+        if(purpleAgent.StepCount >= purpleAgent.MaxStep -1 || blueAgent.StepCount >= blueAgent.MaxStep-1)
         {
             //purpleAgent.SetReward(0f);
             //blueAgent.SetReward(0f);

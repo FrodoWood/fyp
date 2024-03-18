@@ -1,0 +1,66 @@
+{
+    "Mage": {
+        "checkpoints": [
+            {
+                "steps": 499741,
+                "file_path": "results\\bullet_arena_01\\Mage\\Mage-499741.onnx",
+                "reward": 1.1603899328658978,
+                "creation_time": 1710778065.51852,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_01\\Mage\\Mage-499741.pt"
+                ]
+            },
+            {
+                "steps": 999898,
+                "file_path": "results\\bullet_arena_01\\Mage\\Mage-999898.onnx",
+                "reward": -0.8741914825976318,
+                "creation_time": 1710779102.3962407,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_01\\Mage\\Mage-999898.pt"
+                ]
+            },
+            {
+                "steps": 1499895,
+                "file_path": "results\\bullet_arena_01\\Mage\\Mage-1499895.onnx",
+                "reward": 1.1183624863624573,
+                "creation_time": 1710780142.3107738,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_01\\Mage\\Mage-1499895.pt"
+                ]
+            },
+            {
+                "steps": 1999980,
+                "file_path": "results\\bullet_arena_01\\Mage\\Mage-1999980.onnx",
+                "reward": -0.4946101316507312,
+                "creation_time": 1710781166.385546,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_01\\Mage\\Mage-1999980.pt"
+                ]
+            },
+            {
+                "steps": 2000037,
+                "file_path": "results\\bullet_arena_01\\Mage\\Mage-2000037.onnx",
+                "reward": -0.48075773346592005,
+                "creation_time": 1710781166.5775642,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_01\\Mage\\Mage-2000037.pt"
+                ]
+            }
+        ],
+        "elo": 1098.1233349474373,
+        "final_checkpoint": {
+            "steps": 2000037,
+            "file_path": "results\\bullet_arena_01\\Mage.onnx",
+            "reward": -0.48075773346592005,
+            "creation_time": 1710781166.5775642,
+            "auxillary_file_paths": [
+                "results\\bullet_arena_01\\Mage\\Mage-2000037.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}

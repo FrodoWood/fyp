@@ -1,0 +1,57 @@
+{
+    "Mage": {
+        "checkpoints": [
+            {
+                "steps": 499964,
+                "file_path": "results\\mage_self_play_complex_map_ray_sensor_04\\Mage\\Mage-499964.onnx",
+                "reward": 0.19270836462577184,
+                "creation_time": 1710756561.4797888,
+                "auxillary_file_paths": [
+                    "results\\mage_self_play_complex_map_ray_sensor_04\\Mage\\Mage-499964.pt"
+                ]
+            },
+            {
+                "steps": 999982,
+                "file_path": "results\\mage_self_play_complex_map_ray_sensor_04\\Mage\\Mage-999982.onnx",
+                "reward": 0.6405294420964578,
+                "creation_time": 1710757699.2440276,
+                "auxillary_file_paths": [
+                    "results\\mage_self_play_complex_map_ray_sensor_04\\Mage\\Mage-999982.pt"
+                ]
+            },
+            {
+                "steps": 1499888,
+                "file_path": "results\\mage_self_play_complex_map_ray_sensor_04\\Mage\\Mage-1499888.onnx",
+                "reward": -0.12455553809801738,
+                "creation_time": 1710758875.986061,
+                "auxillary_file_paths": [
+                    "results\\mage_self_play_complex_map_ray_sensor_04\\Mage\\Mage-1499888.pt"
+                ]
+            },
+            {
+                "steps": 1742956,
+                "file_path": "results\\mage_self_play_complex_map_ray_sensor_04\\Mage\\Mage-1742956.onnx",
+                "reward": -0.04164229124211348,
+                "creation_time": 1710759424.5326579,
+                "auxillary_file_paths": [
+                    "results\\mage_self_play_complex_map_ray_sensor_04\\Mage\\Mage-1742956.pt"
+                ]
+            }
+        ],
+        "elo": 1310.1926782660682,
+        "final_checkpoint": {
+            "steps": 1742956,
+            "file_path": "results\\mage_self_play_complex_map_ray_sensor_04\\Mage.onnx",
+            "reward": -0.04164229124211348,
+            "creation_time": 1710759424.5326579,
+            "auxillary_file_paths": [
+                "results\\mage_self_play_complex_map_ray_sensor_04\\Mage\\Mage-1742956.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}
