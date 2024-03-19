@@ -724,4 +724,10 @@ public class EnemyController : Agent, IDamageable
     {
         currentHealth = maxHealth;
     }
+
+    public void AddHealth(int amount)
+    {
+        if (amount <= 0) return;
+        currentHealth += amount;
+    }
 }

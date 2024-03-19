@@ -8,6 +8,7 @@ TagManager:
   - bullet
   - wall
   - goal
+  - heal
   layers:
   - Default
   - TransparentFX

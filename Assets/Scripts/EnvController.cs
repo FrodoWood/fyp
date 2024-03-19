@@ -42,6 +42,13 @@ public class EnvController : MonoBehaviour
             ResetScene();   
         }
         
+        if(purpleAgent.currentState == State.Dead && blueAgent.currentState == State.Dead)
+        {
+            //purpleAgent.SetReward(0f);
+            //blueAgent.SetReward(0f);
+            ResetScene();   
+        }
+        
     }
 
     private void updateScoreText()
@@ -57,23 +64,26 @@ public class EnvController : MonoBehaviour
         blueAgent.EndEpisode();
 
         // Randomize agents' positions
-        float randomX = Random.Range(-25f, -3);
-        float randomZ = Random.Range(-14f, 14f);
+        //float randomX = Random.Range(-25f, -3);
+        //float randomZ = Random.Range(-14f, 14f);
+
+        float randomX = -25f;
+        float randomZ = 0f; ;
 
         float prob = Random.value;
         if(prob < 0.5)
         {
             purpleAgent.transform.position = new Vector3(randomX, purpleAgent.transform.position.y, randomZ);
-            purpleGoal.position = new Vector3(30, transform.position.y, 0);
+            purpleGoal.position = new Vector3(32, transform.position.y, 0);
             blueAgent.transform.position = new Vector3(-randomX, purpleAgent.transform.position.y, -randomZ);
-            blueGoal.position = new Vector3(-30, transform.position.y, 0);
+            blueGoal.position = new Vector3(-32, transform.position.y, 0);
         }
         else
         {
             purpleAgent.transform.position = new Vector3(-randomX, purpleAgent.transform.position.y, -randomZ);
-            purpleGoal.position = new Vector3(-30, transform.position.y, 0);
+            purpleGoal.position = new Vector3(-32, transform.position.y, 0);
             blueAgent.transform.position = new Vector3(randomX, purpleAgent.transform.position.y, randomZ);
-            blueGoal.position = new Vector3(30, transform.position.y, 0);
+            blueGoal.position = new Vector3(32, transform.position.y, 0);
         }
 
         // Destroy all bullets
