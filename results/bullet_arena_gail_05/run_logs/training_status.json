@@ -1,0 +1,56 @@
+{
+    "Mage": {
+        "checkpoints": [
+            {
+                "steps": 499586,
+                "file_path": "results\\bullet_arena_gail_05\\Mage\\Mage-499586.onnx",
+                "reward": 0.23510907861319455,
+                "creation_time": 1710868761.442293,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_gail_05\\Mage\\Mage-499586.pt"
+                ]
+            },
+            {
+                "steps": 999575,
+                "file_path": "results\\bullet_arena_gail_05\\Mage\\Mage-999575.onnx",
+                "reward": 1.206766660369578,
+                "creation_time": 1710869492.8232222,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_gail_05\\Mage\\Mage-999575.pt"
+                ]
+            },
+            {
+                "steps": 1499868,
+                "file_path": "results\\bullet_arena_gail_05\\Mage\\Mage-1499868.onnx",
+                "reward": 1.4515942279781615,
+                "creation_time": 1710870211.3692896,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_gail_05\\Mage\\Mage-1499868.pt"
+                ]
+            },
+            {
+                "steps": 1724701,
+                "file_path": "results\\bullet_arena_gail_05\\Mage\\Mage-1724701.onnx",
+                "reward": 1.3967599598069986,
+                "creation_time": 1710870526.0897965,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_gail_05\\Mage\\Mage-1724701.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1724701,
+            "file_path": "results\\bullet_arena_gail_05\\Mage.onnx",
+            "reward": 1.3967599598069986,
+            "creation_time": 1710870526.0897965,
+            "auxillary_file_paths": [
+                "results\\bullet_arena_gail_05\\Mage\\Mage-1724701.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}

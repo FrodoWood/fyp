@@ -221,10 +221,10 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 5000
+  MaxStep: 1000
   entity: 0
   actionCooldown: 0
-  maxHealth: 30
+  maxHealth: 10
   currentHealth: 0
   movementLayers:
     serializedVersion: 2
