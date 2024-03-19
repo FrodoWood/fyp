@@ -36,7 +36,6 @@ public class EnemyController : Agent, IDamageable
     [SerializeField] private float actionCooldown;
     [SerializeField] public float maxHealth;
     [SerializeField] public float currentHealth;
-    [SerializeField] private bool isStunned;
     [SerializeField] private LayerMask movementLayers;
     public EnemyController targetEnemy;
     private float actionTimer = 0f;
@@ -68,7 +67,9 @@ public class EnemyController : Agent, IDamageable
     private Ability3 ability3;
     private Ability4 ability4;
 
+    [SerializeField] private bool isStunned;
     public bool hasWon = false;
+    public bool isAlive = true;
 
     //Cached Inputs
     private bool mouseButtonPressed = false;
@@ -118,12 +119,15 @@ public class EnemyController : Agent, IDamageable
     {
         ChangeState(State.Idle);
         hasWon = false;
+        isAlive = true;
         coll.enabled = true;
+        navMeshAgent.enabled = true;
+
         //if(navMeshAgent.hasPath) navMeshAgent.ResetPath();
-        
+
         currentHeuristicDestinationDirection = transform.position.normalized;
         currentHeuristicDestinationMagnitude = transform.position.magnitude;
-
+        navMeshAgent.ResetPath();
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -134,6 +138,7 @@ public class EnemyController : Agent, IDamageable
         sensor.AddObservation(transform.forward.z);
 
         sensor.AddObservation(targetEnemy.currentHealth / targetEnemy.maxHealth);
+        sensor.AddObservation(targetEnemy.isAlive ? 1 : 0);
         //sensor.AddObservation(targetEnemy.transform.localPosition.x / 15f);
         //sensor.AddObservation(targetEnemy.transform.localPosition.z / 15f);
 
@@ -149,7 +154,7 @@ public class EnemyController : Agent, IDamageable
         Vector3 relativeDistanceToGoal = (goal.position - transform.position);
         Vector3 directionToGoal = relativeDistanceToGoal.normalized;
         Debug.DrawLine(Vector3.zero, directionToGoal, Color.green);
-        float distanceMagnitudeToGoal = relativeDistanceToTarget.magnitude / 70f;
+        float distanceMagnitudeToGoal = relativeDistanceToGoal.magnitude / 70f;
 
         sensor.AddObservation(directionToGoal.x);
         sensor.AddObservation(directionToGoal.z);
@@ -438,7 +443,7 @@ public class EnemyController : Agent, IDamageable
         {
             destinationMagnitude = currentHeuristicDestinationMagnitude;
         }
-        else destinationMagnitude = 20f;
+        else destinationMagnitude = 10f;
         // Training or Inference
         Debug.Log($"contActions[0]: {actionBuffers.ContinuousActions[0]}, contActions[1]: {actionBuffers.ContinuousActions[1]}");
         Vector3 actionDestinationWorldOrigin = new Vector3(actionBuffers.ContinuousActions[0], 0f, actionBuffers.ContinuousActions[1]).normalized * destinationMagnitude;
@@ -615,7 +620,9 @@ public class EnemyController : Agent, IDamageable
     private void EnterDead()
     {
         AddReward(-1f);
+        isAlive = false;
         coll.enabled = false;
+        navMeshAgent.enabled = false;
 
     }
     private void ExitDead()
@@ -659,7 +666,7 @@ public class EnemyController : Agent, IDamageable
     public void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
-        AddReward(-0.5f);
+        AddReward(-0.1f);
         if (currentHealth <= 0)
         {
             ChangeState(State.Dead);

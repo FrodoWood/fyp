@@ -8,6 +8,8 @@ public class EnvController : MonoBehaviour
 {
     [SerializeField] private EnemyController purpleAgent;
     [SerializeField] private EnemyController blueAgent;
+    [SerializeField] private Transform purpleGoal;
+    [SerializeField] private Transform blueGoal;
 
     public int purpleScore;
     public int blueScore;
@@ -55,11 +57,24 @@ public class EnvController : MonoBehaviour
         blueAgent.EndEpisode();
 
         // Randomize agents' positions
-        float randomX = Random.Range(-14f, -3);
+        float randomX = Random.Range(-25f, -3);
         float randomZ = Random.Range(-14f, 14f);
 
-        purpleAgent.transform.position = new Vector3(randomX, purpleAgent.transform.position.y, randomZ);
-        blueAgent.transform.position = new Vector3(-randomX, purpleAgent.transform.position.y, -randomZ);
+        float prob = Random.value;
+        if(prob < 0.5)
+        {
+            purpleAgent.transform.position = new Vector3(randomX, purpleAgent.transform.position.y, randomZ);
+            purpleGoal.position = new Vector3(30, transform.position.y, 0);
+            blueAgent.transform.position = new Vector3(-randomX, purpleAgent.transform.position.y, -randomZ);
+            blueGoal.position = new Vector3(-30, transform.position.y, 0);
+        }
+        else
+        {
+            purpleAgent.transform.position = new Vector3(-randomX, purpleAgent.transform.position.y, -randomZ);
+            purpleGoal.position = new Vector3(-30, transform.position.y, 0);
+            blueAgent.transform.position = new Vector3(randomX, purpleAgent.transform.position.y, randomZ);
+            blueGoal.position = new Vector3(30, transform.position.y, 0);
+        }
 
         // Destroy all bullets
         var myBullets = transform.GetComponentsInChildren<Bullet>();

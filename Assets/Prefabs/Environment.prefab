@@ -288,9 +288,9 @@ Transform:
   - {fileID: 4377686209679846383}
   - {fileID: 4457798904602887294}
   - {fileID: 8049924698928548244}
-  - {fileID: 2349662297667241352}
   - {fileID: 8593271020941090380}
   - {fileID: 8088235475545745605}
+  - {fileID: 2349662297667241352}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8105821964777009588
@@ -307,6 +307,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   purpleAgent: {fileID: 557084878255385339}
   blueAgent: {fileID: 6183849245097584401}
+  purpleGoal: {fileID: 8593271020941090380}
+  blueGoal: {fileID: 8088235475545745605}
   purpleScore: 0
   blueScore: 0
   scoreText: {fileID: 2532611522051085065}
@@ -1859,7 +1861,7 @@ PrefabInstance:
     - target: {fileID: 3376682228570027408, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: TeamId
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3376682228570027408, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
@@ -1954,15 +1956,41 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3007606359052346325, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8483353236571481223}
   m_SourcePrefab: {fileID: 100100000, guid: 8b15f035ecd36a54aab281496caf3677, type: 3}
+--- !u!1 &3874872051004716682 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3007606359052346325, guid: 8b15f035ecd36a54aab281496caf3677,
+    type: 3}
+  m_PrefabInstance: {fileID: 2052345749474956639}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8483353236571481223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3874872051004716682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Record: 0
+  NumStepsToRecord: 0
+  DemonstrationName: BulletArenaDemo2
+  DemonstrationDirectory: Demos
 --- !u!114 &6183849245097584401 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
     type: 3}
   m_PrefabInstance: {fileID: 2052345749474956639}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 3874872051004716682}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb2612677339da94983574d51a5782a6, type: 3}
