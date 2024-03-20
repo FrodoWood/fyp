@@ -10,10 +10,13 @@ public class EnvController : MonoBehaviour
     [SerializeField] private EnemyController blueAgent;
     [SerializeField] private Transform purpleGoal;
     [SerializeField] private Transform blueGoal;
+    [SerializeField] private Heal heal1;
+    [SerializeField] private Heal heal2;
 
     public int purpleScore;
     public int blueScore;
     public TextMeshProUGUI scoreText;
+    
     
 
     private void Update()
@@ -63,6 +66,9 @@ public class EnvController : MonoBehaviour
         purpleAgent.EndEpisode();
         blueAgent.EndEpisode();
 
+        purpleAgent.StopAllCoroutines();
+        blueAgent.StopAllCoroutines();
+
         // Randomize agents' positions
         //float randomX = Random.Range(-25f, -3);
         //float randomZ = Random.Range(-14f, 14f);
@@ -85,6 +91,15 @@ public class EnvController : MonoBehaviour
             blueAgent.transform.position = new Vector3(randomX, purpleAgent.transform.position.y, randomZ);
             blueGoal.position = new Vector3(32, transform.position.y, 0);
         }
+
+        //GameObject heal1 = Instantiate(healPrefab, new Vector3(0f, transform.position.y, 15f), Quaternion.identity);
+        //heal1.transform.parent = transform;
+        //GameObject heal2 = Instantiate(healPrefab, new Vector3(0f, transform.position.y, -15f), Quaternion.identity);
+        //heal2.transform.parent = transform;
+
+        // Reset heals
+        heal1.Activate();
+        heal2.Activate();
 
         // Destroy all bullets
         var myBullets = transform.GetComponentsInChildren<Bullet>();

@@ -36,6 +36,7 @@ public class EnemyController : Agent, IDamageable
     [SerializeField] private float actionCooldown;
     [SerializeField] public float maxHealth;
     [SerializeField] public float currentHealth;
+    [SerializeField] public float baseSpeed;
     [SerializeField] private LayerMask movementLayers;
     public EnemyController targetEnemy;
     private float actionTimer = 0f;
@@ -122,6 +123,7 @@ public class EnemyController : Agent, IDamageable
         isAlive = true;
         coll.enabled = true;
         navMeshAgent.enabled = true;
+        navMeshAgent.speed = baseSpeed;
 
         //if(navMeshAgent.hasPath) navMeshAgent.ResetPath();
 
@@ -443,7 +445,7 @@ public class EnemyController : Agent, IDamageable
         {
             destinationMagnitude = currentHeuristicDestinationMagnitude;
         }
-        else destinationMagnitude = 10f;
+        else destinationMagnitude = 15f;
         // Training or Inference
         Debug.Log($"contActions[0]: {actionBuffers.ContinuousActions[0]}, contActions[1]: {actionBuffers.ContinuousActions[1]}");
         Vector3 actionDestinationWorldOrigin = new Vector3(actionBuffers.ContinuousActions[0], 0f, actionBuffers.ContinuousActions[1]).normalized * destinationMagnitude;
@@ -666,7 +668,8 @@ public class EnemyController : Agent, IDamageable
     public void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
-        AddReward(-0.1f);
+        AddReward(-damageAmount/maxHealth);
+        StartCoroutine(SlowDown());
         if (currentHealth <= 0)
         {
             ChangeState(State.Dead);
@@ -729,5 +732,14 @@ public class EnemyController : Agent, IDamageable
     {
         if (amount <= 0) return;
         currentHealth += amount;
+    }
+
+    public IEnumerator SlowDown()
+    {
+
+        navMeshAgent.speed = baseSpeed / 2;
+        yield return new WaitForSeconds(1);
+        navMeshAgent.speed = baseSpeed;
+
     }
 }

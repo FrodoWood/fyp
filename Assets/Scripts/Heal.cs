@@ -8,6 +8,14 @@ public class Heal : MonoBehaviour, ICollectable
     public void OnCollect(EnemyController enemyController)
     {
         enemyController.AddHealth(healAmount);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        //Destroy(gameObject);
     }
+
+    public void Activate()
+    {
+        gameObject.SetActive(true);
+    }
+
+
 }

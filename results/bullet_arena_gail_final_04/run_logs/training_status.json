@@ -1,0 +1,65 @@
+{
+    "Bullet": {
+        "checkpoints": [
+            {
+                "steps": 499509,
+                "file_path": "results\\bullet_arena_gail_final_04\\Bullet\\Bullet-499509.onnx",
+                "reward": 1.539490998129953,
+                "creation_time": 1710966487.565662,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_gail_final_04\\Bullet\\Bullet-499509.pt"
+                ]
+            },
+            {
+                "steps": 999976,
+                "file_path": "results\\bullet_arena_gail_final_04\\Bullet\\Bullet-999976.onnx",
+                "reward": 1.5263527472944636,
+                "creation_time": 1710967291.5700493,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_gail_final_04\\Bullet\\Bullet-999976.pt"
+                ]
+            },
+            {
+                "steps": 1499943,
+                "file_path": "results\\bullet_arena_gail_final_04\\Bullet\\Bullet-1499943.onnx",
+                "reward": -0.5253230238763186,
+                "creation_time": 1710968076.5935948,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_gail_final_04\\Bullet\\Bullet-1499943.pt"
+                ]
+            },
+            {
+                "steps": 1999830,
+                "file_path": "results\\bullet_arena_gail_final_04\\Bullet\\Bullet-1999830.onnx",
+                "reward": 0.23460943950340152,
+                "creation_time": 1710968855.145802,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_gail_final_04\\Bullet\\Bullet-1999830.pt"
+                ]
+            },
+            {
+                "steps": 2000283,
+                "file_path": "results\\bullet_arena_gail_final_04\\Bullet\\Bullet-2000283.onnx",
+                "reward": 0.16552127446189072,
+                "creation_time": 1710968855.3649018,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_gail_final_04\\Bullet\\Bullet-2000283.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 2000283,
+            "file_path": "results\\bullet_arena_gail_final_04\\Bullet.onnx",
+            "reward": 0.16552127446189072,
+            "creation_time": 1710968855.3649018,
+            "auxillary_file_paths": [
+                "results\\bullet_arena_gail_final_04\\Bullet\\Bullet-2000283.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}

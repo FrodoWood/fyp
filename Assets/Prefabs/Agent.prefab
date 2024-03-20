@@ -224,8 +224,9 @@ MonoBehaviour:
   MaxStep: 1000
   entity: 0
   actionCooldown: 0
-  maxHealth: 10
+  maxHealth: 20
   currentHealth: 0
+  baseSpeed: 14
   movementLayers:
     serializedVersion: 2
     m_Bits: 1
