@@ -47,7 +47,6 @@ public class EnemyController : Agent, IDamageable
     private Bullet[] bullets;
     private BufferSensorComponent bufferSensor;
     Collider coll;
-    public Transform goal;
     public bool isAIControlled = false;
 
     [Header("Gizmos")]
@@ -135,65 +134,7 @@ public class EnemyController : Agent, IDamageable
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        //sensor.AddObservation(transform.localPosition.x / 15f);
-        //sensor.AddObservation(transform.localPosition.z / 15f);
-        sensor.AddObservation(transform.forward.x);
-        sensor.AddObservation(transform.forward.z);
 
-        sensor.AddObservation(targetEnemy.currentHealth / targetEnemy.maxHealth);
-        sensor.AddObservation(targetEnemy.isAlive ? 1 : 0);
-        //sensor.AddObservation(targetEnemy.transform.localPosition.x / 15f);
-        //sensor.AddObservation(targetEnemy.transform.localPosition.z / 15f);
-
-        Vector3 relativeDistanceToTarget = (targetEnemy.transform.position - transform.position);
-        Vector3 directionToTarget = relativeDistanceToTarget.normalized;
-        Debug.DrawLine(Vector3.zero, directionToTarget, Color.green);
-        float distanceMagnitudeToTarget = relativeDistanceToTarget.magnitude / 70f;
-
-        sensor.AddObservation(directionToTarget.x);
-        sensor.AddObservation(directionToTarget.z);
-        sensor.AddObservation(distanceMagnitudeToTarget);        
-        
-        Vector3 relativeDistanceToGoal = (goal.position - transform.position);
-        Vector3 directionToGoal = relativeDistanceToGoal.normalized;
-        Debug.DrawLine(Vector3.zero, directionToGoal, Color.green);
-        float distanceMagnitudeToGoal = relativeDistanceToGoal.magnitude / 70f;
-
-        sensor.AddObservation(directionToGoal.x);
-        sensor.AddObservation(directionToGoal.z);
-        sensor.AddObservation(distanceMagnitudeToGoal);
-
-        //Debug.DrawLine(transform.position, targetEnemy.transform.position, Color.red);
-        //Debug.DrawLine(transform.position, transform.position + directionToTarget, Color.green, 2f);
-
-        sensor.AddObservation(ability1.Available() ? 1 : 0);
-
-
-        // Variable length observation
-        bullets = transform.parent.GetComponentsInChildren<Bullet>()
-            //.Where(bullet=> bullet.entity != entity)
-            .OrderBy(bullet => Vector3.Distance(transform.localPosition, bullet.transform.localPosition))
-            .Take(3)
-            .ToArray();
-
-        foreach (Bullet bullet in bullets)
-        {
-            Vector3 agentToBullet = bullet.transform.position - transform.position;
-
-            float[] bulletObservation = new float[]
-            {
-                //(bullet.transform.localPosition.x - transform.localPosition.x) / 15f,
-                //(bullet.transform.localPosition.z - transform.localPosition.z) / 15f,
-                agentToBullet.normalized.x,
-                agentToBullet.normalized.z,
-                agentToBullet.magnitude / 70f,
-                bullet.transform.forward.x,
-                bullet.transform.forward.z
-            };
-            //Debug.Log("\n" + bulletObservation[0] + bulletObservation[1]);
-            bufferSensor.AppendObservation(bulletObservation);
-
-        }
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -447,7 +388,6 @@ public class EnemyController : Agent, IDamageable
     {
         if (isAIControlled)
         {
-            if(navMeshAgent.isActiveAndEnabled) navMeshAgent.SetDestination(goal.position + new Vector3(0,0, Random.Range(-15f,15)));
             ChangeState(State.Idle);
             return;
         }

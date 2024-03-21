@@ -8,10 +8,6 @@ public class EnvController : MonoBehaviour
 {
     [SerializeField] private EnemyController purpleAgent;
     [SerializeField] private EnemyController blueAgent;
-    [SerializeField] private Transform purpleGoal;
-    [SerializeField] private Transform blueGoal;
-    [SerializeField] private Heal heal1;
-    [SerializeField] private Heal heal2;
 
     public int purpleScore;
     public int blueScore;
@@ -23,14 +19,14 @@ public class EnvController : MonoBehaviour
     {
         updateScoreText();
 
-        if (purpleAgent.hasWon)
+        if (blueAgent.currentState == State.Dead)
         {
             purpleAgent.AddReward(4f);
             blueAgent.AddReward(-2f);
             increasePurpleScore();
             ResetScene();
         }
-        else if (blueAgent.hasWon)
+        else if (purpleAgent.currentState == State.Dead)
         {
             blueAgent.AddReward(4f);
             purpleAgent.AddReward(-2f);
@@ -39,13 +35,6 @@ public class EnvController : MonoBehaviour
         }
 
         if(purpleAgent.StepCount >= purpleAgent.MaxStep -1 || blueAgent.StepCount >= blueAgent.MaxStep-1)
-        {
-            //purpleAgent.SetReward(0f);
-            //blueAgent.SetReward(0f);
-            ResetScene();   
-        }
-        
-        if(purpleAgent.currentState == State.Dead && blueAgent.currentState == State.Dead)
         {
             //purpleAgent.SetReward(0f);
             //blueAgent.SetReward(0f);
@@ -73,33 +62,13 @@ public class EnvController : MonoBehaviour
         //float randomX = Random.Range(-25f, -3);
         //float randomZ = Random.Range(-14f, 14f);
 
-        float randomX = -25f;
-        float randomZ = 0f; ;
 
-        float prob = Random.value;
-        if(prob < 0.5)
-        {
-            purpleAgent.transform.position = new Vector3(randomX, purpleAgent.transform.position.y, randomZ);
-            purpleGoal.position = new Vector3(32, transform.position.y, 0);
-            blueAgent.transform.position = new Vector3(-randomX, purpleAgent.transform.position.y, -randomZ);
-            blueGoal.position = new Vector3(-32, transform.position.y, 0);
-        }
-        else
-        {
-            purpleAgent.transform.position = new Vector3(-randomX, purpleAgent.transform.position.y, -randomZ);
-            purpleGoal.position = new Vector3(-32, transform.position.y, 0);
-            blueAgent.transform.position = new Vector3(randomX, purpleAgent.transform.position.y, randomZ);
-            blueGoal.position = new Vector3(32, transform.position.y, 0);
-        }
 
         //GameObject heal1 = Instantiate(healPrefab, new Vector3(0f, transform.position.y, 15f), Quaternion.identity);
         //heal1.transform.parent = transform;
         //GameObject heal2 = Instantiate(healPrefab, new Vector3(0f, transform.position.y, -15f), Quaternion.identity);
         //heal2.transform.parent = transform;
 
-        // Reset heals
-        heal1.Activate();
-        heal2.Activate();
 
         // Destroy all bullets
         var myBullets = transform.GetComponentsInChildren<Bullet>();
