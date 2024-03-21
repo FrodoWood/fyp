@@ -1,0 +1,66 @@
+{
+    "Bullet": {
+        "checkpoints": [
+            {
+                "steps": 499967,
+                "file_path": "results\\bullet_arena_gail_self_play_final_06\\Bullet\\Bullet-499967.onnx",
+                "reward": -0.4759999004503091,
+                "creation_time": 1710983169.8369992,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_gail_self_play_final_06\\Bullet\\Bullet-499967.pt"
+                ]
+            },
+            {
+                "steps": 999980,
+                "file_path": "results\\bullet_arena_gail_self_play_final_06\\Bullet\\Bullet-999980.onnx",
+                "reward": -1.1051850931511984,
+                "creation_time": 1710984433.692469,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_gail_self_play_final_06\\Bullet\\Bullet-999980.pt"
+                ]
+            },
+            {
+                "steps": 1499982,
+                "file_path": "results\\bullet_arena_gail_self_play_final_06\\Bullet\\Bullet-1499982.onnx",
+                "reward": -2.0139997489750385,
+                "creation_time": 1710985671.11306,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_gail_self_play_final_06\\Bullet\\Bullet-1499982.pt"
+                ]
+            },
+            {
+                "steps": 1999978,
+                "file_path": "results\\bullet_arena_gail_self_play_final_06\\Bullet\\Bullet-1999978.onnx",
+                "reward": -0.16199992448091508,
+                "creation_time": 1710986870.6349642,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_gail_self_play_final_06\\Bullet\\Bullet-1999978.pt"
+                ]
+            },
+            {
+                "steps": 2000042,
+                "file_path": "results\\bullet_arena_gail_self_play_final_06\\Bullet\\Bullet-2000042.onnx",
+                "reward": -0.16199992448091508,
+                "creation_time": 1710986871.01701,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_gail_self_play_final_06\\Bullet\\Bullet-2000042.pt"
+                ]
+            }
+        ],
+        "elo": 1159.2796454513034,
+        "final_checkpoint": {
+            "steps": 2000042,
+            "file_path": "results\\bullet_arena_gail_self_play_final_06\\Bullet.onnx",
+            "reward": -0.16199992448091508,
+            "creation_time": 1710986871.01701,
+            "auxillary_file_paths": [
+                "results\\bullet_arena_gail_self_play_final_06\\Bullet\\Bullet-2000042.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}

@@ -198,7 +198,7 @@ public class EnemyController : Agent, IDamageable
     public override void OnActionReceived(ActionBuffers actions)
     {
         actionBuffers = actions;
-        AddReward(-0.1f / MaxStep);
+        AddReward(-1f / MaxStep);
         if (actionTimer >= actionCooldown)
         {
 
@@ -445,7 +445,7 @@ public class EnemyController : Agent, IDamageable
         {
             destinationMagnitude = currentHeuristicDestinationMagnitude;
         }
-        else destinationMagnitude = 15f;
+        else destinationMagnitude = 10f;
         // Training or Inference
         Debug.Log($"contActions[0]: {actionBuffers.ContinuousActions[0]}, contActions[1]: {actionBuffers.ContinuousActions[1]}");
         Vector3 actionDestinationWorldOrigin = new Vector3(actionBuffers.ContinuousActions[0], 0f, actionBuffers.ContinuousActions[1]).normalized * destinationMagnitude;

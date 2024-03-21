@@ -1,0 +1,30 @@
+{
+    "Bullet": {
+        "elo": 1186.9817561143932,
+        "checkpoints": [
+            {
+                "steps": 412300,
+                "file_path": "results\\bullet_arena_gail_self_play_final_05\\Bullet\\Bullet-412300.onnx",
+                "reward": 2.130000166594982,
+                "creation_time": 1710981736.375503,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_gail_self_play_final_05\\Bullet\\Bullet-412300.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 412300,
+            "file_path": "results\\bullet_arena_gail_self_play_final_05\\Bullet.onnx",
+            "reward": 2.130000166594982,
+            "creation_time": 1710981736.375503,
+            "auxillary_file_paths": [
+                "results\\bullet_arena_gail_self_play_final_05\\Bullet\\Bullet-412300.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}

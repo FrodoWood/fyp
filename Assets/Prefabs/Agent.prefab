@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 4598696741913845377}
   - component: {fileID: 5680343795509156879}
   - component: {fileID: 1551523496354745693}
+  - component: {fileID: 3088071968138086890}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Enemy
@@ -197,10 +198,10 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 59484b4c0d8eeb842981e97a92b8bd9b, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: ffbf45ea5599325439f016274b5997c2, type: 3}
   m_InferenceDevice: 0
-  m_BehaviorType: 2
-  m_BehaviorName: Mage
+  m_BehaviorType: 0
+  m_BehaviorName: Bullet
   TeamId: 1
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -363,6 +364,36 @@ MonoBehaviour:
   m_SensorName: BufferSensor
   m_ObservableSize: 5
   m_MaxNumObservables: 3
+--- !u!114 &3088071968138086890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3007606359052346325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: RayPerceptionSensor
+  m_DetectableTags:
+  - wall
+  - heal
+  m_RaysPerDirection: 3
+  m_MaxRayDegrees: 40
+  m_SphereCastRadius: 0.5
+  m_RayLength: 20
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967291
+  m_ObservationStacks: 1
+  m_AlternatingRayOrder: 1
+  m_UseBatchedRaycasts: 0
+  rayHitColor: {r: 0, g: 1, b: 0.016851187, a: 1}
+  rayMissColor: {r: 1, g: 0, b: 0, a: 1}
+  m_StartVerticalOffset: 1
+  m_EndVerticalOffset: 1
 --- !u!1 &3185015439139808452
 GameObject:
   m_ObjectHideFlags: 0

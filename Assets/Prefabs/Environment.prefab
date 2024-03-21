@@ -1955,19 +1955,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3376682228570027408, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
-      propertyPath: m_Model
-      value: 
-      objectReference: {fileID: 5022602860645237092, guid: ffbf45ea5599325439f016274b5997c2,
-        type: 3}
-    - target: {fileID: 3376682228570027408, guid: 8b15f035ecd36a54aab281496caf3677,
-        type: 3}
-      propertyPath: m_BehaviorName
-      value: Bullet
-      objectReference: {fileID: 0}
-    - target: {fileID: 3376682228570027408, guid: 8b15f035ecd36a54aab281496caf3677,
-        type: 3}
       propertyPath: m_BehaviorType
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3567076489887189047, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
@@ -2062,10 +2051,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8483353236571481223}
-    - targetCorrespondingSourceObject: {fileID: 3007606359052346325, guid: 8b15f035ecd36a54aab281496caf3677,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4330788705593627575}
   m_SourcePrefab: {fileID: 100100000, guid: 8b15f035ecd36a54aab281496caf3677, type: 3}
 --- !u!1 &3874872051004716682 stripped
 GameObject:
@@ -2089,36 +2074,6 @@ MonoBehaviour:
   NumStepsToRecord: 0
   DemonstrationName: BulletFinalArenaDemo1
   DemonstrationDirectory: Demos
---- !u!114 &4330788705593627575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3874872051004716682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SensorName: RayPerceptionSensor
-  m_DetectableTags:
-  - wall
-  - heal
-  m_RaysPerDirection: 3
-  m_MaxRayDegrees: 40
-  m_SphereCastRadius: 0.5
-  m_RayLength: 20
-  m_RayLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967291
-  m_ObservationStacks: 1
-  m_AlternatingRayOrder: 1
-  m_UseBatchedRaycasts: 0
-  rayHitColor: {r: 0, g: 1, b: 0.016851187, a: 1}
-  rayMissColor: {r: 1, g: 0, b: 0, a: 1}
-  m_StartVerticalOffset: 1
-  m_EndVerticalOffset: 1
 --- !u!114 &6183849245097584401 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
