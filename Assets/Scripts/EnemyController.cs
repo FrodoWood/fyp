@@ -48,6 +48,7 @@ public class EnemyController : Agent, IDamageable
     private BufferSensorComponent bufferSensor;
     Collider coll;
     public Transform goal;
+    public bool isAIControlled = false;
 
     [Header("Gizmos")]
     public float bulletGizmoRadius = 1f;
@@ -223,6 +224,11 @@ public class EnemyController : Agent, IDamageable
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
+        if (isAIControlled)
+        {
+            if (!navMeshAgent.hasPath) ChangeState(State.Moving);
+            return;
+        }
         var continuousActionsOut = actionsOut.ContinuousActions;
         var discreteActionsOut = actionsOut.DiscreteActions;
 
@@ -439,6 +445,12 @@ public class EnemyController : Agent, IDamageable
     }
     private void UpdateMovingOnActionReceived()
     {
+        if (isAIControlled)
+        {
+            navMeshAgent.SetDestination(goal.position + new Vector3(0,0, Random.Range(-15f,15)));
+            ChangeState(State.Idle);
+            return;
+        }
         float destinationMagnitude;
         // Heuristic
         if (behaviorParameters.BehaviorType == BehaviorType.HeuristicOnly)
