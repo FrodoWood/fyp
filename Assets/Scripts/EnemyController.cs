@@ -432,7 +432,7 @@ public class EnemyController : Agent, IDamageable
 
     private void EnterMoving()
     {
-        navMeshAgent.isStopped = false;
+        if(navMeshAgent.isActiveAndEnabled) navMeshAgent.isStopped = false;
         Debug.Log("Entered Moving");
     }
     private void UpdateMoving()
@@ -447,7 +447,7 @@ public class EnemyController : Agent, IDamageable
     {
         if (isAIControlled)
         {
-            navMeshAgent.SetDestination(goal.position + new Vector3(0,0, Random.Range(-15f,15)));
+            if(navMeshAgent.isActiveAndEnabled) navMeshAgent.SetDestination(goal.position + new Vector3(0,0, Random.Range(-15f,15)));
             ChangeState(State.Idle);
             return;
         }
