@@ -1,0 +1,65 @@
+{
+    "Bullet": {
+        "checkpoints": [
+            {
+                "steps": 696523,
+                "file_path": "results\\bullet_dodge_02\\Bullet\\Bullet-696523.onnx",
+                "reward": null,
+                "creation_time": 1711134239.8079827,
+                "auxillary_file_paths": [
+                    "results\\bullet_dodge_02\\Bullet\\Bullet-696523.pt"
+                ]
+            },
+            {
+                "steps": 824802,
+                "file_path": "results\\bullet_dodge_02\\Bullet\\Bullet-824802.onnx",
+                "reward": null,
+                "creation_time": 1711145614.701528,
+                "auxillary_file_paths": [
+                    "results\\bullet_dodge_02\\Bullet\\Bullet-824802.pt"
+                ]
+            },
+            {
+                "steps": 999997,
+                "file_path": "results\\bullet_dodge_02\\Bullet\\Bullet-999997.onnx",
+                "reward": 0.802999937813729,
+                "creation_time": 1711146185.1333623,
+                "auxillary_file_paths": [
+                    "results\\bullet_dodge_02\\Bullet\\Bullet-999997.pt"
+                ]
+            },
+            {
+                "steps": 1499991,
+                "file_path": "results\\bullet_dodge_02\\Bullet\\Bullet-1499991.onnx",
+                "reward": 0.39142852436218945,
+                "creation_time": 1711147304.6619287,
+                "auxillary_file_paths": [
+                    "results\\bullet_dodge_02\\Bullet\\Bullet-1499991.pt"
+                ]
+            },
+            {
+                "steps": 1971197,
+                "file_path": "results\\bullet_dodge_02\\Bullet\\Bullet-1971197.onnx",
+                "reward": null,
+                "creation_time": 1711148684.0811322,
+                "auxillary_file_paths": [
+                    "results\\bullet_dodge_02\\Bullet\\Bullet-1971197.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1971197,
+            "file_path": "results\\bullet_dodge_02\\Bullet.onnx",
+            "reward": null,
+            "creation_time": 1711148684.0811322,
+            "auxillary_file_paths": [
+                "results\\bullet_dodge_02\\Bullet\\Bullet-1971197.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}

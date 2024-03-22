@@ -2,8 +2,8 @@ behaviors:
   Bullet:
     trainer_type: ppo
     hyperparameters:
-      batch_size: 4096
-      buffer_size: 40960
+      batch_size: 128
+      buffer_size: 1024
       learning_rate: 0.0003
       beta: 0.005
       epsilon: 0.2
@@ -14,24 +14,24 @@ behaviors:
       epsilon_schedule: linear
     network_settings:
       normalize: false
-      hidden_units: 256
-      num_layers: 2
+      hidden_units: 512
+      num_layers: 3
     reward_signals:
       extrinsic:
-        gamma: 0.8
+        gamma: 0.95
         strength: 1
       # gail:
       #   gamma: 0.9
       #   strength: 0.6
       #   use_actions: true
       #   demo_path: Demos/BulletFinalArena.demo
-      curiosity:
-        gamma: 0.9
-        strength: 0.1
-        learning_rate: 0.0003
-        encoding_size: 64
+      # curiosity:
+      #   gamma: 0.95
+      #   strength: 0.01
+      #   learning_rate: 0.0003
+      #   encoding_size: 64
     max_steps: 2000000
-    time_horizon: 64
+    time_horizon: 16
     summary_freq: 10000
     # self_play:
     #   window: 5

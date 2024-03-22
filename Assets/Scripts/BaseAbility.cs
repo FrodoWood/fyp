@@ -54,5 +54,9 @@ public abstract class BaseAbility : MonoBehaviour, IAbility
         return abilityEnabled;
     }
 
+    public void ResetCooldown()
+    {
+        cooldownTimer = 0;
+    }
 
 }

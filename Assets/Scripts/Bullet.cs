@@ -34,6 +34,7 @@ public class Bullet : MonoBehaviour
 
         if (other.gameObject.CompareTag("wall"))
         {
+            if(agentController != null) agentController.isDq = true;
             Destroy(gameObject);
         }
     }
