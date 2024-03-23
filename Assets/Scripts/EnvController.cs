@@ -20,16 +20,16 @@ public class EnvController : MonoBehaviour
 
         if (blueAgent.currentState == State.Dead)
         {
-            purpleAgent.AddReward(2f);
-            blueAgent.AddReward(-2f);
+            purpleAgent.AddReward(1f);
+            blueAgent.AddReward(-1f);
             increasePurpleScore();
             ResetScene();
             return;
         }
         else if (purpleAgent.currentState == State.Dead)
         {
-            blueAgent.AddReward(2f);
-            purpleAgent.AddReward(-2f);
+            blueAgent.AddReward(1f);
+            purpleAgent.AddReward(-1f);
             increaseBlueScore();
             ResetScene();
             return;

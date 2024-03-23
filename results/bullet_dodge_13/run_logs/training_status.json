@@ -1,0 +1,29 @@
+{
+    "Bullet": {
+        "checkpoints": [
+            {
+                "steps": 461022,
+                "file_path": "results\\bullet_dodge_13\\Bullet\\Bullet-461022.onnx",
+                "reward": 0.09347181008902077,
+                "creation_time": 1711218597.8276956,
+                "auxillary_file_paths": [
+                    "results\\bullet_dodge_13\\Bullet\\Bullet-461022.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 461022,
+            "file_path": "results\\bullet_dodge_13\\Bullet.onnx",
+            "reward": 0.09347181008902077,
+            "creation_time": 1711218597.8276956,
+            "auxillary_file_paths": [
+                "results\\bullet_dodge_13\\Bullet\\Bullet-461022.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}

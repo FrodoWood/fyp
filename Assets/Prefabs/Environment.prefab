@@ -551,8 +551,8 @@ Transform:
   m_GameObject: {fileID: 1985703195277975002}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.93, z: -15}
-  m_LocalScale: {x: 1, y: 3, z: 70}
+  m_LocalPosition: {x: 0, y: 0.93, z: -30}
+  m_LocalScale: {x: 1, y: 3, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3735605365310715022}
@@ -867,8 +867,8 @@ Transform:
   m_GameObject: {fileID: 3711856604610747028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.93, z: 15}
-  m_LocalScale: {x: 1, y: 3, z: 70}
+  m_LocalPosition: {x: 0, y: 0.93, z: 30}
+  m_LocalScale: {x: 1, y: 3, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3735605365310715022}
@@ -1112,7 +1112,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8affc14ed46cdf544ac3f6296c35d932, type: 2}
+  - {fileID: 2100000, guid: 0558ad4b8bd141a4ca3f3c577b592949, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2040,8 +2040,8 @@ Transform:
   m_GameObject: {fileID: 7071405608626292553}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -35, y: 0.93, z: 0}
-  m_LocalScale: {x: 1, y: 3, z: 31}
+  m_LocalPosition: {x: -50, y: 0.93, z: 0}
+  m_LocalScale: {x: 1, y: 3, z: 60}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3735605365310715022}
@@ -2176,8 +2176,8 @@ Transform:
   m_GameObject: {fileID: 7712672210356455598}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 35, y: 0.93, z: 0}
-  m_LocalScale: {x: 1, y: 3, z: 31}
+  m_LocalPosition: {x: 50, y: 0.93, z: 0}
+  m_LocalScale: {x: 1, y: 3, z: 60}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3735605365310715022}
@@ -2727,7 +2727,7 @@ PrefabInstance:
     - target: {fileID: 4204924644973245463, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: speed
-      value: 50
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 4204924644973245463, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
@@ -2880,6 +2880,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PurpleAgent
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: baseSpeed
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}

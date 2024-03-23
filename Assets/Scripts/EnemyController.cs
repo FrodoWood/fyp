@@ -145,7 +145,7 @@ public class EnemyController : Agent, IDamageable
 
         Vector3 relativeDistanceToTarget = (targetEnemy.transform.position - transform.position);
         Vector3 directionToTarget = relativeDistanceToTarget.normalized;
-        Debug.DrawLine(Vector3.zero, directionToTarget, Color.green);
+        //Debug.DrawLine(Vector3.zero, directionToTarget, Color.green);
         float distanceMagnitudeToTarget = relativeDistanceToTarget.magnitude / 72f;
 
         sensor.AddObservation(directionToTarget.x);
@@ -188,7 +188,7 @@ public class EnemyController : Agent, IDamageable
     public override void OnActionReceived(ActionBuffers actions)
     {
         actionBuffers = actions;
-        AddReward(-1f / MaxStep);
+        //AddReward(-1f / MaxStep);
         if (actionTimer >= actionCooldown)
         {
 
@@ -197,7 +197,7 @@ public class EnemyController : Agent, IDamageable
         }
         var continuousActions = actions.ContinuousActions;
         Vector3 actionDirection = new Vector3(continuousActions[0], 0f, continuousActions[1]).normalized;
-        Debug.DrawLine(Vector3.zero, actionDirection, Color.red);
+        //Debug.DrawLine(Vector3.zero, actionDirection, Color.red);
 
         //if(StepCount == MaxStep)
         //{
@@ -380,7 +380,7 @@ public class EnemyController : Agent, IDamageable
     private void EnterIdle()
     {
         //navMeshAgent.isStopped = true;
-        Debug.Log("Entered Idle/No Input");
+        //Debug.Log("Entered Idle/No Input");
     }
     private void UpdateIdle()
     {
@@ -422,7 +422,7 @@ public class EnemyController : Agent, IDamageable
     private void EnterMoving()
     {
         if(navMeshAgent.isActiveAndEnabled) navMeshAgent.isStopped = false;
-        Debug.Log("Entered Moving");
+        //Debug.Log("Entered Moving");
     }
     private void UpdateMoving()
     {
@@ -447,7 +447,7 @@ public class EnemyController : Agent, IDamageable
         }
         else destinationMagnitude = 10f;
         // Training or Inference
-        Debug.Log($"contActions[0]: {actionBuffers.ContinuousActions[0]}, contActions[1]: {actionBuffers.ContinuousActions[1]}");
+        //Debug.Log($"contActions[0]: {actionBuffers.ContinuousActions[0]}, contActions[1]: {actionBuffers.ContinuousActions[1]}");
         Vector3 actionDestinationWorldOrigin = new Vector3(actionBuffers.ContinuousActions[0], 0f, actionBuffers.ContinuousActions[1]).normalized * destinationMagnitude;
         Vector3 actionDestinationOriginToPlayer = actionDestinationWorldOrigin + transform.position;
 
@@ -486,7 +486,7 @@ public class EnemyController : Agent, IDamageable
     private void EnterAbility1()
     {
         if (!ability1.isEnabled()) return;
-        Debug.Log("Entered ability1");
+        //Debug.Log("Entered ability1");
         //navMeshAgent.isStopped = true;
         Vector3 lookAtTarget = new Vector3(actionBuffers.ContinuousActions[0], 0f, actionBuffers.ContinuousActions[1]).normalized + transform.position;
         transform.LookAt(lookAtTarget);
@@ -696,7 +696,7 @@ public class EnemyController : Agent, IDamageable
         if (Physics.Raycast(ray, out hit, 100f, movementLayers))
         {
             Vector3 destination = hit.point;
-            Debug.Log($"hit.point = {hit.point}");
+            //Debug.Log($"hit.point = {hit.point}");
             //Debug.DrawLine(Camera.main.transform.position, destination, Color.red, 1f);
 
             Vector3 agentToPoint = hit.point;
@@ -716,9 +716,9 @@ public class EnemyController : Agent, IDamageable
             if (Input.GetMouseButtonDown(1))
             {
                 mouseButtonPressed = true;
-                Debug.DrawLine(Vector3.zero, transform.position, Color.magenta, 2f);
-                Debug.DrawLine(Vector3.zero, hit.point, Color.black, 2f);
-                Debug.DrawLine(transform.position, agentToPoint, Color.blue, 2f);
+                //Debug.DrawLine(Vector3.zero, transform.position, Color.magenta, 2f);
+                //Debug.DrawLine(Vector3.zero, hit.point, Color.black, 2f);
+                //Debug.DrawLine(transform.position, agentToPoint, Color.blue, 2f);
             }
         }
     }
