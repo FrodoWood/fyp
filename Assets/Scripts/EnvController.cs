@@ -16,8 +16,13 @@ public class EnvController : MonoBehaviour
     public int purpleScore;
     public int blueScore;
     public TextMeshProUGUI scoreText;
-    
-    
+
+    public bool shootingTraining = false;
+
+    private void Start()
+    {
+        ResetScene();
+    }
 
     private void Update()
     {
@@ -25,15 +30,15 @@ public class EnvController : MonoBehaviour
 
         if (purpleAgent.hasWon)
         {
-            purpleAgent.AddReward(4f);
-            blueAgent.AddReward(-2f);
+            purpleAgent.AddReward(1f);
+            blueAgent.AddReward(-1f);
             increasePurpleScore();
             ResetScene();
         }
         else if (blueAgent.hasWon)
         {
-            blueAgent.AddReward(4f);
-            purpleAgent.AddReward(-2f);
+            blueAgent.AddReward(1f);
+            purpleAgent.AddReward(-1f);
             increaseBlueScore();
             ResetScene();
         }
@@ -42,14 +47,26 @@ public class EnvController : MonoBehaviour
         {
             //purpleAgent.SetReward(0f);
             //blueAgent.SetReward(0f);
-            ResetScene();   
+            ResetScene();
+            return;
         }
         
         if(purpleAgent.currentState == State.Dead && blueAgent.currentState == State.Dead)
         {
             //purpleAgent.SetReward(0f);
             //blueAgent.SetReward(0f);
-            ResetScene();   
+            ResetScene();
+            return;
+        }
+
+        //Shooting training
+        if (shootingTraining)
+        {
+            if(!purpleAgent.isAlive || !blueAgent.isAlive)
+            {
+                ResetScene();
+                return;
+            }
         }
         
     }
@@ -68,11 +85,33 @@ public class EnvController : MonoBehaviour
 
         purpleAgent.StopAllCoroutines();
         blueAgent.StopAllCoroutines();
+        
+        // Destroy all bullets
+        var myBullets = transform.GetComponentsInChildren<Bullet>();
+        foreach (Bullet bullet in myBullets)
+        {
+            Destroy(bullet.gameObject);
+        }
 
-        // Randomize agents' positions
-        //float randomX = Random.Range(-25f, -3);
-        //float randomZ = Random.Range(-14f, 14f);
+        //Reset health for both agents
+        purpleAgent.ResetHealth();
+        blueAgent.ResetHealth();
 
+        // Shooting training -------
+        // Reset pos
+        if (shootingTraining)
+        {
+            blueAgent.transform.position = new Vector3(0, transform.position.y, 0);
+            purpleAgent.transform.position = GetRandomPositionInCircle(Random.Range(5,15));
+            return;
+        }
+
+        //Normal training -------
+        // Reset heals
+        heal1.Activate();
+        heal2.Activate();
+
+        // Reset pos
         float randomX = -25f;
         float randomZ = 0f; ;
 
@@ -92,25 +131,6 @@ public class EnvController : MonoBehaviour
             blueGoal.position = new Vector3(32, transform.position.y, 0);
         }
 
-        //GameObject heal1 = Instantiate(healPrefab, new Vector3(0f, transform.position.y, 15f), Quaternion.identity);
-        //heal1.transform.parent = transform;
-        //GameObject heal2 = Instantiate(healPrefab, new Vector3(0f, transform.position.y, -15f), Quaternion.identity);
-        //heal2.transform.parent = transform;
-
-        // Reset heals
-        heal1.Activate();
-        heal2.Activate();
-
-        // Destroy all bullets
-        var myBullets = transform.GetComponentsInChildren<Bullet>();
-        foreach (Bullet bullet in myBullets)
-        {
-            Destroy(bullet.gameObject);
-        }
-
-        //Reset health for both agents
-        purpleAgent.ResetHealth();
-        blueAgent.ResetHealth();
     }
 
     private void increaseBlueScore()
@@ -120,5 +140,14 @@ public class EnvController : MonoBehaviour
     private void increasePurpleScore()
     {
         purpleScore += 1;
+    }
+
+    Vector3 GetRandomPositionInCircle(float radius)
+    {
+        float angle = Random.Range(0f, Mathf.PI * 2f);
+        float x = Mathf.Cos(angle) * radius;
+        float z = Mathf.Sin(angle) * radius;
+        float y = transform.position.y;
+        return new Vector3(x, y, z);
     }
 }

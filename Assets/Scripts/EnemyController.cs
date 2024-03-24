@@ -32,13 +32,12 @@ public enum EntityType
 public class EnemyController : Agent, IDamageable
 {
     [SerializeField] private EntityType entity;
-    private NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent { get; private set; }
     [SerializeField] private float actionCooldown;
     [SerializeField] public float maxHealth;
     [SerializeField] public float currentHealth;
     [SerializeField] public float baseSpeed;
     [SerializeField] private LayerMask movementLayers;
-    public EnemyController targetEnemy;
     private float actionTimer = 0f;
     public State currentState { get; private set; }
     private Vector3 currentHeuristicDestinationDirection;
@@ -48,6 +47,8 @@ public class EnemyController : Agent, IDamageable
     private BufferSensorComponent bufferSensor;
     Collider coll;
     public Transform goal;
+    public EnemyController targetEnemy;
+    public Transform enemyGoal;
     public bool isAIControlled = false;
 
     [Header("Gizmos")]
@@ -100,7 +101,7 @@ public class EnemyController : Agent, IDamageable
         actionTimer += Time.deltaTime;
         SetCurrentDestination(); // also caching mouse input
         UpdateCurrentState();
-        //Debug.Log($" Navmesh destination: {navMeshAgent.destination}");
+        ////Debug.Log($" Navmesh destination: {navMeshAgent.destination}");
 
         // Caching inputs because Heuristic gets called every FixedUpdate
         if      (Input.GetKey(KeyCode.Q)) abilityKeyCode =  KeyCode.Q;
@@ -147,7 +148,7 @@ public class EnemyController : Agent, IDamageable
 
         Vector3 relativeDistanceToTarget = (targetEnemy.transform.position - transform.position);
         Vector3 directionToTarget = relativeDistanceToTarget.normalized;
-        Debug.DrawLine(Vector3.zero, directionToTarget, Color.green);
+        //Debug.DrawLine(Vector3.zero, directionToTarget, Color.green);
         float distanceMagnitudeToTarget = relativeDistanceToTarget.magnitude / 70f;
 
         sensor.AddObservation(directionToTarget.x);
@@ -156,17 +157,22 @@ public class EnemyController : Agent, IDamageable
         
         Vector3 relativeDistanceToGoal = (goal.position - transform.position);
         Vector3 directionToGoal = relativeDistanceToGoal.normalized;
-        Debug.DrawLine(Vector3.zero, directionToGoal, Color.green);
+        //Debug.DrawLine(Vector3.zero, directionToGoal, Color.green);
         float distanceMagnitudeToGoal = relativeDistanceToGoal.magnitude / 70f;
 
         sensor.AddObservation(directionToGoal.x);
         sensor.AddObservation(directionToGoal.z);
         sensor.AddObservation(distanceMagnitudeToGoal);
 
-        //Debug.DrawLine(transform.position, targetEnemy.transform.position, Color.red);
-        //Debug.DrawLine(transform.position, transform.position + directionToTarget, Color.green, 2f);
+        sensor.AddObservation(Vector3.Distance(targetEnemy.transform.position, enemyGoal.position)/70f);
+
+        ////Debug.DrawLine(transform.position, targetEnemy.transform.position, Color.red);
+        ////Debug.DrawLine(transform.position, transform.position + directionToTarget, Color.green, 2f);
 
         sensor.AddObservation(ability1.Available() ? 1 : 0);
+
+        sensor.AddObservation(navMeshAgent.speed / 100f);
+        sensor.AddObservation(targetEnemy.navMeshAgent.speed / 100f);
 
 
         // Variable length observation
@@ -190,7 +196,7 @@ public class EnemyController : Agent, IDamageable
                 bullet.transform.forward.x,
                 bullet.transform.forward.z
             };
-            //Debug.Log("\n" + bulletObservation[0] + bulletObservation[1]);
+            ////Debug.Log("\n" + bulletObservation[0] + bulletObservation[1]);
             bufferSensor.AppendObservation(bulletObservation);
 
         }
@@ -208,7 +214,7 @@ public class EnemyController : Agent, IDamageable
         }
         var continuousActions = actions.ContinuousActions;
         Vector3 actionDirection = new Vector3(continuousActions[0], 0f, continuousActions[1]).normalized;
-        Debug.DrawLine(Vector3.zero, actionDirection, Color.red);
+        //Debug.DrawLine(Vector3.zero, actionDirection, Color.red);
 
         //if(StepCount == MaxStep)
         //{
@@ -391,7 +397,7 @@ public class EnemyController : Agent, IDamageable
     private void EnterIdle()
     {
         //navMeshAgent.isStopped = true;
-        Debug.Log("Entered Idle/No Input");
+        //Debug.Log("Entered Idle/No Input");
     }
     private void UpdateIdle()
     {
@@ -403,6 +409,15 @@ public class EnemyController : Agent, IDamageable
     }
     private void UpdateIdleOnActionReceived()
     {
+        if (isAIControlled)
+        {
+            if (navMeshAgent.isActiveAndEnabled)
+            {
+                if (navMeshAgent.remainingDistance < 0.2f) ChangeState(State.Moving);
+                return;
+            }
+            return;
+        }
         switch (actionBuffers.DiscreteActions[0])
         {
             case a_idle:
@@ -433,7 +448,7 @@ public class EnemyController : Agent, IDamageable
     private void EnterMoving()
     {
         if(navMeshAgent.isActiveAndEnabled) navMeshAgent.isStopped = false;
-        Debug.Log("Entered Moving");
+        //Debug.Log("Entered Moving");
     }
     private void UpdateMoving()
     {
@@ -447,7 +462,12 @@ public class EnemyController : Agent, IDamageable
     {
         if (isAIControlled)
         {
-            if(navMeshAgent.isActiveAndEnabled) navMeshAgent.SetDestination(goal.position + new Vector3(0,0, Random.Range(-15f,15)));
+            Vector3 randomDirection = new Vector3(Random.Range(-1,1), transform.position.y, Random.Range(-1,2)).normalized;
+            Vector3 targetDirection = (goal.position - transform.position).normalized;
+            Vector3 finalDirection = Vector3.Lerp(randomDirection, targetDirection, 0.6f).normalized;
+            if(navMeshAgent.isActiveAndEnabled) navMeshAgent.SetDestination(transform.position + (finalDirection * 6f));
+            //if(navMeshAgent.isActiveAndEnabled) navMeshAgent.SetDestination(goal.position + new Vector3(0,0, Random.Range(-2f,2)));
+            
             ChangeState(State.Idle);
             return;
         }
@@ -459,15 +479,15 @@ public class EnemyController : Agent, IDamageable
         }
         else destinationMagnitude = 10f;
         // Training or Inference
-        Debug.Log($"contActions[0]: {actionBuffers.ContinuousActions[0]}, contActions[1]: {actionBuffers.ContinuousActions[1]}");
+        //Debug.Log($"contActions[0]: {actionBuffers.ContinuousActions[0]}, contActions[1]: {actionBuffers.ContinuousActions[1]}");
         Vector3 actionDestinationWorldOrigin = new Vector3(actionBuffers.ContinuousActions[0], 0f, actionBuffers.ContinuousActions[1]).normalized * destinationMagnitude;
         Vector3 actionDestinationOriginToPlayer = actionDestinationWorldOrigin + transform.position;
 
-        //Debug.DrawLine(Vector3.zero, actionDestinationWorldOrigin, Color.green, 2f);
-        //Debug.DrawLine(transform.position, actionDestinationOriginToPlayer, Color.red, 2f);
+        ////Debug.DrawLine(Vector3.zero, actionDestinationWorldOrigin, Color.green, 2f);
+        ////Debug.DrawLine(transform.position, actionDestinationOriginToPlayer, Color.red, 2f);
 
         navMeshAgent.SetDestination(actionDestinationOriginToPlayer);
-        //Debug.Log($"Training env pos: {transform.parent.position}");
+        ////Debug.Log($"Training env pos: {transform.parent.position}");
         switch (actionBuffers.DiscreteActions[0])
         {
             case a_idle:
@@ -498,22 +518,10 @@ public class EnemyController : Agent, IDamageable
     private void EnterAbility1()
     {
         if (!ability1.isEnabled()) return;
-        Debug.Log("Entered ability1");
+        //Debug.Log("Entered ability1");
         //navMeshAgent.isStopped = true;
         Vector3 lookAtTarget = new Vector3(actionBuffers.ContinuousActions[0], 0f, actionBuffers.ContinuousActions[1]).normalized + transform.position;
         transform.LookAt(lookAtTarget);
-        //Vector3 lookAtTarget = Vector3.zero;
-        //if (behaviorParameters.BehaviorType == BehaviorType.HeuristicOnly)
-        //{
-        //    lookAtTarget = new Vector3(currentHeuristicDestinationDirection.x, transform.position.y, currentHeuristicDestinationDirection.z) * currentHeuristicDestinationMagnitude * 1.2f;
-        //    transform.LookAt(lookAtTarget);
-
-        //}
-        //else
-        //{
-        //    lookAtTarget = new Vector3(actionBuffers.ContinuousActions[0], 0f, actionBuffers.ContinuousActions[1]).normalized + transform.position;
-        //}
-
         ability1.TriggerAbility();
     }
     private void UpdateAbility1()
@@ -532,7 +540,7 @@ public class EnemyController : Agent, IDamageable
     private void EnterAbility2()
     {
         if (!ability2.isEnabled()) return;
-        Debug.Log("Entered ability2");
+        //Debug.Log("Entered ability2");
         navMeshAgent.isStopped = true;
         ability2.TriggerAbility();
     }
@@ -553,7 +561,7 @@ public class EnemyController : Agent, IDamageable
     private void EnterAbility3()
     {
         if (!ability3.isEnabled()) return;
-        Debug.Log("Entered ability3");
+        //Debug.Log("Entered ability3");
         ability3.TriggerAbility();
     }
     private void UpdateAbility3()
@@ -572,7 +580,7 @@ public class EnemyController : Agent, IDamageable
     private void EnterAbility4()
     {
         if (!ability4.isEnabled()) return;
-        Debug.Log("Entered ability4");
+        //Debug.Log("Entered ability4");
         navMeshAgent.isStopped = true;
         ability4.TriggerAbility();
     }
@@ -582,7 +590,7 @@ public class EnemyController : Agent, IDamageable
     }
     private void ExitAbility4()
     {
-        Debug.Log("Exited Ability 4");
+        //Debug.Log("Exited Ability 4");
     }
     private void UpdateAbility4OnActionReceived()
     {
@@ -633,7 +641,6 @@ public class EnemyController : Agent, IDamageable
 
     private void EnterDead()
     {
-        AddReward(-1f);
         isAlive = false;
         coll.enabled = false;
         navMeshAgent.enabled = false;
@@ -702,14 +709,14 @@ public class EnemyController : Agent, IDamageable
     private void SetCurrentDestination()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green, 1f);
+        ////Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green, 1f);
         RaycastHit hit;
         //Vector3 movePosition = Vector3.zero;
         if (Physics.Raycast(ray, out hit, 100f, movementLayers))
         {
             Vector3 destination = hit.point;
-            Debug.Log($"hit.point = {hit.point}");
-            //Debug.DrawLine(Camera.main.transform.position, destination, Color.red, 1f);
+            //Debug.Log($"hit.point = {hit.point}");
+            ////Debug.DrawLine(Camera.main.transform.position, destination, Color.red, 1f);
 
             Vector3 agentToPoint = hit.point;
 
@@ -728,9 +735,9 @@ public class EnemyController : Agent, IDamageable
             if (Input.GetMouseButtonDown(1))
             {
                 mouseButtonPressed = true;
-                Debug.DrawLine(Vector3.zero, transform.position, Color.magenta, 2f);
-                Debug.DrawLine(Vector3.zero, hit.point, Color.black, 2f);
-                Debug.DrawLine(transform.position, agentToPoint, Color.blue, 2f);
+                //Debug.DrawLine(Vector3.zero, transform.position, Color.magenta, 2f);
+                //Debug.DrawLine(Vector3.zero, hit.point, Color.black, 2f);
+                //Debug.DrawLine(transform.position, agentToPoint, Color.blue, 2f);
             }
         }
     }
@@ -748,10 +755,14 @@ public class EnemyController : Agent, IDamageable
 
     public IEnumerator SlowDown()
     {
-
-        navMeshAgent.speed = baseSpeed / 2;
+        navMeshAgent.speed = baseSpeed / 4;
         yield return new WaitForSeconds(1);
         navMeshAgent.speed = baseSpeed;
-
+    }
+    public IEnumerator SpeedUp()
+    {
+        navMeshAgent.speed = baseSpeed * 1.5f;
+        yield return new WaitForSeconds(1);
+        navMeshAgent.speed = baseSpeed;
     }
 }

@@ -189,8 +189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 11
-    NumStackedVectorObservations: 1
+    VectorObservationSize: 14
+    NumStackedVectorObservations: 3
     m_ActionSpec:
       m_NumContinuousActions: 2
       BranchSizes: 03000000
@@ -198,9 +198,9 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: ffbf45ea5599325439f016274b5997c2, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 8b6f179ab87681946ba2c50ac7f07d60, type: 3}
   m_InferenceDevice: 0
-  m_BehaviorType: 2
+  m_BehaviorType: 1
   m_BehaviorName: Bullet
   TeamId: 1
   m_UseChildSensors: 1
@@ -225,14 +225,16 @@ MonoBehaviour:
   MaxStep: 1000
   entity: 0
   actionCooldown: 0
-  maxHealth: 20
+  maxHealth: 10
   currentHealth: 0
-  baseSpeed: 14
+  baseSpeed: 10
   movementLayers:
     serializedVersion: 2
     m_Bits: 1
-  targetEnemy: {fileID: 0}
   goal: {fileID: 0}
+  targetEnemy: {fileID: 0}
+  enemyGoal: {fileID: 0}
+  isAIControlled: 1
   bulletGizmoRadius: 0.57
   bulletGizmoColor: {r: 0.38669237, g: 0.11485406, b: 0.8396226, a: 1}
   isStunned: 0
@@ -251,7 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onCooldown: 0
-  abilityEnabled: 1
+  abilityEnabled: 0
   cooldown: 0.5
   damage: 10
   speed: 40
@@ -380,15 +382,16 @@ MonoBehaviour:
   m_DetectableTags:
   - wall
   - heal
-  m_RaysPerDirection: 3
-  m_MaxRayDegrees: 40
-  m_SphereCastRadius: 0.5
+  - Enemy
+  m_RaysPerDirection: 5
+  m_MaxRayDegrees: 30
+  m_SphereCastRadius: 0
   m_RayLength: 20
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
-  m_ObservationStacks: 1
-  m_AlternatingRayOrder: 1
+  m_ObservationStacks: 2
+  m_AlternatingRayOrder: 0
   m_UseBatchedRaycasts: 0
   rayHitColor: {r: 0, g: 1, b: 0.016851187, a: 1}
   rayMissColor: {r: 1, g: 0, b: 0, a: 1}
