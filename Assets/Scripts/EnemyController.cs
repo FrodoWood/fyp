@@ -212,8 +212,9 @@ public class EnemyController : Agent, IDamageable
             UpdateStateOnActionReceived();
             actionTimer = 0f;
         }
-        var continuousActions = actions.ContinuousActions;
-        Vector3 actionDirection = new Vector3(continuousActions[0], 0f, continuousActions[1]).normalized;
+
+        //var continuousActions = actions.ContinuousActions;
+        //Vector3 actionDirection = new Vector3(continuousActions[0], 0f, continuousActions[1]).normalized;
         //Debug.DrawLine(Vector3.zero, actionDirection, Color.red);
 
         //if(StepCount == MaxStep)
@@ -411,6 +412,12 @@ public class EnemyController : Agent, IDamageable
     {
         if (isAIControlled)
         {
+            if(Random.value < 0.2f && ability1.Available())
+            {
+                float distanceToTarget = Vector3.Distance(transform.position, targetEnemy.transform.position);
+                if (distanceToTarget < 25) ChangeState(State.Ability1);
+                return;
+            }
             if (navMeshAgent.isActiveAndEnabled)
             {
                 if (navMeshAgent.remainingDistance < 0.2f) ChangeState(State.Moving);
@@ -518,11 +525,23 @@ public class EnemyController : Agent, IDamageable
     private void EnterAbility1()
     {
         if (!ability1.isEnabled()) return;
-        //Debug.Log("Entered ability1");
-        //navMeshAgent.isStopped = true;
-        Vector3 lookAtTarget = new Vector3(actionBuffers.ContinuousActions[0], 0f, actionBuffers.ContinuousActions[1]).normalized + transform.position;
-        transform.LookAt(lookAtTarget);
-        ability1.TriggerAbility();
+        if (isAIControlled)
+        {
+            Vector3 directionToTarget = (targetEnemy.transform.position - transform.position).normalized;
+            //Debug.DrawLine(Vector3.zero, directionToTarget, Color.green);
+            Vector3 lookAtTarget = new Vector3(directionToTarget.x, 0f, directionToTarget.z).normalized + transform.position;
+            transform.LookAt(lookAtTarget);
+            ability1.TriggerAbility();
+
+        }
+        else
+        {
+            //Debug.Log("Entered ability1");
+            //navMeshAgent.isStopped = true;
+            Vector3 lookAtTarget = new Vector3(actionBuffers.ContinuousActions[0], 0f, actionBuffers.ContinuousActions[1]).normalized + transform.position;
+            transform.LookAt(lookAtTarget);
+            ability1.TriggerAbility();
+        }
     }
     private void UpdateAbility1()
     {
@@ -644,6 +663,7 @@ public class EnemyController : Agent, IDamageable
         isAlive = false;
         coll.enabled = false;
         navMeshAgent.enabled = false;
+        targetEnemy.navMeshAgent.speed = 20f;
 
     }
     private void ExitDead()
@@ -761,8 +781,9 @@ public class EnemyController : Agent, IDamageable
     }
     public IEnumerator SpeedUp()
     {
-        navMeshAgent.speed = baseSpeed * 1.5f;
+        float prevSpeed = navMeshAgent.speed;
+        navMeshAgent.speed *= 1.5f;
         yield return new WaitForSeconds(1);
-        navMeshAgent.speed = baseSpeed;
+        navMeshAgent.speed = prevSpeed;
     }
 }

@@ -37,7 +37,14 @@ public class Bullet : MonoBehaviour
 
         if (damageable != null && damageable.GetEntityType() != entity)
         {
-            agentController?.AddReward(2 * distanceTravelled/20f);
+            if(distanceTravelled < 5f)
+            {
+                agentController?.AddReward(1.5f - distanceTravelled/5);
+            }
+            else
+            {
+                agentController?.AddReward(2 * distanceTravelled/20f);
+            }
             //Debug.Log("Enemy Hit!");
             damageable.TakeDamage(damage);
             Destroy(gameObject);

@@ -30,15 +30,15 @@ public class EnvController : MonoBehaviour
 
         if (purpleAgent.hasWon)
         {
-            purpleAgent.AddReward(1f);
-            blueAgent.AddReward(-1f);
+            purpleAgent.AddReward(2f);
+            blueAgent.AddReward(-2f);
             increasePurpleScore();
             ResetScene();
         }
         else if (blueAgent.hasWon)
         {
-            blueAgent.AddReward(1f);
-            purpleAgent.AddReward(-1f);
+            blueAgent.AddReward(2f);
+            purpleAgent.AddReward(-2f);
             increaseBlueScore();
             ResetScene();
         }
