@@ -225,9 +225,9 @@ MonoBehaviour:
   MaxStep: 1000
   entity: 0
   actionCooldown: 0.05
-  maxHealth: 50
+  maxHealth: 10
   currentHealth: 0
-  baseSpeed: 10
+  baseSpeed: 0
   movementLayers:
     serializedVersion: 2
     m_Bits: 1
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onCooldown: 0
   abilityEnabled: 1
-  cooldown: 0.2
+  cooldown: 2
   damage: 10
   speed: 20
   bulletPrefab: {fileID: 835461798170658529, guid: 9415b93f3dd9f5844aa9ea165dfe982a,

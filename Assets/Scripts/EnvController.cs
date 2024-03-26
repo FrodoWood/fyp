@@ -97,19 +97,21 @@ public class EnvController : MonoBehaviour
         purpleAgent.ResetHealth();
         blueAgent.ResetHealth();
 
+        // Reset heals
+        heal1.Activate();
+        heal2.Activate();
+
         // Shooting training -------
         // Reset pos
         if (shootingTraining)
         {
             blueAgent.transform.position = new Vector3(0, transform.position.y, 0);
-            purpleAgent.transform.position = GetRandomPositionInCircle(Random.Range(5,15));
+            purpleAgent.transform.position = GetRandomPositionInCircle(Random.Range(20,25));
             return;
         }
 
         //Normal training -------
-        // Reset heals
-        heal1.Activate();
-        heal2.Activate();
+        
 
         // Reset pos
         float randomX = -25f;

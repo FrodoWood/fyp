@@ -420,7 +420,7 @@ public class EnemyController : Agent, IDamageable
             }
             if (navMeshAgent.isActiveAndEnabled)
             {
-                if (navMeshAgent.remainingDistance < 0.2f) ChangeState(State.Moving);
+                if (navMeshAgent.remainingDistance < 0.02f) ChangeState(State.Moving);
                 return;
             }
             return;
@@ -469,10 +469,14 @@ public class EnemyController : Agent, IDamageable
     {
         if (isAIControlled)
         {
-            Vector3 randomDirection = new Vector3(Random.Range(-1,1), transform.position.y, Random.Range(-1,2)).normalized;
-            Vector3 targetDirection = (goal.position - transform.position).normalized;
-            Vector3 finalDirection = Vector3.Lerp(randomDirection, targetDirection, 0.6f).normalized;
-            if(navMeshAgent.isActiveAndEnabled) navMeshAgent.SetDestination(transform.position + (finalDirection * 6f));
+            float targetBias = targetEnemy.isAlive ? 0.4f : 0.9f;
+            Transform targetTransform = targetEnemy.isAlive ? targetEnemy.transform : goal;
+            Vector3 randomDirection = GetRandomPositionInCircle(1);
+            Vector3 targetDirection = (targetTransform.position - transform.position).normalized;
+            Vector3 finalDirection = Vector3.Lerp(randomDirection, targetDirection, targetBias).normalized;
+            Vector3 destination = transform.position + (finalDirection * 3f);
+            Vector3 finalDestination = new Vector3(destination.x, transform.position.y, destination.z);
+            if (navMeshAgent.isActiveAndEnabled) navMeshAgent.SetDestination(finalDestination);
             //if(navMeshAgent.isActiveAndEnabled) navMeshAgent.SetDestination(goal.position + new Vector3(0,0, Random.Range(-2f,2)));
             
             ChangeState(State.Idle);
@@ -527,7 +531,8 @@ public class EnemyController : Agent, IDamageable
         if (!ability1.isEnabled()) return;
         if (isAIControlled)
         {
-            Vector3 directionToTarget = (targetEnemy.transform.position - transform.position).normalized;
+            Vector3 randomPos = GetRandomPositionInCircle(2);
+            Vector3 directionToTarget = (targetEnemy.transform.position + randomPos - transform.position).normalized;
             //Debug.DrawLine(Vector3.zero, directionToTarget, Color.green);
             Vector3 lookAtTarget = new Vector3(directionToTarget.x, 0f, directionToTarget.z).normalized + transform.position;
             transform.LookAt(lookAtTarget);
@@ -775,9 +780,10 @@ public class EnemyController : Agent, IDamageable
 
     public IEnumerator SlowDown()
     {
-        navMeshAgent.speed = baseSpeed / 4;
+        float prevSpeed = navMeshAgent.speed;
+        navMeshAgent.speed /= 4;
         yield return new WaitForSeconds(1);
-        navMeshAgent.speed = baseSpeed;
+        navMeshAgent.speed = prevSpeed;
     }
     public IEnumerator SpeedUp()
     {
@@ -785,5 +791,15 @@ public class EnemyController : Agent, IDamageable
         navMeshAgent.speed *= 1.5f;
         yield return new WaitForSeconds(1);
         navMeshAgent.speed = prevSpeed;
+    }
+
+    private Vector3 GetRandomPositionInCircle(float radius)
+    {
+        //float angle = Random.Range(0f, Mathf.PI * 2f);
+        float angle = Random.Range(0f, Mathf.PI * 2f);
+        float x = Mathf.PerlinNoise(angle * 0.1f, 0) * radius;
+        float z = Mathf.PerlinNoise(0,angle * 0.1f) * radius;
+        float y = 0;
+        return new Vector3(x, y, z);
     }
 }

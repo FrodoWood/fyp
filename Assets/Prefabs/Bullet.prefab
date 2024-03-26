@@ -147,3 +147,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  purpleMaterial: {fileID: 2100000, guid: 6a07d0515f27a004ca6a2b21e9811766, type: 2}
+  blueMaterial: {fileID: 2100000, guid: f95c043222519b84fb1c14e9729884a9, type: 2}

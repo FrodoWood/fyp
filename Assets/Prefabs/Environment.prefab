@@ -2097,6 +2097,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: f95c043222519b84fb1c14e9729884a9, type: 2}
     - target: {fileID: 4204924644973245463, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
+      propertyPath: cooldown
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204924644973245463, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
       propertyPath: abilityEnabled
       value: 1
       objectReference: {fileID: 0}
@@ -2112,9 +2117,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
+      propertyPath: baseSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
       propertyPath: enemyGoal
       value: 
       objectReference: {fileID: 8593271020941090380}
+    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: maxHealth
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: targetEnemy
@@ -2257,6 +2272,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: PurpleAgent
       objectReference: {fileID: 0}
+    - target: {fileID: 3376682228570027408, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: m_BehaviorType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204924644973245463, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: cooldown
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204924644973245463, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: abilityEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: goal
@@ -2264,14 +2294,34 @@ PrefabInstance:
       objectReference: {fileID: 8593271020941090380}
     - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
+      propertyPath: baseSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
       propertyPath: enemyGoal
       value: 
       objectReference: {fileID: 8088235475545745605}
     - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
+      propertyPath: maxHealth
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
       propertyPath: targetEnemy
       value: 
       objectReference: {fileID: 6183849245097584401}
+    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: actionCooldown
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: isAIControlled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8344174264944647371, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: m_LocalPosition.x

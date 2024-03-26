@@ -9,6 +9,9 @@ public class Bullet : MonoBehaviour
     private EnemyController agentController;
     private float distanceTravelled;
     private Vector3 initialPosition;
+    public Material purpleMaterial;
+    public Material blueMaterial;
+    private Renderer _renderer;
 
     private void Start()
     {
@@ -18,7 +21,7 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         distanceTravelled = Vector3.Distance(initialPosition, transform.position);
-        if(distanceTravelled > 20f)
+        if(distanceTravelled > 30f)
         {
             Destroy(gameObject);
         }
@@ -29,6 +32,10 @@ public class Bullet : MonoBehaviour
         damage = damageValue;
         entity = entityType;
         agentController = enemyController;
+
+        _renderer = GetComponent<Renderer>();
+        if (entityType == EntityType.Enemy) _renderer.material = purpleMaterial;
+        else _renderer.material = blueMaterial;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,11 +46,11 @@ public class Bullet : MonoBehaviour
         {
             if(distanceTravelled < 5f)
             {
-                agentController?.AddReward(1.5f - distanceTravelled/5);
+                agentController?.AddReward(-1f + distanceTravelled/5);
             }
             else
             {
-                agentController?.AddReward(2 * distanceTravelled/20f);
+                agentController?.AddReward(2 * distanceTravelled/30f);
             }
             //Debug.Log("Enemy Hit!");
             damageable.TakeDamage(damage);
