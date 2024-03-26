@@ -28,19 +28,24 @@ public class EnvController : MonoBehaviour
     {
         updateScoreText();
 
+        float purpleAgentCumulativeReward = purpleAgent.GetCumulativeReward();
+        float blueAgentCumulativeReward = blueAgent.GetCumulativeReward();
+
         if (purpleAgent.hasWon)
         {
-            purpleAgent.AddReward(2f);
+            purpleAgent.AddReward(purpleAgentCumulativeReward);
             blueAgent.AddReward(-2f);
             increasePurpleScore();
             ResetScene();
+            return;
         }
         else if (blueAgent.hasWon)
         {
-            blueAgent.AddReward(2f);
+            blueAgent.AddReward(blueAgentCumulativeReward);
             purpleAgent.AddReward(-2f);
             increaseBlueScore();
             ResetScene();
+            return;
         }
 
         if(purpleAgent.StepCount >= purpleAgent.MaxStep -1 || blueAgent.StepCount >= blueAgent.MaxStep-1)
@@ -51,7 +56,7 @@ public class EnvController : MonoBehaviour
             return;
         }
         
-        if(purpleAgent.currentState == State.Dead && blueAgent.currentState == State.Dead)
+        if(!purpleAgent.isAlive && !blueAgent.isAlive)
         {
             //purpleAgent.SetReward(0f);
             //blueAgent.SetReward(0f);
@@ -114,25 +119,25 @@ public class EnvController : MonoBehaviour
         
 
         // Reset pos
-        float randomX = -25f;
-        float randomZ = 0f; ;
-
         float prob = Random.value;
+        float posX;
+        float posZ;
         if(prob < 0.5)
         {
-            purpleAgent.transform.position = new Vector3(randomX, purpleAgent.transform.position.y, randomZ);
-            purpleGoal.position = new Vector3(32, transform.position.y, 0);
-            blueAgent.transform.position = new Vector3(-randomX, purpleAgent.transform.position.y, -randomZ);
-            blueGoal.position = new Vector3(-32, transform.position.y, 0);
+            posX = 25;
+            posZ = 25;
         }
         else
         {
-            purpleAgent.transform.position = new Vector3(-randomX, purpleAgent.transform.position.y, -randomZ);
-            purpleGoal.position = new Vector3(-32, transform.position.y, 0);
-            blueAgent.transform.position = new Vector3(randomX, purpleAgent.transform.position.y, randomZ);
-            blueGoal.position = new Vector3(32, transform.position.y, 0);
+            posX = -25;
+            posZ = -25;
         }
 
+        purpleAgent.transform.position = new Vector3(posX, purpleAgent.transform.position.y, posZ);
+        purpleGoal.position = new Vector3(-posX, transform.position.y, -posX);
+
+        blueAgent.transform.position = new Vector3(-posX, purpleAgent.transform.position.y, -posZ);
+        blueGoal.position = new Vector3(posX, transform.position.y, posX);
     }
 
     private void increaseBlueScore()
