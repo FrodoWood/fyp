@@ -1,0 +1,65 @@
+{
+    "Bullet": {
+        "checkpoints": [
+            {
+                "steps": 499986,
+                "file_path": "results\\bullet_arena_final_general_10\\Bullet\\Bullet-499986.onnx",
+                "reward": -1.015658568929542,
+                "creation_time": 1711463694.7844594,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_final_general_10\\Bullet\\Bullet-499986.pt"
+                ]
+            },
+            {
+                "steps": 999882,
+                "file_path": "results\\bullet_arena_final_general_10\\Bullet\\Bullet-999882.onnx",
+                "reward": -2.2739733109871545,
+                "creation_time": 1711464479.5566163,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_final_general_10\\Bullet\\Bullet-999882.pt"
+                ]
+            },
+            {
+                "steps": 1499883,
+                "file_path": "results\\bullet_arena_final_general_10\\Bullet\\Bullet-1499883.onnx",
+                "reward": -0.3417894725095142,
+                "creation_time": 1711465227.1062548,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_final_general_10\\Bullet\\Bullet-1499883.pt"
+                ]
+            },
+            {
+                "steps": 1999986,
+                "file_path": "results\\bullet_arena_final_general_10\\Bullet\\Bullet-1999986.onnx",
+                "reward": 1.3090782724320889,
+                "creation_time": 1711465947.7355986,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_final_general_10\\Bullet\\Bullet-1999986.pt"
+                ]
+            },
+            {
+                "steps": 2000114,
+                "file_path": "results\\bullet_arena_final_general_10\\Bullet\\Bullet-2000114.onnx",
+                "reward": 1.3090782724320889,
+                "creation_time": 1711465947.947054,
+                "auxillary_file_paths": [
+                    "results\\bullet_arena_final_general_10\\Bullet\\Bullet-2000114.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 2000114,
+            "file_path": "results\\bullet_arena_final_general_10\\Bullet.onnx",
+            "reward": 1.3090782724320889,
+            "creation_time": 1711465947.947054,
+            "auxillary_file_paths": [
+                "results\\bullet_arena_final_general_10\\Bullet\\Bullet-2000114.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}

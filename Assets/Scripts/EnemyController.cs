@@ -49,7 +49,6 @@ public class EnemyController : Agent, IDamageable
     public Transform goal;
     public EnemyController targetEnemy;
     public Transform enemyGoal;
-    public bool isAIControlled = false;
 
     [Header("Gizmos")]
     public float bulletGizmoRadius = 1f;
@@ -70,6 +69,8 @@ public class EnemyController : Agent, IDamageable
     private Ability3 ability3;
     private Ability4 ability4;
 
+    [Header("States")]
+    public bool isAIControlled = false;
     [SerializeField] private bool isStunned;
     public bool hasWon = false;
     public bool isAlive = true;
@@ -77,6 +78,9 @@ public class EnemyController : Agent, IDamageable
     //Cached Inputs
     private bool mouseButtonPressed = false;
     private KeyCode abilityKeyCode = KeyCode.None;
+
+    public AnimationCurve goalRewardCurve;
+    public AnimationCurve aimRewardCurve;
 
     protected override void Awake()
     {
@@ -177,7 +181,7 @@ public class EnemyController : Agent, IDamageable
 
         // Variable length observation
         bullets = transform.parent.GetComponentsInChildren<Bullet>()
-            //.Where(bullet=> bullet.entity != entity)
+            .Where(bullet => bullet.entity != entity)
             .OrderBy(bullet => Vector3.Distance(transform.localPosition, bullet.transform.localPosition))
             .Take(3)
             .ToArray();
@@ -212,6 +216,17 @@ public class EnemyController : Agent, IDamageable
             UpdateStateOnActionReceived();
             actionTimer = 0f;
         }
+
+        float distanceToGoal = Vector3.Distance(transform.position, goal.position);
+        //float distanceToGoalReward = Mathf.Clamp01(1f - (distanceToGoal / 72f)) * 0.01f;
+        float distanceToGoalReward = goalRewardCurve.Evaluate(distanceToGoal/72) * 0.01f;
+        AddReward(distanceToGoalReward);
+        //if(entity == EntityType.Player)
+        //{
+        //    //Debug.Log(GetCumulativeReward());
+        //    Debug.Log("distance: " + distanceToGoal);
+        //    Debug.Log("reward: " + distanceToGoalReward);
+        //}
 
         //var continuousActions = actions.ContinuousActions;
         //Vector3 actionDirection = new Vector3(continuousActions[0], 0f, continuousActions[1]).normalized;
@@ -474,7 +489,7 @@ public class EnemyController : Agent, IDamageable
             Vector3 randomDirection = GetRandomPositionInCircle(1);
             Vector3 targetDirection = (targetTransform.position - transform.position).normalized;
             Vector3 finalDirection = Vector3.Lerp(randomDirection, targetDirection, targetBias).normalized;
-            Vector3 destination = transform.position + (finalDirection * 3f);
+            Vector3 destination = transform.position + (finalDirection * 2f);
             Vector3 finalDestination = new Vector3(destination.x, transform.position.y, destination.z);
             if (navMeshAgent.isActiveAndEnabled) navMeshAgent.SetDestination(finalDestination);
             //if(navMeshAgent.isActiveAndEnabled) navMeshAgent.SetDestination(goal.position + new Vector3(0,0, Random.Range(-2f,2)));
@@ -545,7 +560,18 @@ public class EnemyController : Agent, IDamageable
             //navMeshAgent.isStopped = true;
             Vector3 lookAtTarget = new Vector3(actionBuffers.ContinuousActions[0], 0f, actionBuffers.ContinuousActions[1]).normalized + transform.position;
             transform.LookAt(lookAtTarget);
+            Vector3 trueDirectionTarget = (targetEnemy.transform.position - transform.position).normalized;
+            float alignment = Vector3.Dot((lookAtTarget - transform.position).normalized, trueDirectionTarget);
+            float aimReward = aimRewardCurve.Evaluate(alignment) * 0.2f;
+            if(targetEnemy.isAlive) AddReward(aimReward);
             ability1.TriggerAbility();
+            
+            //if (entity == EntityType.Player)
+            //{
+            //    //Debug.Log(GetCumulativeReward());
+            //    Debug.Log("alignment: " + alignment);
+            //    Debug.Log("reward: " + aimReward);
+            //}
         }
     }
     private void UpdateAbility1()
@@ -797,8 +823,8 @@ public class EnemyController : Agent, IDamageable
     {
         //float angle = Random.Range(0f, Mathf.PI * 2f);
         float angle = Random.Range(0f, Mathf.PI * 2f);
-        float x = Mathf.PerlinNoise(angle * 0.1f, 0) * radius;
-        float z = Mathf.PerlinNoise(0,angle * 0.1f) * radius;
+        float x = (Mathf.PerlinNoise((angle + Time.time) * 0.1f, Time.time) * 2f -1) * radius;
+        float z = (Mathf.PerlinNoise(Time.time, (angle + Time.time) * 0.1f) * 2f -1) * radius;
         float y = 0;
         return new Vector3(x, y, z);
     }

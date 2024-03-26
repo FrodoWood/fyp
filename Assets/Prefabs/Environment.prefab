@@ -2088,7 +2088,7 @@ PrefabInstance:
     - target: {fileID: 3376682228570027408, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: m_BehaviorType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3567076489887189047, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
@@ -2159,6 +2159,56 @@ PrefabInstance:
         type: 3}
       propertyPath: bulletGizmoColor.r
       value: 0.011614433
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: rewardCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: rewardCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: rewardCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: rewardCurve.m_Curve.Array.data[1].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: rewardCurve.m_Curve.Array.data[0].inSlope
+      value: -2.1652122
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: rewardCurve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: rewardCurve.m_Curve.Array.data[0].outSlope
+      value: -2.1652122
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: rewardCurve.m_Curve.Array.data[1].inWeight
+      value: 0.060634732
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: rewardCurve.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: rewardCurve.m_Curve.Array.data[0].outWeight
+      value: 0.06644518
       objectReference: {fileID: 0}
     - target: {fileID: 8344174264944647371, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
@@ -2275,17 +2325,12 @@ PrefabInstance:
     - target: {fileID: 3376682228570027408, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: m_BehaviorType
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4204924644973245463, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: cooldown
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4204924644973245463, guid: 8b15f035ecd36a54aab281496caf3677,
-        type: 3}
-      propertyPath: abilityEnabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
@@ -2294,19 +2339,9 @@ PrefabInstance:
       objectReference: {fileID: 8593271020941090380}
     - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
-      propertyPath: baseSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
-        type: 3}
       propertyPath: enemyGoal
       value: 
       objectReference: {fileID: 8088235475545745605}
-    - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
-        type: 3}
-      propertyPath: maxHealth
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: targetEnemy
@@ -2320,7 +2355,7 @@ PrefabInstance:
     - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: isAIControlled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8344174264944647371, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}

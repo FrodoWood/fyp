@@ -225,21 +225,69 @@ MonoBehaviour:
   MaxStep: 1000
   entity: 0
   actionCooldown: 0.05
-  maxHealth: 10
+  maxHealth: 20
   currentHealth: 0
-  baseSpeed: 0
+  baseSpeed: 10
   movementLayers:
     serializedVersion: 2
     m_Bits: 1
   goal: {fileID: 0}
   targetEnemy: {fileID: 0}
   enemyGoal: {fileID: 0}
-  isAIControlled: 1
   bulletGizmoRadius: 0.57
   bulletGizmoColor: {r: 0.38669237, g: 0.11485406, b: 0.8396226, a: 1}
+  isAIControlled: 1
   isStunned: 0
   hasWon: 0
   isAlive: 1
+  goalRewardCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -1.932747
+      outSlope: -1.932747
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.13447933
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  aimRewardCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -1
+      value: -1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &4204924644973245463
 MonoBehaviour:
   m_ObjectHideFlags: 0

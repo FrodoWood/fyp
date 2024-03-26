@@ -59,6 +59,7 @@ public class Bullet : MonoBehaviour
 
         if (other.gameObject.CompareTag("wall"))
         {
+            agentController?.AddReward(-0.1f);
             Destroy(gameObject);
         }
     }
