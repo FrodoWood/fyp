@@ -47,10 +47,12 @@ public class Bullet : MonoBehaviour
             if(distanceTravelled < 5f)
             {
                 agentController?.AddReward(-1f + distanceTravelled/5);
+                agentController?.AddScore(5);
             }
             else
             {
                 agentController?.AddReward(2 * distanceTravelled/30f);
+                agentController?.AddScore(10);
             }
             //Debug.Log("Enemy Hit!");
             damageable.TakeDamage(damage);

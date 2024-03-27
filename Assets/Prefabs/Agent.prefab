@@ -198,7 +198,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 8b6f179ab87681946ba2c50ac7f07d60, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: e10a06d11948d044b8c76aae3b0db67b, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 1
   m_BehaviorName: Bullet

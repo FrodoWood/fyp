@@ -71,9 +71,11 @@ public class EnemyController : Agent, IDamageable
 
     [Header("States")]
     public bool isAIControlled = false;
-    [SerializeField] private bool isStunned;
     public bool hasWon = false;
     public bool isAlive = true;
+
+    [Header("Statistics")]
+    public int score;
 
     //Cached Inputs
     private bool mouseButtonPressed = false;
@@ -117,7 +119,7 @@ public class EnemyController : Agent, IDamageable
     public override void Initialize()
     {
         ChangeState(State.Idle);
-        isStunned = false;
+        //isStunned = false;
         bullets = FindObjectsOfType<Bullet>();
         bufferSensor = GetComponent<BufferSensorComponent>();
     }
@@ -140,20 +142,17 @@ public class EnemyController : Agent, IDamageable
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        //sensor.AddObservation(transform.localPosition.x / 15f);
-        //sensor.AddObservation(transform.localPosition.z / 15f);
         sensor.AddObservation(transform.forward.x);
         sensor.AddObservation(transform.forward.z);
 
         sensor.AddObservation(targetEnemy.currentHealth / targetEnemy.maxHealth);
         sensor.AddObservation(targetEnemy.isAlive ? 1 : 0);
-        //sensor.AddObservation(targetEnemy.transform.localPosition.x / 15f);
-        //sensor.AddObservation(targetEnemy.transform.localPosition.z / 15f);
+
 
         Vector3 relativeDistanceToTarget = (targetEnemy.transform.position - transform.position);
         Vector3 directionToTarget = relativeDistanceToTarget.normalized;
         //Debug.DrawLine(Vector3.zero, directionToTarget, Color.green);
-        float distanceMagnitudeToTarget = relativeDistanceToTarget.magnitude / 70f;
+        float distanceMagnitudeToTarget = relativeDistanceToTarget.magnitude / 85f;
 
         sensor.AddObservation(directionToTarget.x);
         sensor.AddObservation(directionToTarget.z);
@@ -162,13 +161,13 @@ public class EnemyController : Agent, IDamageable
         Vector3 relativeDistanceToGoal = (goal.position - transform.position);
         Vector3 directionToGoal = relativeDistanceToGoal.normalized;
         //Debug.DrawLine(Vector3.zero, directionToGoal, Color.green);
-        float distanceMagnitudeToGoal = relativeDistanceToGoal.magnitude / 70f;
+        float distanceMagnitudeToGoal = relativeDistanceToGoal.magnitude / 85f;
 
         sensor.AddObservation(directionToGoal.x);
         sensor.AddObservation(directionToGoal.z);
         sensor.AddObservation(distanceMagnitudeToGoal);
 
-        sensor.AddObservation(Vector3.Distance(targetEnemy.transform.position, enemyGoal.position)/70f);
+        sensor.AddObservation(Vector3.Distance(targetEnemy.transform.position, enemyGoal.position)/85f);
 
         ////Debug.DrawLine(transform.position, targetEnemy.transform.position, Color.red);
         ////Debug.DrawLine(transform.position, transform.position + directionToTarget, Color.green, 2f);
@@ -196,7 +195,7 @@ public class EnemyController : Agent, IDamageable
                 //(bullet.transform.localPosition.z - transform.localPosition.z) / 15f,
                 agentToBullet.normalized.x,
                 agentToBullet.normalized.z,
-                agentToBullet.magnitude / 70f,
+                agentToBullet.magnitude / 85f,
                 bullet.transform.forward.x,
                 bullet.transform.forward.z
             };
@@ -484,16 +483,20 @@ public class EnemyController : Agent, IDamageable
     {
         if (isAIControlled)
         {
-            float targetBias = targetEnemy.isAlive ? 0.4f : 0.9f;
+            if(navMeshAgent.isActiveAndEnabled && !targetEnemy.isAlive)
+            {
+                navMeshAgent.SetDestination(goal.position);
+                ChangeState(State.Idle);
+                return;
+            }
+            float targetBias = 0.4f;
             Transform targetTransform = targetEnemy.isAlive ? targetEnemy.transform : goal;
             Vector3 randomDirection = GetRandomPositionInCircle(1);
             Vector3 targetDirection = (targetTransform.position - transform.position).normalized;
             Vector3 finalDirection = Vector3.Lerp(randomDirection, targetDirection, targetBias).normalized;
-            Vector3 destination = transform.position + (finalDirection * 2f);
+            Vector3 destination = transform.position + (finalDirection * 5f);
             Vector3 finalDestination = new Vector3(destination.x, transform.position.y, destination.z);
             if (navMeshAgent.isActiveAndEnabled) navMeshAgent.SetDestination(finalDestination);
-            //if(navMeshAgent.isActiveAndEnabled) navMeshAgent.SetDestination(goal.position + new Vector3(0,0, Random.Range(-2f,2)));
-            
             ChangeState(State.Idle);
             return;
         }
@@ -695,6 +698,8 @@ public class EnemyController : Agent, IDamageable
         coll.enabled = false;
         navMeshAgent.enabled = false;
         targetEnemy.navMeshAgent.speed = 20f;
+        targetEnemy?.AddScore(5);
+        targetEnemy?.AddReward(1f);
 
     }
     private void ExitDead()
@@ -749,7 +754,7 @@ public class EnemyController : Agent, IDamageable
     [ContextMenu("Stun the agent")]
     public void Stun()
     {
-        isStunned = true;
+        //isStunned = true;
         ChangeState(State.Stunned);
     }
     public EntityType GetEntityType()
@@ -806,17 +811,15 @@ public class EnemyController : Agent, IDamageable
 
     public IEnumerator SlowDown()
     {
-        float prevSpeed = navMeshAgent.speed;
-        navMeshAgent.speed /= 4;
+        navMeshAgent.speed -= 5;
         yield return new WaitForSeconds(1);
-        navMeshAgent.speed = prevSpeed;
+        navMeshAgent.speed += 5;
     }
     public IEnumerator SpeedUp()
     {
-        float prevSpeed = navMeshAgent.speed;
-        navMeshAgent.speed *= 1.5f;
+        navMeshAgent.speed += 5;
         yield return new WaitForSeconds(1);
-        navMeshAgent.speed = prevSpeed;
+        navMeshAgent.speed -= 5;
     }
 
     private Vector3 GetRandomPositionInCircle(float radius)
@@ -827,5 +830,10 @@ public class EnemyController : Agent, IDamageable
         float z = (Mathf.PerlinNoise(Time.time, (angle + Time.time) * 0.1f) * 2f -1) * radius;
         float y = 0;
         return new Vector3(x, y, z);
+    }
+
+    public void AddScore(int amount)
+    {
+        score += amount;
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
 
 public class EnvController : MonoBehaviour
 {
@@ -10,22 +11,33 @@ public class EnvController : MonoBehaviour
     [SerializeField] private EnemyController blueAgent;
     [SerializeField] private Transform purpleGoal;
     [SerializeField] private Transform blueGoal;
-    [SerializeField] private Heal heal1;
-    [SerializeField] private Heal heal2;
+    public float timerInSeconds;
+    private float timeToGoal;
+    public int totalSteps;
 
     public int purpleScore;
     public int blueScore;
     public TextMeshProUGUI scoreText;
 
+    public string winner = "";
+    const string blue = "blue";
+    const string purple = "purple";
+
     public bool shootingTraining = false;
+
+    public int numberRounds = 10;
+    private int currentRound = 0;
+    private List<string[]> dataRows = new List<string[]>();
 
     private void Start()
     {
+        timerInSeconds = totalSteps / 60f;
         ResetScene();
     }
 
     private void Update()
     {
+        timerInSeconds -= Time.deltaTime;
         updateScoreText();
 
         float purpleAgentCumulativeReward = purpleAgent.GetCumulativeReward();
@@ -33,33 +45,35 @@ public class EnvController : MonoBehaviour
 
         if (purpleAgent.hasWon)
         {
-            purpleAgent.AddReward(purpleAgentCumulativeReward);
-            blueAgent.AddReward(-2f);
+            winner = purple;
+            purpleAgent.AddReward(Mathf.Abs(purpleAgentCumulativeReward) +1f);
+            blueAgent.AddReward(-Mathf.Abs(blueAgentCumulativeReward) -1f);
             increasePurpleScore();
+            purpleAgent?.AddScore(purpleAgent.score);
+            timeToGoal = (totalSteps / 60f) - timerInSeconds;
             ResetScene();
             return;
         }
         else if (blueAgent.hasWon)
         {
-            blueAgent.AddReward(blueAgentCumulativeReward);
-            purpleAgent.AddReward(-2f);
+            winner = blue;
+            blueAgent.AddReward(Mathf.Abs(blueAgentCumulativeReward) +1f);
+            purpleAgent.AddReward(-Mathf.Abs(purpleAgentCumulativeReward) -1f);
             increaseBlueScore();
+            blueAgent?.AddScore(blueAgent.score);
+            timeToGoal = (totalSteps / 60f) - timerInSeconds;
             ResetScene();
             return;
         }
 
         if(purpleAgent.StepCount >= purpleAgent.MaxStep -1 || blueAgent.StepCount >= blueAgent.MaxStep-1)
         {
-            //purpleAgent.SetReward(0f);
-            //blueAgent.SetReward(0f);
             ResetScene();
             return;
         }
         
         if(!purpleAgent.isAlive && !blueAgent.isAlive)
         {
-            //purpleAgent.SetReward(0f);
-            //blueAgent.SetReward(0f);
             ResetScene();
             return;
         }
@@ -84,6 +98,34 @@ public class EnvController : MonoBehaviour
 
     public void ResetScene()
     {
+        currentRound += 1;
+
+        // Export data TODO
+        Debug.Log($"\nWinner: {winner}");
+        Debug.Log($"Blue score: {blueAgent.score}");
+        Debug.Log($"Purple score: {purpleAgent.score}");
+        Debug.Log($"Blue: {(blueAgent.isAlive? "Alive" : "Dead")}");
+        Debug.Log($"Purple: {(purpleAgent.isAlive? "Alive" : "Dead")}");
+        Debug.Log($"Time to goal: {(timeToGoal == 0? "" : timeToGoal)}");
+        Debug.Log($"Time left: {timerInSeconds}");
+
+        SaveRoundData(winner, blueScore, purpleScore, blueAgent.isAlive, purpleAgent.isAlive, timeToGoal, timerInSeconds);
+
+        if(currentRound > numberRounds)
+        {
+            ExportToCSV();
+            gameObject.SetActive(false);
+            return;
+        }
+        
+        // Reset individual scores
+        blueAgent.score = 0;
+        purpleAgent.score = 0;
+        // Reset timer
+        timerInSeconds = totalSteps / 60f;
+        timeToGoal = 0;
+        // Reset winner
+        winner = "";
         // End episode for both agents
         purpleAgent.EndEpisode();
         blueAgent.EndEpisode();
@@ -103,8 +145,12 @@ public class EnvController : MonoBehaviour
         blueAgent.ResetHealth();
 
         // Reset heals
-        heal1.Activate();
-        heal2.Activate();
+        // Destroy all bullets
+        var heals = transform.GetComponentsInChildren<Heal>(true);
+        foreach (Heal heal in heals)
+        {
+            heal.Activate();
+        }
 
         // Shooting training -------
         // Reset pos
@@ -156,5 +202,50 @@ public class EnvController : MonoBehaviour
         float z = Mathf.Sin(angle) * radius;
         float y = transform.position.y;
         return new Vector3(x, y, z);
+    }
+
+    private void SaveRoundData(string winner, int blueScore, int purpleScore, bool blueAlive, bool purpleAlive, float timeToGoal, float timeLeft)
+    {
+        string[] rowData = new string[]
+        {
+            winner,
+            blueScore.ToString(),
+            purpleScore.ToString(),
+            blueAlive ? "Alive" : "Dead",
+            purpleAlive ? "Alive" : "Dead",
+            (timeToGoal == 0) ? "" : timeToGoal.ToString(),
+            timerInSeconds.ToString()
+        };
+
+        dataRows.Add(rowData);
+    }
+
+    private void ExportToCSV()
+    {
+        string directoryPath = Application.dataPath + "/DataExport";
+        string filePath = directoryPath + "/test.csv";
+
+        if (!Directory.Exists(directoryPath))
+        {
+            Directory.CreateDirectory(directoryPath);
+        }
+
+        if(!File.Exists(filePath))
+        {
+            using (StreamWriter sw = new StreamWriter(filePath))
+            {
+                sw.WriteLine("Winner, Blue Score, Purple Score, Blue State, Purple State, Time to Goal, Time Left");
+            }
+        }
+
+        using(StreamWriter sw = File.AppendText(filePath))
+        {
+            foreach (string[] rowData in dataRows)
+            {
+                sw.WriteLine(string.Join(",", rowData));
+            }
+        }
+
+        Debug.Log("Data exported to: " + filePath);
     }
 }

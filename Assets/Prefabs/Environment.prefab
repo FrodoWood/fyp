@@ -383,11 +383,12 @@ MonoBehaviour:
   blueAgent: {fileID: 6183849245097584401}
   purpleGoal: {fileID: 8593271020941090380}
   blueGoal: {fileID: 8088235475545745605}
-  heal1: {fileID: 3767033486161808856}
-  heal2: {fileID: 5670256879970253431}
+  timerInSeconds: 0
+  totalSteps: 1000
   purpleScore: 0
   blueScore: 0
   scoreText: {fileID: 2532611522051085065}
+  winner: 
   shootingTraining: 0
 --- !u!1 &1584063275309249197
 GameObject:
@@ -2593,18 +2594,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 389062522443280495}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3767033486161808856 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3540122544831675831, guid: 16a7037fe59582d4a96da6bfc3c44d97,
-    type: 3}
-  m_PrefabInstance: {fileID: 389062522443280495}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5b1bd1119f62ac4391576e564fb97ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &413490919944676913
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3357,18 +3346,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16a7037fe59582d4a96da6bfc3c44d97, type: 3}
---- !u!114 &5670256879970253431 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3540122544831675831, guid: 16a7037fe59582d4a96da6bfc3c44d97,
-    type: 3}
-  m_PrefabInstance: {fileID: 9192346179639986112}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5b1bd1119f62ac4391576e564fb97ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &6568350710325544818 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2645510798750761138, guid: 16a7037fe59582d4a96da6bfc3c44d97,
