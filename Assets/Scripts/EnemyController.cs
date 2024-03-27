@@ -434,7 +434,7 @@ public class EnemyController : Agent, IDamageable
             }
             if (navMeshAgent.isActiveAndEnabled)
             {
-                if (navMeshAgent.remainingDistance < 0.02f) ChangeState(State.Moving);
+                if (navMeshAgent.remainingDistance < 0.02f || Random.value < 0.05f) ChangeState(State.Moving);
                 return;
             }
             return;
@@ -489,7 +489,7 @@ public class EnemyController : Agent, IDamageable
                 ChangeState(State.Idle);
                 return;
             }
-            float targetBias = 0.4f;
+            float targetBias = 0.3f;
             Transform targetTransform = targetEnemy.isAlive ? targetEnemy.transform : goal;
             Vector3 randomDirection = GetRandomPositionInCircle(1);
             Vector3 targetDirection = (targetTransform.position - transform.position).normalized;
@@ -768,7 +768,7 @@ public class EnemyController : Agent, IDamageable
         ////Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green, 1f);
         RaycastHit hit;
         //Vector3 movePosition = Vector3.zero;
-        if (Physics.Raycast(ray, out hit, 100f, movementLayers))
+        if (Physics.Raycast(ray, out hit, 300f, movementLayers))
         {
             Vector3 destination = hit.point;
             //Debug.Log($"hit.point = {hit.point}");
@@ -826,8 +826,8 @@ public class EnemyController : Agent, IDamageable
     {
         //float angle = Random.Range(0f, Mathf.PI * 2f);
         float angle = Random.Range(0f, Mathf.PI * 2f);
-        float x = (Mathf.PerlinNoise((angle + Time.time) * 0.1f, Time.time) * 2f -1) * radius;
-        float z = (Mathf.PerlinNoise(Time.time, (angle + Time.time) * 0.1f) * 2f -1) * radius;
+        float x = (Mathf.PerlinNoise((angle + Time.time) * 0.2f, Time.time) * 2f -1) * radius;
+        float z = (Mathf.PerlinNoise(Time.time, (angle + Time.time) * 0.2f) * 2f -1) * radius;
         float y = 0;
         return new Vector3(x, y, z);
     }
