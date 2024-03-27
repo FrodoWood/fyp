@@ -19,9 +19,9 @@ public class EnvController : MonoBehaviour
     public int blueScore;
     public TextMeshProUGUI scoreText;
 
-    public string winner = "";
-    const string blue = "blue";
-    const string purple = "purple";
+    public string winner = "Draw";
+    const string blue = "Blue";
+    const string purple = "Purple";
 
     public bool shootingTraining = false;
 
@@ -31,13 +31,19 @@ public class EnvController : MonoBehaviour
 
     private void Start()
     {
-        timerInSeconds = totalSteps / 60f;
+        ResetTimer();
         ResetScene();
+    }
+
+
+    private void FixedUpdate()
+    {
+        timerInSeconds -= Time.fixedDeltaTime;
+        // Update UI TODO
     }
 
     private void Update()
     {
-        timerInSeconds -= Time.deltaTime;
         updateScoreText();
 
         float purpleAgentCumulativeReward = purpleAgent.GetCumulativeReward();
@@ -50,7 +56,7 @@ public class EnvController : MonoBehaviour
             blueAgent.AddReward(-Mathf.Abs(blueAgentCumulativeReward) -1f);
             increasePurpleScore();
             purpleAgent?.AddScore(purpleAgent.score);
-            timeToGoal = (totalSteps / 60f) - timerInSeconds;
+            timeToGoal = (totalSteps * Time.fixedDeltaTime) - timerInSeconds;
             ResetScene();
             return;
         }
@@ -61,7 +67,7 @@ public class EnvController : MonoBehaviour
             purpleAgent.AddReward(-Mathf.Abs(purpleAgentCumulativeReward) -1f);
             increaseBlueScore();
             blueAgent?.AddScore(blueAgent.score);
-            timeToGoal = (totalSteps / 60f) - timerInSeconds;
+            timeToGoal = (totalSteps * Time.fixedDeltaTime) - timerInSeconds;
             ResetScene();
             return;
         }
@@ -98,7 +104,6 @@ public class EnvController : MonoBehaviour
 
     public void ResetScene()
     {
-        currentRound += 1;
 
         // Export data TODO
         Debug.Log($"\nWinner: {winner}");
@@ -109,7 +114,8 @@ public class EnvController : MonoBehaviour
         Debug.Log($"Time to goal: {(timeToGoal == 0? "" : timeToGoal)}");
         Debug.Log($"Time left: {timerInSeconds}");
 
-        SaveRoundData(winner, blueScore, purpleScore, blueAgent.isAlive, purpleAgent.isAlive, timeToGoal, timerInSeconds);
+        if(currentRound > 0) SaveRoundData(winner, blueAgent.score, purpleAgent.score, blueAgent.isAlive, purpleAgent.isAlive, timeToGoal, timerInSeconds);
+        currentRound += 1;
 
         if(currentRound > numberRounds)
         {
@@ -122,10 +128,10 @@ public class EnvController : MonoBehaviour
         blueAgent.score = 0;
         purpleAgent.score = 0;
         // Reset timer
-        timerInSeconds = totalSteps / 60f;
+        ResetTimer();
         timeToGoal = 0;
         // Reset winner
-        winner = "";
+        winner = "Draw";
         // End episode for both agents
         purpleAgent.EndEpisode();
         blueAgent.EndEpisode();
@@ -247,5 +253,10 @@ public class EnvController : MonoBehaviour
         }
 
         Debug.Log("Data exported to: " + filePath);
+    }
+
+    private void ResetTimer()
+    {
+        timerInSeconds = totalSteps * Time.fixedDeltaTime;
     }
 }

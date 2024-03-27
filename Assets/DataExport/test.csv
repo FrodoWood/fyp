@@ -1,15 +1,13 @@
 Winner, Blue Score, Purple Score, Blue State, Purple State, Time to Goal, Time Left
-,0,0,Alive,Alive,,16.66667
-blue,1,0,Alive,Dead,9.042445,7.624222
-blue,2,0,Alive,Alive,8.23808,8.428587
-purple,2,1,Dead,Alive,7.760234,8.906432
-purple,2,2,Dead,Alive,9.361324,7.305342
-purple,2,3,Dead,Alive,11.31982,5.34685
-purple,2,4,Dead,Alive,7.93844,8.728227
-blue,3,4,Alive,Dead,10.26065,6.406015
-purple,3,5,Dead,Alive,7.461751,9.204915
-purple,3,6,Dead,Alive,12.53894,4.127722
-purple,3,7,Dead,Alive,8.124892,8.541775
-,0,0,Alive,Alive,,16.66667
-purple,0,1,Dead,Alive,8.445132,8.221535
-purple,0,2,Dead,Alive,10.09938,6.567284
+Blue,48,0,Alive,Dead,15.28027,4.719729
+Blue,62,0,Alive,Dead,16.62027,3.37973
+Purple,21,72,Dead,Alive,9.260212,10.73979
+Purple,0,50,Dead,Alive,13.90027,6.099728
+Draw,38,2,Alive,Dead,,0.01973285
+Blue,58,0,Alive,Dead,13.36027,6.639727
+Draw,11,0,Alive,Alive,,0.01973285
+Draw,9,0,Alive,Alive,,0.01973285
+Blue,54,0,Alive,Dead,9.400215,10.59978
+Draw,13,10,Alive,Alive,,0.01973285
+Blue,56,0,Alive,Dead,11.80027,8.19973
+Blue,54,0,Alive,Dead,13.28027,6.719727
