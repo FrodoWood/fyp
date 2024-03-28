@@ -64,10 +64,10 @@ public class EnemyController : Agent, IDamageable
     private ActionBuffers actionBuffers;
     private BehaviorParameters behaviorParameters;
 
-    private Ability1 ability1;
-    private Ability2 ability2;
-    private Ability3 ability3;
-    private Ability4 ability4;
+    public Ability1 ability1;
+    public Ability2 ability2;
+    public Ability3 ability3;
+    public Ability4 ability4;
 
     [Header("States")]
     public bool isAIControlled = false;
@@ -564,9 +564,12 @@ public class EnemyController : Agent, IDamageable
             Vector3 lookAtTarget = new Vector3(actionBuffers.ContinuousActions[0], 0f, actionBuffers.ContinuousActions[1]).normalized + transform.position;
             transform.LookAt(lookAtTarget);
             Vector3 trueDirectionTarget = (targetEnemy.transform.position - transform.position).normalized;
+            
+            // DENSE REWARDS
             float alignment = Vector3.Dot((lookAtTarget - transform.position).normalized, trueDirectionTarget);
             float aimReward = aimRewardCurve.Evaluate(alignment) * 0.2f;
             if(targetEnemy.isAlive) AddReward(aimReward);
+            
             ability1.TriggerAbility();
             
             //if (entity == EntityType.Player)

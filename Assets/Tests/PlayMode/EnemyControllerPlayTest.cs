@@ -9,24 +9,23 @@ using UnityEngine.TestTools;
 
 public class EnemyControllerPlayTest
 {
+    EnemyController[] enemyControllers;
+    EnemyController agent1;
+    EnemyController agent2;
+
     [OneTimeSetUp]
     public void LoadScene()
     {
         EditorSceneManager.LoadScene(0);
     }
 
-    [UnityTest]
-    public IEnumerator EnemyControllerPlayTestWithEnumeratorPasses()
+    [SetUp]
+    public void Setup()
     {
-        EnemyController[] enemyControllers;
         enemyControllers = Object.FindObjectsOfType<EnemyController>();
         Debug.Log("Number of enemy controllers" + enemyControllers.Length);
-        EnemyController agent1 = enemyControllers[0];
-        EnemyController agent2 = enemyControllers[1];
-
-
-        float maxWaitTime = 10f;
-        float startTime = Time.time;
+        agent1 = enemyControllers[0];
+        agent2 = enemyControllers[1];
 
         agent1.baseSpeed = 0;
         agent2.navMeshAgent.speed = 0;
@@ -38,6 +37,15 @@ public class EnemyControllerPlayTest
         agent2.navMeshAgent.speed = 10f;
         agent2.SetBehaviourType(Unity.MLAgents.Policies.BehaviorType.HeuristicOnly);
         agent2.isAIControlled = false;
+    }
+
+    [UnityTest]
+    public IEnumerator ReachGoalTest()
+    {
+        float maxWaitTime = 10f;
+        float startTime = Time.time;
+
+        
         while(Time.time -  startTime < maxWaitTime)
         {
             agent2.ChangeState(State.Moving);
@@ -52,5 +60,16 @@ public class EnemyControllerPlayTest
         }
 
         Assert.Fail("Agent didn't reach the goal in time.");
+    }
+
+    [UnityTest]
+    public IEnumerator Ability1Test()
+    {
+        agent2.currentHeuristicDestinationDirection = Vector3.zero;
+        agent2.currentHeuristicDestinationMagnitude = 1;
+        Assert.IsTrue(agent2.ability1.Available());
+        agent2.ChangeState(State.Ability1);
+        Assert.IsFalse(agent2.ability1.Available());
+        yield return null;
     }
 }

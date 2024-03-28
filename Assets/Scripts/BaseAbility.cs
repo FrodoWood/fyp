@@ -64,5 +64,10 @@ public abstract class BaseAbility : MonoBehaviour, IAbility
         abilityEnabled = false;
     }
 
+    public float GetCooldown()
+    {
+        return cooldown;
+    }
+
 
 }
