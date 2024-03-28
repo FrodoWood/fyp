@@ -268,7 +268,7 @@ public class EnemyController : Agent, IDamageable
 
     }
 
-    private int GetAbilityAction(KeyCode keycode)
+    public int GetAbilityAction(KeyCode keycode)
     {
         switch (keycode)
         {
@@ -468,7 +468,7 @@ public class EnemyController : Agent, IDamageable
 
     private void EnterMoving()
     {
-        if(navMeshAgent.isActiveAndEnabled) navMeshAgent.isStopped = false;
+        if(navMeshAgent != null && navMeshAgent.isActiveAndEnabled) navMeshAgent.isStopped = false;
         //Debug.Log("Entered Moving");
     }
     private void UpdateMoving()
@@ -695,9 +695,9 @@ public class EnemyController : Agent, IDamageable
     private void EnterDead()
     {
         isAlive = false;
-        coll.enabled = false;
-        navMeshAgent.enabled = false;
-        targetEnemy.navMeshAgent.speed = 20f;
+        if(coll != null) coll.enabled = false;
+        if(navMeshAgent != null) navMeshAgent.enabled = false;
+        if(targetEnemy != null) targetEnemy.navMeshAgent.speed = 20f;
         targetEnemy?.AddScore(5);
         targetEnemy?.AddReward(1f);
 
@@ -722,11 +722,6 @@ public class EnemyController : Agent, IDamageable
         collectable?.OnCollect(this);
     }
 
-    Vector3 getRandomPosition(Vector3 currentPosition)
-    {
-        return new Vector3((Random.value * 28) - 14f, currentPosition.y, (Random.value * 28) - 14f);
-    }
-
     private void OnDrawGizmos()
     {
         if (bullets != null && bullets.Length > 0)
@@ -747,16 +742,11 @@ public class EnemyController : Agent, IDamageable
         StartCoroutine(SlowDown());
         if (currentHealth <= 0)
         {
+            currentHealth = 0;
             ChangeState(State.Dead);
         }
     }
 
-    [ContextMenu("Stun the agent")]
-    public void Stun()
-    {
-        //isStunned = true;
-        ChangeState(State.Stunned);
-    }
     public EntityType GetEntityType()
     {
         return entity;
@@ -811,18 +801,20 @@ public class EnemyController : Agent, IDamageable
 
     public IEnumerator SlowDown()
     {
+        if (navMeshAgent == null) yield return null;
         navMeshAgent.speed -= 5;
         yield return new WaitForSeconds(1);
         navMeshAgent.speed += 5;
     }
     public IEnumerator SpeedUp()
     {
+        if (navMeshAgent == null) yield return null;
         navMeshAgent.speed += 5;
         yield return new WaitForSeconds(1);
         navMeshAgent.speed -= 5;
     }
 
-    private Vector3 GetRandomPositionInCircle(float radius)
+    public Vector3 GetRandomPositionInCircle(float radius)
     {
         //float angle = Random.Range(0f, Mathf.PI * 2f);
         float angle = Random.Range(0f, Mathf.PI * 2f);
