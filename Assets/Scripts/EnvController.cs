@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.IO;
+using System;
+using Random = UnityEngine.Random;
 
 public class EnvController : MonoBehaviour
 {
@@ -27,7 +29,7 @@ public class EnvController : MonoBehaviour
 
     public int numberRounds = 10;
     private int currentRound = 0;
-    private List<string[]> dataRows = new List<string[]>();
+    public List<string[]> dataRows = new List<string[]>();
 
     EnemyController[] enemyControllers;
 
@@ -154,7 +156,7 @@ public class EnvController : MonoBehaviour
 
         if(currentRound >= numberRounds)
         {
-            ExportToCSV();
+            ExportToCSV("Normal");
             gameObject.SetActive(false);
             return;
         }
@@ -227,11 +229,11 @@ public class EnvController : MonoBehaviour
         blueGoal.position = new Vector3(posX, transform.position.y, posX);
     }
 
-    private void increaseBlueScore()
+    public void increaseBlueScore()
     {
         blueScore += 1;
     }
-    private void increasePurpleScore()
+    public void increasePurpleScore()
     {
         purpleScore += 1;
     }
@@ -245,7 +247,7 @@ public class EnvController : MonoBehaviour
         return new Vector3(x, y, z);
     }
 
-    private void SaveRoundData(string winner, int blueScore, int purpleScore, bool blueAlive, bool purpleAlive, float timeToGoal, float timeLeft)
+    public void SaveRoundData(string winner, int blueScore, int purpleScore, bool blueAlive, bool purpleAlive, float timeToGoal, float timeLeft)
     {
         string[] rowData = new string[]
         {
@@ -255,16 +257,16 @@ public class EnvController : MonoBehaviour
             blueAlive ? "Alive" : "Dead",
             purpleAlive ? "Alive" : "Dead",
             (timeToGoal == 0) ? "" : timeToGoal.ToString(),
-            timerInSeconds.ToString()
+            timeLeft.ToString()
         };
 
         dataRows.Add(rowData);
     }
 
-    private void ExportToCSV()
+    public void ExportToCSV(string fileName)
     {
         string directoryPath = Application.dataPath + "/DataExport";
-        string filePath = directoryPath + "/test.csv";
+        string filePath = directoryPath + "/" + fileName + ".csv";
 
         if (!Directory.Exists(directoryPath))
         {
