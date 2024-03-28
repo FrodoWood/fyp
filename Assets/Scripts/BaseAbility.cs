@@ -54,5 +54,15 @@ public abstract class BaseAbility : MonoBehaviour, IAbility
         return abilityEnabled;
     }
 
+    public void EnableAbility()
+    {
+        abilityEnabled = true;
+    }
+
+    public void DisableAbility()
+    {
+        abilityEnabled = false;
+    }
+
 
 }

@@ -3171,6 +3171,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PurpleAgent
       objectReference: {fileID: 0}
+    - target: {fileID: 3007606359052346325, guid: 8b15f035ecd36a54aab281496caf3677,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3376682228570027408, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: m_BehaviorType

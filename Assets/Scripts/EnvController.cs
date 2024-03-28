@@ -29,10 +29,14 @@ public class EnvController : MonoBehaviour
     private int currentRound = 0;
     private List<string[]> dataRows = new List<string[]>();
 
+    EnemyController[] enemyControllers;
+
     private void Start()
     {
         ResetTimer();
-        ResetScene();
+        //ResetScene();
+        Setup();
+        
     }
 
 
@@ -102,6 +106,37 @@ public class EnvController : MonoBehaviour
         scoreText.text = new string($"Blue {blueScore.ToString()}  :  {purpleScore.ToString()} Purple");
     }
 
+    public void Setup()
+    {
+        // Reset individual scores
+        blueAgent.score = 0;
+        purpleAgent.score = 0;
+        // Reset timer
+        ResetTimer();
+        timeToGoal = 0;
+        // Reset winner
+        winner = "Draw";
+        float prob = Random.value;
+        float posX;
+        float posZ;
+        if (prob < 0.5)
+        {
+            posX = 25;
+            posZ = 25;
+        }
+        else
+        {
+            posX = -25;
+            posZ = -25;
+        }
+
+        purpleAgent.transform.position = new Vector3(posX, purpleAgent.transform.position.y, posZ);
+        purpleGoal.position = new Vector3(-posX, transform.position.y, -posX);
+
+        blueAgent.transform.position = new Vector3(-posX, purpleAgent.transform.position.y, -posZ);
+        blueGoal.position = new Vector3(posX, transform.position.y, posX);
+    }
+
     public void ResetScene()
     {
 
@@ -114,10 +149,10 @@ public class EnvController : MonoBehaviour
         Debug.Log($"Time to goal: {(timeToGoal == 0? "" : timeToGoal)}");
         Debug.Log($"Time left: {timerInSeconds}");
 
-        if(currentRound > 0) SaveRoundData(winner, blueAgent.score, purpleAgent.score, blueAgent.isAlive, purpleAgent.isAlive, timeToGoal, timerInSeconds);
+        SaveRoundData(winner, blueAgent.score, purpleAgent.score, blueAgent.isAlive, purpleAgent.isAlive, timeToGoal, timerInSeconds);
         currentRound += 1;
 
-        if(currentRound > numberRounds)
+        if(currentRound >= numberRounds)
         {
             ExportToCSV();
             gameObject.SetActive(false);

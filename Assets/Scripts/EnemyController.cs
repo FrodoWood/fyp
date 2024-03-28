@@ -40,8 +40,8 @@ public class EnemyController : Agent, IDamageable
     [SerializeField] private LayerMask movementLayers;
     private float actionTimer = 0f;
     public State currentState { get; private set; }
-    private Vector3 currentHeuristicDestinationDirection;
-    private float currentHeuristicDestinationMagnitude;
+    public Vector3 currentHeuristicDestinationDirection;
+    public float currentHeuristicDestinationMagnitude;
 
     private Bullet[] bullets;
     private BufferSensorComponent bufferSensor;
@@ -280,7 +280,7 @@ public class EnemyController : Agent, IDamageable
         }
     }
 
-    private void ChangeState(State newState)
+    public void ChangeState(State newState)
     {
         ExitCurrentState();
         currentState = newState;
@@ -835,5 +835,20 @@ public class EnemyController : Agent, IDamageable
     public void AddScore(int amount)
     {
         score += amount;
+    }
+
+    public void SetBehaviourType(BehaviorType behaviourType)
+    {
+        behaviorParameters.BehaviorType = behaviourType;
+    }
+
+    public void EnableAllAbilities()
+    {
+        ability1.EnableAbility();
+    }
+
+    public void DisableAllAbilities()
+    {
+        ability1.DisableAbility();
     }
 }
