@@ -198,10 +198,10 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 5e3a442a705319b408717cd73194953c, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 8fe017c5911d2ee44b7a07aec8390c91, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 1
-  m_BehaviorName: em_base
+  m_BehaviorName: em_self_play
   TeamId: 1
   m_UseChildSensors: 1
   m_UseChildActuators: 1

@@ -392,9 +392,9 @@ MonoBehaviour:
   purpleStats: {fileID: 6866957237673885511}
   timerText: {fileID: 8965299959552557995}
   numberRounds: 5
-  exportFileName: em_base
+  exportFileName: em_self_play_2
   shootingTraining: 0
-  trainingMode: 0
+  trainingMode: 1
 --- !u!1 &1584063275309249197
 GameObject:
   m_ObjectHideFlags: 0
@@ -3664,7 +3664,7 @@ PrefabInstance:
     - target: {fileID: 3376682228570027408, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: m_BehaviorType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
@@ -3684,7 +3684,7 @@ PrefabInstance:
     - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: isAIControlled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8344174264944647371, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}

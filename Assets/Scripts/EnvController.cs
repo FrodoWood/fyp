@@ -62,8 +62,10 @@ public class EnvController : MonoBehaviour
         if (purpleAgent.hasWon)
         {
             winner = purple;
-            purpleAgent.AddReward(Mathf.Abs(purpleAgentCumulativeReward) +1f);
-            blueAgent.AddReward(-Mathf.Abs(blueAgentCumulativeReward) -1f);
+            purpleAgent.SetReward(1f);
+            blueAgent.SetReward(-1f);
+            //purpleAgent.AddReward(Mathf.Abs(purpleAgentCumulativeReward) +1f);
+            //blueAgent.AddReward(-Mathf.Abs(blueAgentCumulativeReward) -1f);
             increasePurpleScore();
             purpleAgent?.AddScore(purpleAgent.score);
             timeToGoal = (totalSteps * Time.fixedDeltaTime) - timerInSeconds;
@@ -73,8 +75,10 @@ public class EnvController : MonoBehaviour
         else if (blueAgent.hasWon)
         {
             winner = blue;
-            blueAgent.AddReward(Mathf.Abs(blueAgentCumulativeReward) +1f);
-            purpleAgent.AddReward(-Mathf.Abs(purpleAgentCumulativeReward) -1f);
+            blueAgent.SetReward(1f);
+            purpleAgent.SetReward(-1f);
+            //blueAgent.AddReward(Mathf.Abs(blueAgentCumulativeReward) +1f);
+            //purpleAgent.AddReward(-Mathf.Abs(purpleAgentCumulativeReward) -1f);
             increaseBlueScore();
             blueAgent?.AddScore(blueAgent.score);
             timeToGoal = (totalSteps * Time.fixedDeltaTime) - timerInSeconds;
@@ -84,12 +88,16 @@ public class EnvController : MonoBehaviour
 
         if(purpleAgent.StepCount >= purpleAgent.MaxStep -1 || blueAgent.StepCount >= blueAgent.MaxStep-1)
         {
+            purpleAgent.SetReward(0f);
+            blueAgent.SetReward(0f);
             ResetScene();
             return;
         }
         
         if(!purpleAgent.isAlive && !blueAgent.isAlive)
         {
+            purpleAgent.SetReward(0f);
+            blueAgent.SetReward(0f);
             ResetScene();
             return;
         }
