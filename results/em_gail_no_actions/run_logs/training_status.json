@@ -1,0 +1,29 @@
+{
+    "em_gail": {
+        "checkpoints": [
+            {
+                "steps": 1000105,
+                "file_path": "results\\em_gail_no_actions\\em_gail\\em_gail-1000105.onnx",
+                "reward": -4.609002165496349,
+                "creation_time": 1711747661.3810418,
+                "auxillary_file_paths": [
+                    "results\\em_gail_no_actions\\em_gail\\em_gail-1000105.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1000105,
+            "file_path": "results\\em_gail_no_actions\\em_gail.onnx",
+            "reward": -4.609002165496349,
+            "creation_time": 1711747661.3810418,
+            "auxillary_file_paths": [
+                "results\\em_gail_no_actions\\em_gail\\em_gail-1000105.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "2.2.1+cu121"
+    }
+}
