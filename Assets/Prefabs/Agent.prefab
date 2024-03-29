@@ -198,7 +198,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 5e3a442a705319b408717cd73194953c, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 1
   m_BehaviorName: em_base
@@ -436,11 +436,9 @@ MonoBehaviour:
   m_DetectableTags:
   - wall
   - heal
-  - Enemy
-  - bullet
   m_RaysPerDirection: 8
   m_MaxRayDegrees: 180
-  m_SphereCastRadius: 0
+  m_SphereCastRadius: 2
   m_RayLength: 30
   m_RayLayerMask:
     serializedVersion: 2

@@ -24,17 +24,18 @@ public class EnvController : MonoBehaviour
     public TextMeshProUGUI purpleStats;
     public TextMeshProUGUI timerText;
 
-    public string winner = "Draw";
+    private string winner = "Draw";
     const string blue = "Blue";
     const string purple = "Purple";
 
-    public bool shootingTraining = false;
 
     public int numberRounds = 10;
+    public string exportFileName = "default";
     private int currentRound = 0;
     public List<string[]> dataRows = new List<string[]>();
 
-    EnemyController[] enemyControllers;
+    public bool shootingTraining = false;
+    public bool trainingMode = true;
 
     private void Start()
     {
@@ -149,22 +150,25 @@ public class EnvController : MonoBehaviour
     {
 
         // Export data TODO
-        Debug.Log($"\nWinner: {winner}");
-        Debug.Log($"Blue score: {blueAgent.score}");
-        Debug.Log($"Purple score: {purpleAgent.score}");
-        Debug.Log($"Blue: {(blueAgent.isAlive? "Alive" : "Dead")}");
-        Debug.Log($"Purple: {(purpleAgent.isAlive? "Alive" : "Dead")}");
-        Debug.Log($"Time to goal: {(timeToGoal == 0? "" : timeToGoal)}");
-        Debug.Log($"Time left: {timerInSeconds}");
+        //Debug.Log($"\nWinner: {winner}");
+        //Debug.Log($"Blue score: {blueAgent.score}");
+        //Debug.Log($"Purple score: {purpleAgent.score}");
+        //Debug.Log($"Blue: {(blueAgent.isAlive? "Alive" : "Dead")}");
+        //Debug.Log($"Purple: {(purpleAgent.isAlive? "Alive" : "Dead")}");
+        //Debug.Log($"Time to goal: {(timeToGoal == 0? "" : timeToGoal)}");
+        //Debug.Log($"Time left: {timerInSeconds}");
 
-        SaveRoundData(winner, blueAgent.score, purpleAgent.score, blueAgent.isAlive, purpleAgent.isAlive, timeToGoal, timerInSeconds);
-        currentRound += 1;
-
-        if(currentRound >= numberRounds)
+        if (!trainingMode)
         {
-            ExportToCSV("Normal");
-            gameObject.SetActive(false);
-            return;
+            SaveRoundData(winner, blueAgent.score, purpleAgent.score, blueAgent.isAlive, purpleAgent.isAlive, timeToGoal, timerInSeconds);
+            currentRound += 1;
+
+            if(currentRound >= numberRounds)
+            {
+                ExportToCSV(exportFileName);
+                gameObject.SetActive(false);
+                return;
+            }
         }
         
         // Reset individual scores

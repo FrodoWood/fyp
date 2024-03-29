@@ -391,9 +391,10 @@ MonoBehaviour:
   blueStats: {fileID: 1634431291047215263}
   purpleStats: {fileID: 6866957237673885511}
   timerText: {fileID: 8965299959552557995}
-  winner: 
-  shootingTraining: 0
   numberRounds: 5
+  exportFileName: em_base
+  shootingTraining: 0
+  trainingMode: 0
 --- !u!1 &1584063275309249197
 GameObject:
   m_ObjectHideFlags: 0
@@ -3347,7 +3348,7 @@ PrefabInstance:
     - target: {fileID: 3376682228570027408, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: m_BehaviorType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3567076489887189047, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
@@ -3688,7 +3689,7 @@ PrefabInstance:
     - target: {fileID: 8344174264944647371, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.9
+      value: -2.7
       objectReference: {fileID: 0}
     - target: {fileID: 8344174264944647371, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
@@ -3698,7 +3699,7 @@ PrefabInstance:
     - target: {fileID: 8344174264944647371, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -13.24
+      value: -10.7
       objectReference: {fileID: 0}
     - target: {fileID: 8344174264944647371, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}

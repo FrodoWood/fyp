@@ -35,7 +35,7 @@ behaviors:
     #   strength: 0.5
     #   steps: 500000
     max_steps: 1000000
-    time_horizon: 128
+    time_horizon: 64
     summary_freq: 10000
     # self_play:
     #   window: 10
@@ -43,4 +43,4 @@ behaviors:
     #   save_steps: 100000
     #   swap_steps: 100000
     #   team_change: 1000000
-    keep_checkpoints: 0
+    keep_checkpoints: 1
