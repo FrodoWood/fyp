@@ -1,0 +1,29 @@
+{
+    "em_dense_rewards": {
+        "checkpoints": [
+            {
+                "steps": 1000049,
+                "file_path": "results\\em_dense_rewards\\em_dense_rewards\\em_dense_rewards-1000049.onnx",
+                "reward": 1.8207216752426965,
+                "creation_time": 1711725630.1333244,
+                "auxillary_file_paths": [
+                    "results\\em_dense_rewards\\em_dense_rewards\\em_dense_rewards-1000049.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1000049,
+            "file_path": "results\\em_dense_rewards\\em_dense_rewards.onnx",
+            "reward": 1.8207216752426965,
+            "creation_time": 1711725630.1333244,
+            "auxillary_file_paths": [
+                "results\\em_dense_rewards\\em_dense_rewards\\em_dense_rewards-1000049.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}
