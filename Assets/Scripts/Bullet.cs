@@ -51,7 +51,7 @@ public class Bullet : MonoBehaviour
             }
             else
             {
-                agentController?.AddReward(2 * distanceTravelled/30f);
+                agentController?.AddReward(4 * distanceTravelled/30f);
                 agentController?.AddScore(10);
             }
             //Debug.Log("Enemy Hit!");

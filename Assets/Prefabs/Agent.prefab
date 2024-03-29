@@ -198,10 +198,10 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: e10a06d11948d044b8c76aae3b0db67b, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 1
-  m_BehaviorName: Bullet
+  m_BehaviorName: em_base
   TeamId: 1
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -224,22 +224,28 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 1000
   entity: 0
-  actionCooldown: 0.05
+  actionCooldown: 0
   maxHealth: 20
   currentHealth: 0
   baseSpeed: 10
   movementLayers:
     serializedVersion: 2
     m_Bits: 1
+  currentHeuristicDestinationDirection: {x: 0, y: 0, z: 0}
+  currentHeuristicDestinationMagnitude: 0
   goal: {fileID: 0}
   targetEnemy: {fileID: 0}
   enemyGoal: {fileID: 0}
   bulletGizmoRadius: 0.57
   bulletGizmoColor: {r: 0.38669237, g: 0.11485406, b: 0.8396226, a: 1}
+  ability1: {fileID: 0}
+  ability2: {fileID: 0}
+  ability3: {fileID: 0}
+  ability4: {fileID: 0}
   isAIControlled: 1
-  isStunned: 0
   hasWon: 0
   isAlive: 1
+  score: 0
   goalRewardCurve:
     serializedVersion: 2
     m_Curve:
@@ -302,7 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onCooldown: 0
   abilityEnabled: 1
-  cooldown: 2
+  cooldown: 0.5
   damage: 10
   speed: 20
   bulletPrefab: {fileID: 835461798170658529, guid: 9415b93f3dd9f5844aa9ea165dfe982a,
@@ -431,10 +437,11 @@ MonoBehaviour:
   - wall
   - heal
   - Enemy
-  m_RaysPerDirection: 5
-  m_MaxRayDegrees: 30
+  - bullet
+  m_RaysPerDirection: 8
+  m_MaxRayDegrees: 180
   m_SphereCastRadius: 0
-  m_RayLength: 20
+  m_RayLength: 30
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291

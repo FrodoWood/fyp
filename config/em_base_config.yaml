@@ -1,5 +1,5 @@
 behaviors:
-  Bullet:
+  em_base:
     trainer_type: ppo
     hyperparameters:
       batch_size: 512
@@ -15,7 +15,7 @@ behaviors:
     network_settings:
       normalize: false
       hidden_units: 256
-      num_layers: 2
+      num_layers: 3
     reward_signals:
       extrinsic:
         gamma: 0.95
@@ -35,7 +35,7 @@ behaviors:
     #   strength: 0.5
     #   steps: 500000
     max_steps: 1000000
-    time_horizon: 64
+    time_horizon: 128
     summary_freq: 10000
     # self_play:
     #   window: 10
