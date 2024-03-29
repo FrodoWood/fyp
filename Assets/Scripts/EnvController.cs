@@ -20,6 +20,9 @@ public class EnvController : MonoBehaviour
     public int purpleScore;
     public int blueScore;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI blueStats;
+    public TextMeshProUGUI purpleStats;
+    public TextMeshProUGUI timerText;
 
     public string winner = "Draw";
     const string blue = "Blue";
@@ -105,7 +108,10 @@ public class EnvController : MonoBehaviour
     private void updateScoreText()
     {
         //scoreText.text = purpleScore.ToString() + "+" + blueScore.ToString();
-        scoreText.text = new string($"Blue {blueScore.ToString()}  :  {purpleScore.ToString()} Purple");
+        if(scoreText!=null)scoreText.text = new string($"Blue {blueScore.ToString()}  :  {purpleScore.ToString()} Purple");
+        if(blueStats!=null)blueStats.text = new string($"Health: {blueAgent.currentHealth}\nScore: {blueAgent.score}");
+        if(purpleStats!=null)purpleStats.text = new string($"Health: {purpleAgent.currentHealth}\nScore: {purpleAgent.score}");
+        if (timerText != null) timerText.text = new string($"{Mathf.RoundToInt(timerInSeconds)}");
     }
 
     public void Setup()
