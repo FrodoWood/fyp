@@ -394,7 +394,7 @@ MonoBehaviour:
   numberRounds: 5
   exportFileName: em_dense_rewards__gail__curriculum
   shootingTraining: 0
-  trainingMode: 1
+  trainingMode: 0
 --- !u!1 &1584063275309249197
 GameObject:
   m_ObjectHideFlags: 0

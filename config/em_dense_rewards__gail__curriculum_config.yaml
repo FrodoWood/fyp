@@ -22,9 +22,9 @@ behaviors:
         strength: 1
       gail:
         gamma: 0.95
-        strength: 0.1
-        use_actions: true
-        demo_path: Demos/BulletFinalArena_2.demo
+        strength: 0.5
+        use_actions: false
+        demo_path: Demos/emGail.demo
       # curiosity:
       #   gamma: 0.95
       #   strength: 0.05
@@ -37,12 +37,12 @@ behaviors:
     max_steps: 1000000
     time_horizon: 64
     summary_freq: 10000
-    self_play:
-      window: 10
-      play_against_latest_model_ratio: 0.5
-      save_steps: 20000
-      swap_steps: 10000
-      team_change: 100000
+    # self_play:
+    #   window: 10
+    #   play_against_latest_model_ratio: 0.5
+    #   save_steps: 20000
+    #   swap_steps: 10000
+    #   team_change: 100000
     keep_checkpoints: 1
 environment_parameters:
   agent_offset:
@@ -77,3 +77,15 @@ environment_parameters:
       value: 0.24
     - name: Lesson5
       value: 0.0
+  enemy_agent_ability_enabled:
+    curriculum:
+    - name: Lesson1
+      completion_criteria:
+        measure: progress
+        behavior: em_curriculum
+        signal_smoothing: true
+        threshold: 0.5
+      value: 0.0
+    - name: Lesson2
+      value: 1.0
+      

@@ -142,14 +142,14 @@ public class EnvController : MonoBehaviour
             posZ = -25;
         }
 
-        //float enemy_agent_ability_enabled = Academy.Instance.EnvironmentParameters.GetWithDefault("enemy_agent_ability_enabled", 1f);
-        //if (enemy_agent_ability_enabled == 0f) purpleAgent.ability1.DisableAbility();
-        //else purpleAgent.ability1.EnableAbility();
+        float enemy_agent_ability_enabled = Academy.Instance.EnvironmentParameters.GetWithDefault("enemy_agent_ability_enabled", 1f);
+        if (enemy_agent_ability_enabled == 0f) purpleAgent.ability1.DisableAbility();
+        else purpleAgent.ability1.EnableAbility();
 
         float agent_offset = Academy.Instance.EnvironmentParameters.GetWithDefault("agent_offset", 0f);
 
+        purpleAgent.transform.position = new Vector3(posX, purpleAgent.transform.position.y, posZ);
         purpleGoal.position = new Vector3(-posX, transform.position.y, -posX);
-        purpleAgent.transform.position = Vector3.Lerp(new Vector3(posX, purpleAgent.transform.position.y, posZ), purpleGoal.position, agent_offset);
 
         blueGoal.position = new Vector3(posX, transform.position.y, posX);
         blueAgent.transform.position = Vector3.Lerp(new Vector3(-posX, blueAgent.transform.position.y, -posZ), blueGoal.position, agent_offset);
@@ -240,14 +240,14 @@ public class EnvController : MonoBehaviour
             posX = -25;
             posZ = -25;
         }
-        //float enemy_agent_ability_enabled = Academy.Instance.EnvironmentParameters.GetWithDefault("enemy_agent_ability_enabled", 1f);
-        //if (enemy_agent_ability_enabled == 0f) purpleAgent.ability1.DisableAbility();
-        //else purpleAgent.ability1.EnableAbility();
+        float enemy_agent_ability_enabled = Academy.Instance.EnvironmentParameters.GetWithDefault("enemy_agent_ability_enabled", 1f);
+        if (enemy_agent_ability_enabled == 0f) purpleAgent.ability1.DisableAbility();
+        else purpleAgent.ability1.EnableAbility();
 
         float agent_offset = Academy.Instance.EnvironmentParameters.GetWithDefault("agent_offset", 0f);
 
+        purpleAgent.transform.position = new Vector3(posX, purpleAgent.transform.position.y, posZ);
         purpleGoal.position = new Vector3(-posX, transform.position.y, -posX);
-        purpleAgent.transform.position = Vector3.Lerp(new Vector3(posX, purpleAgent.transform.position.y, posZ), purpleGoal.position, agent_offset);
 
         blueGoal.position = new Vector3(posX, transform.position.y, posX);
         blueAgent.transform.position = Vector3.Lerp(new Vector3(-posX, blueAgent.transform.position.y, -posZ), blueGoal.position, agent_offset);
