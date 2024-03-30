@@ -142,9 +142,9 @@ public class EnvController : MonoBehaviour
             posZ = -25;
         }
 
-        //float enemy_agent_ability_enabled = Academy.Instance.EnvironmentParameters.GetWithDefault("enemy_agent_ability_enabled", 1f);
-        //if (enemy_agent_ability_enabled == 0f) purpleAgent.ability1.DisableAbility();
-        //else purpleAgent.ability1.EnableAbility();
+        float enemy_agent_ability_enabled = Academy.Instance.EnvironmentParameters.GetWithDefault("enemy_agent_ability_enabled", 1f);
+        if (enemy_agent_ability_enabled == 0f) purpleAgent.ability1.DisableAbility();
+        else purpleAgent.ability1.EnableAbility();
 
         float agent_offset = Academy.Instance.EnvironmentParameters.GetWithDefault("agent_offset", 0f);
 
@@ -240,9 +240,9 @@ public class EnvController : MonoBehaviour
             posX = -25;
             posZ = -25;
         }
-        //float enemy_agent_ability_enabled = Academy.Instance.EnvironmentParameters.GetWithDefault("enemy_agent_ability_enabled", 1f);
-        //if (enemy_agent_ability_enabled == 0f) purpleAgent.ability1.DisableAbility();
-        //else purpleAgent.ability1.EnableAbility();
+        float enemy_agent_ability_enabled = Academy.Instance.EnvironmentParameters.GetWithDefault("enemy_agent_ability_enabled", 1f);
+        if (enemy_agent_ability_enabled == 0f) purpleAgent.ability1.DisableAbility();
+        else purpleAgent.ability1.EnableAbility();
 
         float agent_offset = Academy.Instance.EnvironmentParameters.GetWithDefault("agent_offset", 0f);
 
