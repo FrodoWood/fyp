@@ -1,0 +1,90 @@
+behaviors:
+  em_curriculum:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 512
+      buffer_size: 8192
+      learning_rate: 0.0003
+      beta: 0.005
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 3
+      learning_rate_schedule: linear
+      beta_schedule: constant
+      epsilon_schedule: linear
+    network_settings:
+      normalize: false
+      hidden_units: 256
+      num_layers: 3
+    reward_signals:
+      extrinsic:
+        gamma: 0.95
+        strength: 1
+      # gail:
+      #   gamma: 0.95
+      #   strength: 0.1
+      #   use_actions: true
+      #   demo_path: Demos/BulletFinalArena_2.demo
+      # curiosity:
+      #   gamma: 0.99
+      #   strength: 0.01
+      #   learning_rate: 0.0003
+      #   encoding_size: 64
+    # behavioral_cloning:
+    #   demo_path: Demos/BulletFinalArena_2.demo
+    #   strength: 0.5
+    #   steps: 500000
+    max_steps: 1000000
+    time_horizon: 64
+    summary_freq: 10000
+    # self_play:
+    #   window: 10
+    #   play_against_latest_model_ratio: 0.1
+    #   save_steps: 100000
+    #   swap_steps: 100000
+    #   team_change: 1000000
+    keep_checkpoints: 1
+environment_parameters:
+  agent_offset:
+    curriculum:
+    - name: Lesson1
+      completion_criteria:
+        measure: progress
+        behavior: em_curriculum
+        signal_smoothing: true
+        threshold: 0.2
+      value: 0.84
+    - name: Lesson2
+      completion_criteria:
+        measure: progress
+        behavior: em_curriculum
+        signal_smoothing: true
+        threshold: 0.4
+      value: 0.64
+    - name: Lesson3
+      completion_criteria:
+        measure: progress
+        behavior: em_curriculum
+        signal_smoothing: true
+        threshold: 0.6
+      value: 0.44
+    - name: Lesson4
+      completion_criteria:
+        measure: progress
+        behavior: em_curriculum
+        signal_smoothing: true
+        threshold: 0.8
+      value: 0.24
+    - name: Lesson5
+      value: 0.0
+  enemy_agent_ability_enabled:
+    curriculum:
+    - name: Lesson1
+      completion_criteria:
+        measure: progress
+        behavior: em_curriculum
+        signal_smoothing: true
+        threshold: 0.5
+      value: 0.0
+    - name: Lesson2
+      value: 1.0	

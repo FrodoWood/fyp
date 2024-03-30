@@ -1,0 +1,35 @@
+{
+    "agent_offset": {
+        "lesson_num": 4
+    },
+    "enemy_agent_ability_enabled": {
+        "lesson_num": 1
+    },
+    "em_curriculum": {
+        "checkpoints": [
+            {
+                "steps": 1000013,
+                "file_path": "results\\em_curriculum\\em_curriculum\\em_curriculum-1000013.onnx",
+                "reward": -1.935594443976879,
+                "creation_time": 1711759294.5005157,
+                "auxillary_file_paths": [
+                    "results\\em_curriculum\\em_curriculum\\em_curriculum-1000013.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1000013,
+            "file_path": "results\\em_curriculum\\em_curriculum.onnx",
+            "reward": -1.935594443976879,
+            "creation_time": 1711759294.5005157,
+            "auxillary_file_paths": [
+                "results\\em_curriculum\\em_curriculum\\em_curriculum-1000013.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}
