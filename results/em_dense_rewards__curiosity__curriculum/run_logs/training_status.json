@@ -1,0 +1,35 @@
+{
+    "agent_offset": {
+        "lesson_num": 4
+    },
+    "enemy_agent_ability_enabled": {
+        "lesson_num": 1
+    },
+    "em_dense_rewards__curiosity__curriculum": {
+        "checkpoints": [
+            {
+                "steps": 1000051,
+                "file_path": "results\\em_dense_rewards__curiosity__curriculum\\em_dense_rewards__curiosity__curriculum\\em_dense_rewards__curiosity__curriculum-1000051.onnx",
+                "reward": 0.23215783759951591,
+                "creation_time": 1711809479.9333458,
+                "auxillary_file_paths": [
+                    "results\\em_dense_rewards__curiosity__curriculum\\em_dense_rewards__curiosity__curriculum\\em_dense_rewards__curiosity__curriculum-1000051.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1000051,
+            "file_path": "results\\em_dense_rewards__curiosity__curriculum\\em_dense_rewards__curiosity__curriculum.onnx",
+            "reward": 0.23215783759951591,
+            "creation_time": 1711809479.9333458,
+            "auxillary_file_paths": [
+                "results\\em_dense_rewards__curiosity__curriculum\\em_dense_rewards__curiosity__curriculum\\em_dense_rewards__curiosity__curriculum-1000051.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}

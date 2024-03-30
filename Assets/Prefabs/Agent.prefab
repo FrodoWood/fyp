@@ -198,10 +198,10 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 151446989b488c547b5d0521232b495e, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 101a0b4ad1f602c47b3aad82421d94e4, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 1
-  m_BehaviorName: em_curriculum
+  m_BehaviorName: em_dense_rewards__curiosity__curriculum
   TeamId: 1
   m_UseChildSensors: 1
   m_UseChildActuators: 1
