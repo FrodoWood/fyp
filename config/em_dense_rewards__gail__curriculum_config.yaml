@@ -1,5 +1,5 @@
 behaviors:
-  em_dense_rewards__self_play__curriculum:
+  em_dense_rewards__gail__curriculum:
     trainer_type: ppo
     hyperparameters:
       batch_size: 512
@@ -20,11 +20,11 @@ behaviors:
       extrinsic:
         gamma: 0.95
         strength: 1
-      # gail:
-      #   gamma: 0.95
-      #   strength: 0.1
-      #   use_actions: true
-      #   demo_path: Demos/BulletFinalArena_2.demo
+      gail:
+        gamma: 0.95
+        strength: 0.1
+        use_actions: true
+        demo_path: Demos/BulletFinalArena_2.demo
       # curiosity:
       #   gamma: 0.95
       #   strength: 0.05
@@ -50,28 +50,28 @@ environment_parameters:
     - name: Lesson1
       completion_criteria:
         measure: progress
-        behavior: em_dense_rewards__self_play__curriculum
+        behavior: em_dense_rewards__gail__curriculum
         signal_smoothing: true
         threshold: 0.2
       value: 0.84
     - name: Lesson2
       completion_criteria:
         measure: progress
-        behavior: em_dense_rewards__self_play__curriculum
+        behavior: em_dense_rewards__gail__curriculum
         signal_smoothing: true
         threshold: 0.4
       value: 0.64
     - name: Lesson3
       completion_criteria:
         measure: progress
-        behavior: em_dense_rewards__self_play__curriculum
+        behavior: em_dense_rewards__gail__curriculum
         signal_smoothing: true
         threshold: 0.6
       value: 0.44
     - name: Lesson4
       completion_criteria:
         measure: progress
-        behavior: em_dense_rewards__self_play__curriculum
+        behavior: em_dense_rewards__gail__curriculum
         signal_smoothing: true
         threshold: 0.8
       value: 0.24
