@@ -392,7 +392,7 @@ MonoBehaviour:
   purpleStats: {fileID: 6866957237673885511}
   timerText: {fileID: 8965299959552557995}
   numberRounds: 5
-  exportFileName: em_dense_rewards__self_play__gail
+  exportFileName: em_curiosity__self_play__gail
   shootingTraining: 0
   trainingMode: 0
 --- !u!1 &1584063275309249197
@@ -3661,12 +3661,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3376682228570027408, guid: 8b15f035ecd36a54aab281496caf3677,
-        type: 3}
-      propertyPath: m_Model
-      value: 
-      objectReference: {fileID: 5022602860645237092, guid: 8288696a644acf84bb9774cc4203465c,
-        type: 3}
     - target: {fileID: 3376682228570027408, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: m_BehaviorType
