@@ -1,0 +1,35 @@
+{
+    "agent_offset": {
+        "lesson_num": 4
+    },
+    "enemy_agent_ability_enabled": {
+        "lesson_num": 1
+    },
+    "em_curiosity__gail__curriculum": {
+        "checkpoints": [
+            {
+                "steps": 1000023,
+                "file_path": "results\\em_curiosity__gail__curriculum\\em_curiosity__gail__curriculum\\em_curiosity__gail__curriculum-1000023.onnx",
+                "reward": -4.558218285441399,
+                "creation_time": 1711828630.938337,
+                "auxillary_file_paths": [
+                    "results\\em_curiosity__gail__curriculum\\em_curiosity__gail__curriculum\\em_curiosity__gail__curriculum-1000023.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1000023,
+            "file_path": "results\\em_curiosity__gail__curriculum\\em_curiosity__gail__curriculum.onnx",
+            "reward": -4.558218285441399,
+            "creation_time": 1711828630.938337,
+            "auxillary_file_paths": [
+                "results\\em_curiosity__gail__curriculum\\em_curiosity__gail__curriculum\\em_curiosity__gail__curriculum-1000023.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}

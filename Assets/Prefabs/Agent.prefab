@@ -198,10 +198,10 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: f5462f2e7cd427b4296bc81bc19d0290, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 155889dde221e084a999a8eb00fc443e, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 1
-  m_BehaviorName: em_dense_rewards__gail__curriculum
+  m_BehaviorName: em_curiosity__gail__curriculum
   TeamId: 1
   m_UseChildSensors: 1
   m_UseChildActuators: 1

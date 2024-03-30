@@ -85,8 +85,6 @@ public class EnvController : MonoBehaviour
 
         if(purpleAgent.StepCount >= purpleAgent.MaxStep -1 || blueAgent.StepCount >= blueAgent.MaxStep-1)
         {
-            blueAgent.AddReward(-1f);
-            purpleAgent.AddReward(-1f);
             ResetScene();
             return;
         }

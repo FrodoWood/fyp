@@ -217,9 +217,9 @@ public class EnemyController : Agent, IDamageable
         }
 
         // DENSE REWARDS
-        float distanceToGoal = Vector3.Distance(transform.position, goal.position);
-        float distanceToGoalReward = goalRewardCurve.Evaluate(distanceToGoal / 72) * 0.01f;
-        AddReward(distanceToGoalReward);
+        //float distanceToGoal = Vector3.Distance(transform.position, goal.position);
+        //float distanceToGoalReward = goalRewardCurve.Evaluate(distanceToGoal / 72) * 0.01f;
+        //AddReward(distanceToGoalReward);
 
         //if(entity == EntityType.Player)
         //{
@@ -567,10 +567,10 @@ public class EnemyController : Agent, IDamageable
             transform.LookAt(lookAtTarget);
 
             // DENSE REWARDS
-            Vector3 trueDirectionTarget = (targetEnemy.transform.position - transform.position).normalized;
-            float alignment = Vector3.Dot((lookAtTarget - transform.position).normalized, trueDirectionTarget);
-            float aimReward = aimRewardCurve.Evaluate(alignment) * 0.2f;
-            if (targetEnemy.isAlive) AddReward(aimReward);
+            //Vector3 trueDirectionTarget = (targetEnemy.transform.position - transform.position).normalized;
+            //float alignment = Vector3.Dot((lookAtTarget - transform.position).normalized, trueDirectionTarget);
+            //float aimReward = aimRewardCurve.Evaluate(alignment) * 0.2f;
+            //if (targetEnemy.isAlive) AddReward(aimReward);
 
             ability1.TriggerAbility();
             
