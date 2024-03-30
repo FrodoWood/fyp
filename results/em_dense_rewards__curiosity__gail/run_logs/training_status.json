@@ -1,0 +1,29 @@
+{
+    "em_dense_rewards__curiosity__gail": {
+        "checkpoints": [
+            {
+                "steps": 1000008,
+                "file_path": "results\\em_dense_rewards__curiosity__gail\\em_dense_rewards__curiosity__gail\\em_dense_rewards__curiosity__gail-1000008.onnx",
+                "reward": -0.9001812972128391,
+                "creation_time": 1711826507.9185386,
+                "auxillary_file_paths": [
+                    "results\\em_dense_rewards__curiosity__gail\\em_dense_rewards__curiosity__gail\\em_dense_rewards__curiosity__gail-1000008.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1000008,
+            "file_path": "results\\em_dense_rewards__curiosity__gail\\em_dense_rewards__curiosity__gail.onnx",
+            "reward": -0.9001812972128391,
+            "creation_time": 1711826507.9185386,
+            "auxillary_file_paths": [
+                "results\\em_dense_rewards__curiosity__gail\\em_dense_rewards__curiosity__gail\\em_dense_rewards__curiosity__gail-1000008.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "2.2.1+cu121"
+    }
+}
