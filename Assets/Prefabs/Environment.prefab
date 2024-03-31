@@ -392,9 +392,9 @@ MonoBehaviour:
   purpleStats: {fileID: 6866957237673885511}
   timerText: {fileID: 8965299959552557995}
   numberRounds: 5
-  exportFileName: em_final
+  exportFileName: em_final__self_play
   shootingTraining: 0
-  trainingMode: 1
+  trainingMode: 0
 --- !u!1 &1584063275309249197
 GameObject:
   m_ObjectHideFlags: 0

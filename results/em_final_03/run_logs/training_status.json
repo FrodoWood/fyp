@@ -1,0 +1,35 @@
+{
+    "agent_offset": {
+        "lesson_num": 1
+    },
+    "enemy_agent_ability_enabled": {
+        "lesson_num": 1
+    },
+    "em_final": {
+        "checkpoints": [
+            {
+                "steps": 2739706,
+                "file_path": "results\\em_final_03\\em_final\\em_final-2739706.onnx",
+                "reward": 2.948294397527352,
+                "creation_time": 1711898772.7275808,
+                "auxillary_file_paths": [
+                    "results\\em_final_03\\em_final\\em_final-2739706.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 2739706,
+            "file_path": "results\\em_final_03\\em_final.onnx",
+            "reward": 2.948294397527352,
+            "creation_time": 1711898772.7275808,
+            "auxillary_file_paths": [
+                "results\\em_final_03\\em_final\\em_final-2739706.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}
