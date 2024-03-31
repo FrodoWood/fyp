@@ -145,7 +145,8 @@ public class EnemyController : Agent, IDamageable
         sensor.AddObservation(transform.forward.x);
         sensor.AddObservation(transform.forward.z);
 
-        sensor.AddObservation(targetEnemy.currentHealth / targetEnemy.maxHealth);
+        sensor.AddObservation(targetEnemy.currentHealth / 80f);
+        //sensor.AddObservation(currentHealth / 80f);
         sensor.AddObservation(targetEnemy.isAlive ? 1 : 0);
 
 
@@ -176,6 +177,7 @@ public class EnemyController : Agent, IDamageable
 
         sensor.AddObservation(navMeshAgent.speed / 100f);
         sensor.AddObservation(targetEnemy.navMeshAgent.speed / 100f);
+        //sensor.AddObservation((float) StepCount / MaxStep);
 
 
         // Variable length observation
@@ -208,7 +210,7 @@ public class EnemyController : Agent, IDamageable
     public override void OnActionReceived(ActionBuffers actions)
     {
         actionBuffers = actions;
-        AddReward(-1f / MaxStep);
+        //AddReward(-1f / MaxStep);
         if (actionTimer >= actionCooldown)
         {
 
