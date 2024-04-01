@@ -392,7 +392,7 @@ MonoBehaviour:
   purpleStats: {fileID: 6866957237673885511}
   timerText: {fileID: 8965299959552557995}
   numberRounds: 10
-  exportFileName: usability_test_01_model_4mil
+  exportFileName: usability_test_04_bot
   shootingTraining: 0
   trainingMode: 0
 --- !u!1 &1584063275309249197
@@ -3663,14 +3663,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3376682228570027408, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
-      propertyPath: m_Model
-      value: 
-      objectReference: {fileID: 5022602860645237092, guid: 4ada154fe562fb242b7f21e0104a2f61,
-        type: 3}
-    - target: {fileID: 3376682228570027408, guid: 8b15f035ecd36a54aab281496caf3677,
-        type: 3}
       propertyPath: m_BehaviorType
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4598696741913845377, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
@@ -3695,7 +3689,7 @@ PrefabInstance:
     - target: {fileID: 5308080992939356750, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
       propertyPath: isAIControlled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8344174264944647371, guid: 8b15f035ecd36a54aab281496caf3677,
         type: 3}
