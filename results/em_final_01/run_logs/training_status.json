@@ -8,22 +8,22 @@
     "em_final": {
         "checkpoints": [
             {
-                "steps": 4351308,
-                "file_path": "results\\em_final_01\\em_final\\em_final-4351308.onnx",
+                "steps": 9645549,
+                "file_path": "results\\em_final_01\\em_final\\em_final-9645549.onnx",
                 "reward": null,
-                "creation_time": 1711853700.0281918,
+                "creation_time": 1711983125.0732076,
                 "auxillary_file_paths": [
-                    "results\\em_final_01\\em_final\\em_final-4351308.pt"
+                    "results\\em_final_01\\em_final\\em_final-9645549.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 4351308,
+            "steps": 9645549,
             "file_path": "results\\em_final_01\\em_final.onnx",
             "reward": null,
-            "creation_time": 1711853700.0281918,
+            "creation_time": 1711983125.0732076,
             "auxillary_file_paths": [
-                "results\\em_final_01\\em_final\\em_final-4351308.pt"
+                "results\\em_final_01\\em_final\\em_final-9645549.pt"
             ]
         }
     },
