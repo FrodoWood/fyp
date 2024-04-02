@@ -37,6 +37,7 @@ public class EnvController : MonoBehaviour
 
     public bool shootingTraining = false;
     public bool trainingMode = true;
+    const char heart = '\u2665';
 
     private void Start()
     {
@@ -113,8 +114,12 @@ public class EnvController : MonoBehaviour
     {
         //scoreText.text = purpleScore.ToString() + "+" + blueScore.ToString();
         if(scoreText!=null)scoreText.text = new string($"Blue {blueScore.ToString()}  :  {purpleScore.ToString()} Purple");
-        if(blueStats!=null)blueStats.text = new string($"Health: {blueAgent.currentHealth}\nScore: {blueAgent.score}");
-        if(purpleStats!=null)purpleStats.text = new string($"Health: {purpleAgent.currentHealth}\nScore: {purpleAgent.score}");
+        string blueHearts = new string(heart, (int)Mathf.Max(0, blueAgent.currentHealth / 10));
+        if (blueStats != null) blueStats.text = new string($"{blueHearts}\nScore: {blueAgent.score}");
+
+        string purpleHearts = new string(heart, (int)Mathf.Max(0, purpleAgent.currentHealth / 10));
+        if (purpleStats!=null)purpleStats.text = new string($"{purpleHearts}\nScore: {purpleAgent.score}");
+
         if (timerText != null) timerText.text = new string($"{Mathf.RoundToInt(timerInSeconds)}");
     }
 
