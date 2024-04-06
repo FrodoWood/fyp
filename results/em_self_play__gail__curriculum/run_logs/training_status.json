@@ -1,0 +1,33 @@
+{
+    "agent_offset": {
+        "lesson_num": 4
+    },
+    "em_self_play__gail__curriculum": {
+        "checkpoints": [
+            {
+                "steps": 1000045,
+                "file_path": "results\\em_self_play__gail__curriculum\\em_self_play__gail__curriculum\\em_self_play__gail__curriculum-1000045.onnx",
+                "reward": null,
+                "creation_time": 1711829558.3603463,
+                "auxillary_file_paths": [
+                    "results\\em_self_play__gail__curriculum\\em_self_play__gail__curriculum\\em_self_play__gail__curriculum-1000045.pt"
+                ]
+            }
+        ],
+        "elo": 992.5986441594888,
+        "final_checkpoint": {
+            "steps": 1000045,
+            "file_path": "results\\em_self_play__gail__curriculum\\em_self_play__gail__curriculum.onnx",
+            "reward": null,
+            "creation_time": 1711829558.3603463,
+            "auxillary_file_paths": [
+                "results\\em_self_play__gail__curriculum\\em_self_play__gail__curriculum\\em_self_play__gail__curriculum-1000045.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "2.2.1+cu121"
+    }
+}

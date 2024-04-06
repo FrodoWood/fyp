@@ -1,0 +1,30 @@
+{
+    "em_curiosity__self_play__gail": {
+        "checkpoints": [
+            {
+                "steps": 1000614,
+                "file_path": "results\\em_curiosity__self_play__gail\\em_curiosity__self_play__gail\\em_curiosity__self_play__gail-1000614.onnx",
+                "reward": null,
+                "creation_time": 1711839047.671755,
+                "auxillary_file_paths": [
+                    "results\\em_curiosity__self_play__gail\\em_curiosity__self_play__gail\\em_curiosity__self_play__gail-1000614.pt"
+                ]
+            }
+        ],
+        "elo": 1006.3928422615835,
+        "final_checkpoint": {
+            "steps": 1000614,
+            "file_path": "results\\em_curiosity__self_play__gail\\em_curiosity__self_play__gail.onnx",
+            "reward": null,
+            "creation_time": 1711839047.671755,
+            "auxillary_file_paths": [
+                "results\\em_curiosity__self_play__gail\\em_curiosity__self_play__gail\\em_curiosity__self_play__gail-1000614.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "2.2.1+cu121"
+    }
+}

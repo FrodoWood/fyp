@@ -1,0 +1,29 @@
+{
+    "em_curiosity": {
+        "checkpoints": [
+            {
+                "steps": 1000012,
+                "file_path": "results\\em_curiosity\\em_curiosity\\em_curiosity-1000012.onnx",
+                "reward": -8.149098508059978,
+                "creation_time": 1711730687.3074882,
+                "auxillary_file_paths": [
+                    "results\\em_curiosity\\em_curiosity\\em_curiosity-1000012.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1000012,
+            "file_path": "results\\em_curiosity\\em_curiosity.onnx",
+            "reward": -8.149098508059978,
+            "creation_time": 1711730687.3074882,
+            "auxillary_file_paths": [
+                "results\\em_curiosity\\em_curiosity\\em_curiosity-1000012.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}

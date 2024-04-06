@@ -1,0 +1,30 @@
+{
+    "em_dense_rewards__self_play__gail": {
+        "checkpoints": [
+            {
+                "steps": 1000888,
+                "file_path": "results\\em_dense_rewards__self_play__gail\\em_dense_rewards__self_play__gail\\em_dense_rewards__self_play__gail-1000888.onnx",
+                "reward": null,
+                "creation_time": 1711831937.956992,
+                "auxillary_file_paths": [
+                    "results\\em_dense_rewards__self_play__gail\\em_dense_rewards__self_play__gail\\em_dense_rewards__self_play__gail-1000888.pt"
+                ]
+            }
+        ],
+        "elo": 947.9663884548016,
+        "final_checkpoint": {
+            "steps": 1000888,
+            "file_path": "results\\em_dense_rewards__self_play__gail\\em_dense_rewards__self_play__gail.onnx",
+            "reward": null,
+            "creation_time": 1711831937.956992,
+            "auxillary_file_paths": [
+                "results\\em_dense_rewards__self_play__gail\\em_dense_rewards__self_play__gail\\em_dense_rewards__self_play__gail-1000888.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.0.0",
+        "torch_version": "1.13.1+cu117"
+    }
+}
