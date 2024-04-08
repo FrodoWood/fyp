@@ -33,12 +33,17 @@ public class EnemyController : Agent, IDamageable
 {
     [SerializeField] private EntityType entity;
     public NavMeshAgent navMeshAgent { get; private set; }
+
+    [Header("Statistics")]
+    public int score;
     [SerializeField] private float actionCooldown;
     [SerializeField] public float maxHealth;
     [SerializeField] public float currentHealth;
     [SerializeField] public float baseSpeed;
     [SerializeField] private LayerMask movementLayers;
     private float actionTimer = 0f;
+    public AnimationCurve goalRewardCurve;
+    public AnimationCurve aimRewardCurve;
     public State currentState { get; private set; }
     public Vector3 currentHeuristicDestinationDirection;
     public float currentHeuristicDestinationMagnitude;
@@ -64,25 +69,19 @@ public class EnemyController : Agent, IDamageable
     private ActionBuffers actionBuffers;
     private BehaviorParameters behaviorParameters;
 
-    public Ability1 ability1;
-    public Ability2 ability2;
-    public Ability3 ability3;
-    public Ability4 ability4;
+    [HideInInspector] public Ability1 ability1;
+    [HideInInspector] public Ability2 ability2;
+    [HideInInspector] public Ability3 ability3;
+    [HideInInspector] public Ability4 ability4;
 
     [Header("States")]
     public bool isAIControlled = false;
     public bool hasWon = false;
     public bool isAlive = true;
 
-    [Header("Statistics")]
-    public int score;
-
     //Cached Inputs
     private bool mouseButtonPressed = false;
     private KeyCode abilityKeyCode = KeyCode.None;
-
-    public AnimationCurve goalRewardCurve;
-    public AnimationCurve aimRewardCurve;
 
     protected override void Awake()
     {
@@ -107,7 +106,6 @@ public class EnemyController : Agent, IDamageable
         actionTimer += Time.deltaTime;
         SetCurrentDestination(); // also caching mouse input
         UpdateCurrentState();
-        ////Debug.Log($" Navmesh destination: {navMeshAgent.destination}");
 
         // Caching inputs because Heuristic gets called every FixedUpdate
         if      (Input.GetKey(KeyCode.Q)) abilityKeyCode =  KeyCode.Q;
@@ -767,15 +765,13 @@ public class EnemyController : Agent, IDamageable
         //Vector3 movePosition = Vector3.zero;
         if (Physics.Raycast(ray, out hit, 300f, movementLayers))
         {
-            Vector3 destination = hit.point;
             //Debug.Log($"hit.point = {hit.point}");
             ////Debug.DrawLine(Camera.main.transform.position, destination, Color.red, 1f);
 
-            Vector3 agentToPoint = hit.point;
-
             // Debug vectors
+            Vector3 destination = hit.point;
 
-            Vector3 distancePlayerTargetToOrigin = agentToPoint - transform.position;
+            Vector3 distancePlayerTargetToOrigin = destination - transform.position;
 
             Vector3 destinationDirection = distancePlayerTargetToOrigin.normalized;
 
