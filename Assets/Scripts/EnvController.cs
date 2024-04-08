@@ -88,16 +88,42 @@ public class EnvController : MonoBehaviour
 
         if(purpleAgent.StepCount >= purpleAgent.MaxStep -1 || blueAgent.StepCount >= blueAgent.MaxStep-1)
         {
-            purpleAgent.SetReward(0f);
-            blueAgent.SetReward(0f);
+            if(purpleAgent.score > blueAgent.score)
+            {
+                purpleAgent.SetReward(1f);
+                blueAgent.SetReward(-1f);
+            }
+            else if (purpleAgent.score < blueAgent.score)
+            {
+                blueAgent.SetReward(1f);
+                purpleAgent.SetReward(-1f);
+            }
+            else
+            {
+                purpleAgent.SetReward(0f);
+                blueAgent.SetReward(0f);
+            }
             ResetScene();
             return;
         }
         
         if(!purpleAgent.isAlive && !blueAgent.isAlive)
         {
-            purpleAgent.SetReward(0f);
-            blueAgent.SetReward(0f);
+            if (purpleAgent.score > blueAgent.score)
+            {
+                purpleAgent.SetReward(1f);
+                blueAgent.SetReward(-1f);
+            }
+            else if (purpleAgent.score < blueAgent.score)
+            {
+                blueAgent.SetReward(1f);
+                purpleAgent.SetReward(-1f);
+            }
+            else
+            {
+                purpleAgent.SetReward(0f);
+                blueAgent.SetReward(0f);
+            }
             ResetScene();
             return;
         }

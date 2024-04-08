@@ -46,12 +46,12 @@ public class Bullet : MonoBehaviour
         {
             if(distanceTravelled < 5f)
             {
-                agentController?.AddReward(-1f + distanceTravelled/5);
+                //agentController?.AddReward(-1f + distanceTravelled/5);
                 agentController?.AddScore(5);
             }
             else
             {
-                agentController?.AddReward(4 * distanceTravelled/30f);
+                //agentController?.AddReward(4 * distanceTravelled/30f);
                 agentController?.AddScore(10);
             }
             //Debug.Log("Enemy Hit!");
@@ -61,7 +61,7 @@ public class Bullet : MonoBehaviour
 
         if (other.gameObject.CompareTag("wall"))
         {
-            agentController?.AddReward(-0.1f);
+            //agentController?.AddReward(-0.1f);
             Destroy(gameObject);
         }
     }

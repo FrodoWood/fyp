@@ -9,7 +9,7 @@ public class Heal : MonoBehaviour, ICollectable
     {
         enemyController.AddHealth(healAmount);
         enemyController.StartCoroutine(enemyController.SpeedUp());
-        enemyController?.AddReward(0.5f);
+        //enemyController?.AddReward(0.5f);
         enemyController?.AddScore(1);
         gameObject.SetActive(false);
         //Destroy(gameObject);

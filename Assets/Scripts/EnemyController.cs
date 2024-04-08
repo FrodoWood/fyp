@@ -208,7 +208,7 @@ public class EnemyController : Agent, IDamageable
     public override void OnActionReceived(ActionBuffers actions)
     {
         actionBuffers = actions;
-        AddReward(-1f / MaxStep);
+        //AddReward(-1f / MaxStep);
         if (actionTimer >= actionCooldown)
         {
 
@@ -704,7 +704,7 @@ public class EnemyController : Agent, IDamageable
         if(navMeshAgent != null) navMeshAgent.enabled = false;
         if(targetEnemy != null) targetEnemy.navMeshAgent.speed = 20f;
         targetEnemy?.AddScore(5);
-        targetEnemy?.AddReward(1f);
+        //targetEnemy?.AddReward(1f);
 
     }
     private void ExitDead()
@@ -743,7 +743,7 @@ public class EnemyController : Agent, IDamageable
     public void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
-        AddReward(-damageAmount/maxHealth);
+        //AddReward(-damageAmount/maxHealth);
         StartCoroutine(SlowDown());
         if (currentHealth <= 0)
         {

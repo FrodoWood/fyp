@@ -18,7 +18,7 @@ behaviors:
       num_layers: 3
     reward_signals:
       extrinsic:
-        gamma: 0.95
+        gamma: 0.99
         strength: 1
       # gail:
       #   gamma: 0.95
@@ -34,7 +34,7 @@ behaviors:
     #   demo_path: Demos/BulletFinalArena_2.demo
     #   strength: 0.5
     #   steps: 500000
-    max_steps: 1000000
+    max_steps: 2000000
     time_horizon: 64
     summary_freq: 10000
     self_play:
