@@ -216,7 +216,7 @@ public class EnemyController : Agent, IDamageable
             actionTimer = 0f;
         }
 
-        // DENSE REWARDS
+        // DENSE REWARDS for Moving towards the GOAL
         float distanceToGoal = Vector3.Distance(transform.position, goal.position);
         float distanceToGoalReward = goalRewardCurve.Evaluate(distanceToGoal / 72) * 0.01f;
         AddReward(distanceToGoalReward);
@@ -554,8 +554,8 @@ public class EnemyController : Agent, IDamageable
             Vector3 randomPos = GetRandomPositionInCircle(2);
             Vector3 directionToTarget = (targetEnemy.transform.position + randomPos - transform.position).normalized;
             //Debug.DrawLine(Vector3.zero, directionToTarget, Color.green);
-            Vector3 lookAtTarget = new Vector3(directionToTarget.x, 0f, directionToTarget.z).normalized + transform.position;
-            transform.LookAt(lookAtTarget);
+            Vector3 aimDirection = new Vector3(directionToTarget.x, 0f, directionToTarget.z).normalized + transform.position;
+            transform.LookAt(aimDirection);
             ability1.TriggerAbility();
 
         }
@@ -563,12 +563,12 @@ public class EnemyController : Agent, IDamageable
         {
             //Debug.Log("Entered ability1");
             //navMeshAgent.isStopped = true;
-            Vector3 lookAtTarget = new Vector3(Mathf.Clamp(actionBuffers.ContinuousActions[0], -1f, 1f), 0f, Mathf.Clamp(actionBuffers.ContinuousActions[1], -1f, 1f)).normalized + transform.position;
-            transform.LookAt(lookAtTarget);
+            Vector3 aimDirection = new Vector3(Mathf.Clamp(actionBuffers.ContinuousActions[0], -1f, 1f), 0f, Mathf.Clamp(actionBuffers.ContinuousActions[1], -1f, 1f)).normalized + transform.position;
+            transform.LookAt(aimDirection);
 
-            // DENSE REWARDS
+            // DENSE REWARDS for AIMING
             Vector3 trueDirectionTarget = (targetEnemy.transform.position - transform.position).normalized;
-            float alignment = Vector3.Dot((lookAtTarget - transform.position).normalized, trueDirectionTarget);
+            float alignment = Vector3.Dot((aimDirection - transform.position).normalized, trueDirectionTarget);
             float aimReward = aimRewardCurve.Evaluate(alignment) * 0.2f;
             if (targetEnemy.isAlive) AddReward(aimReward);
 
