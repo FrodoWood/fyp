@@ -62,10 +62,10 @@ public class EnvController : MonoBehaviour
         if (purpleAgent.hasWon)
         {
             winner = purple;
-            purpleAgent.SetReward(1f);
-            blueAgent.SetReward(-1f);
-            //purpleAgent.AddReward(Mathf.Abs(purpleAgentCumulativeReward) +1f);
-            //blueAgent.AddReward(-Mathf.Abs(blueAgentCumulativeReward) -1f);
+            purpleAgent.SetReward(0.5f);
+            blueAgent.SetReward(-0.5f);
+            //purpleAgent.AddReward(Mathf.Abs(purpleAgentCumulativeReward) +0.5f);
+            //blueAgent.AddReward(-Mathf.Abs(blueAgentCumulativeReward) -0.5f);
             increasePurpleScore();
             purpleAgent?.AddScore(purpleAgent.score);
             timeToGoal = (totalSteps * Time.fixedDeltaTime) - timerInSeconds;
@@ -75,10 +75,10 @@ public class EnvController : MonoBehaviour
         else if (blueAgent.hasWon)
         {
             winner = blue;
-            blueAgent.SetReward(1f);
-            purpleAgent.SetReward(-1f);
-            //blueAgent.AddReward(Mathf.Abs(blueAgentCumulativeReward) +1f);
-            //purpleAgent.AddReward(-Mathf.Abs(purpleAgentCumulativeReward) -1f);
+            blueAgent.SetReward(0.5f);
+            purpleAgent.SetReward(-0.5f);
+            //blueAgent.AddReward(Mathf.Abs(blueAgentCumulativeReward) +0.5f);
+            //purpleAgent.AddReward(-Mathf.Abs(purpleAgentCumulativeReward) -0.5f);
             increaseBlueScore();
             blueAgent?.AddScore(blueAgent.score);
             timeToGoal = (totalSteps * Time.fixedDeltaTime) - timerInSeconds;

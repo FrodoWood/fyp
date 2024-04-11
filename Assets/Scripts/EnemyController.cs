@@ -704,7 +704,8 @@ public class EnemyController : Agent, IDamageable
         if(navMeshAgent != null) navMeshAgent.enabled = false;
         if(targetEnemy != null) targetEnemy.navMeshAgent.speed = 20f;
         targetEnemy?.AddScore(5);
-        //targetEnemy?.AddReward(1f);
+        AddReward(0.5f);
+        targetEnemy?.AddReward(0.5f);
 
     }
     private void ExitDead()
