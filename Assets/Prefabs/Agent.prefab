@@ -190,7 +190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BrainParameters:
     VectorObservationSize: 14
-    NumStackedVectorObservations: 3
+    NumStackedVectorObservations: 2
     m_ActionSpec:
       m_NumContinuousActions: 2
       BranchSizes: 03000000
@@ -198,7 +198,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 25718656738ac0f4d875c32f573c472d, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: cb501ce34be6a6e46a17fc70b336ab53, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 1
   m_BehaviorName: em_self_play

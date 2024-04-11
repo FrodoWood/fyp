@@ -90,13 +90,13 @@ public class EnvController : MonoBehaviour
         {
             if(purpleAgent.score > blueAgent.score)
             {
-                purpleAgent.SetReward(1f);
-                blueAgent.SetReward(-1f);
+                purpleAgent.SetReward(0f);
+                blueAgent.SetReward(0f);
             }
             else if (purpleAgent.score < blueAgent.score)
             {
-                blueAgent.SetReward(1f);
-                purpleAgent.SetReward(-1f);
+                blueAgent.SetReward(0f);
+                purpleAgent.SetReward(0f);
             }
             else
             {
@@ -111,13 +111,13 @@ public class EnvController : MonoBehaviour
         {
             if (purpleAgent.score > blueAgent.score)
             {
-                purpleAgent.SetReward(1f);
-                blueAgent.SetReward(-1f);
+                purpleAgent.SetReward(0f);
+                blueAgent.SetReward(0f);
             }
             else if (purpleAgent.score < blueAgent.score)
             {
-                blueAgent.SetReward(1f);
-                purpleAgent.SetReward(-1f);
+                blueAgent.SetReward(0f);
+                purpleAgent.SetReward(0f);
             }
             else
             {
